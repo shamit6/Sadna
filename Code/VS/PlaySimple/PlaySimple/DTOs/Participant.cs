@@ -1,14 +1,18 @@
-﻿using System;
+﻿using Domain;
+using PlaySimple.Validators;
+using System;
 
-namespace DTOs
+namespace PlaySimple.DTOs
 {
     public class Participant : Entity<DTOs.Participant ,Participant>
     {
+        [ExistsInDB(typeof(Domain.User))]
         public virtual User User { get; set; }
 
         public virtual DateTime Date { get; set; }
 
-        public virtual Decode Status { get; set; }
+        [IsEnumOfType(typeof(InvitationStatusDecode))]
+        public virtual int Status { get; set; }
 
         public override Participant Initialize(Participant domain)
         {

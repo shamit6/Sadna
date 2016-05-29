@@ -1,4 +1,4 @@
-﻿namespace DTOs
+﻿namespace PlaySimple.DTOs
 {
     public abstract class Entity<TDTO, TDomain>
     {

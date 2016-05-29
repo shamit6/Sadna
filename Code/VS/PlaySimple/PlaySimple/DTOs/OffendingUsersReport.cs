@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTOs
+namespace PlaySimple.DTOs
 {
-    public class UserActivityReport
+    public class OffendingUsersReport
     {
     }
 }

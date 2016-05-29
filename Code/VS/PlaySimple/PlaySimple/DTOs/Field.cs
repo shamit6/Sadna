@@ -1,0 +1,24 @@
+﻿using System;
+using Domain;
+using System.ComponentModel.DataAnnotations;
+using PlaySimple.Validators;
+
+namespace PlaySimple.DTOs
+{
+    public class Field : Entity<DTOs.Field, Domain.Field>
+    {
+        [MaxLength(20)]
+        public virtual int Name { get; set; }
+
+        [IsEnumOfType(typeof(FieldTypeDecode))]
+        public virtual int Type { get; set; }
+
+        [IsEnumOfType(typeof(FieldSizeDecode))]
+        public virtual int Size { get; set; }
+
+        public override Field Initialize(Domain.Field domain)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

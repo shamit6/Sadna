@@ -113,7 +113,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\ValidateModelAttribute.cs" />
+    <Compile Include="Validators\AboveAttribute.cs" />
+    <Compile Include="Validators\IsEnumOfTypeAttribute.cs" />
+    <Compile Include="Validators\ListExistsInDbAttribute.cs" />
+    <Compile Include="Validators\NotInFutureAttribute.cs" />
+    <Compile Include="Validators\NotInPastAttribute.cs" />
     <Content Include="Global.asax" />
+    <Compile Include="DTOs\Complaint.cs" />
+    <Compile Include="DTOs\Employee.cs" />
+    <Compile Include="DTOs\Entity.cs" />
+    <Compile Include="DTOs\Field.cs" />
+    <Compile Include="DTOs\OffendingUsersReport.cs" />
+    <Compile Include="DTOs\Order.cs" />
+    <Compile Include="DTOs\Participant.cs" />
+    <Compile Include="DTOs\Review.cs" />
+    <Compile Include="DTOs\User.cs" />
+    <Compile Include="DTOs\UserActivityReport.cs" />
+    <Compile Include="Validators\ExistsInDBAttribute.cs" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -149,10 +166,6 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{7035209C-29DF-4B24-97EF-B72E9AD009BC}</Project>
       <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DTOs\DTOs.csproj">
-      <Project>{D9CE8175-C407-4C3F-92E1-0C5CF68B7432}</Project>
-      <Name>DTOs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Maps\Maps.csproj">
       <Project>{8EAE22B9-3724-4ECF-B47E-ED301D29D6D2}</Project>
