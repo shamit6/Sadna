@@ -13,7 +13,7 @@ namespace Maps
 
             References(x => x.User);
             References(x => x.Status);
-            //References(x => x.Order);
+            References(x => x.Order);
         }
     }
 }
