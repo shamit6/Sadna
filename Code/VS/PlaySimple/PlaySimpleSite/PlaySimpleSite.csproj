@@ -94,24 +94,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\normalize.css" />
+    <Content Include="index - Copy.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lib\angular\angular-animate.min.js.map" />
-    <Content Include="lib\angular\angular-aria.min.js.map" />
-    <Content Include="lib\angular\angular-cookies.min.js.map" />
-    <Content Include="lib\angular\angular-loader.min.js.map" />
-    <Content Include="lib\angular\angular-message-format.min.js.map" />
-    <Content Include="lib\angular\angular-messages.min.js.map" />
-    <Content Include="lib\angular\angular-parse-ext.min.js.map" />
-    <Content Include="lib\angular\angular-resource.min.js.map" />
-    <Content Include="lib\angular\angular-route.min.js.map" />
-    <Content Include="lib\angular\angular-sanitize.min.js.map" />
-    <Content Include="lib\angular\angular-touch.min.js.map" />
-    <Content Include="lib\angular\angular.min.js.map" />
-    <Content Include="lib\angular\errors.json" />
-    <Content Include="lib\angular\version.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,35 +116,39 @@
     <Content Include="js\filters.js" />
     <Content Include="js\services.js" />
     <Content Include="lib\angular\angular-animate.js" />
-    <Content Include="lib\angular\angular-animate.min.js" />
     <Content Include="lib\angular\angular-aria.js" />
-    <Content Include="lib\angular\angular-aria.min.js" />
     <Content Include="lib\angular\angular-cookies.js" />
-    <Content Include="lib\angular\angular-cookies.min.js" />
     <Content Include="lib\angular\angular-csp.css" />
     <Content Include="lib\angular\angular-loader.js" />
-    <Content Include="lib\angular\angular-loader.min.js" />
     <Content Include="lib\angular\angular-message-format.js" />
-    <Content Include="lib\angular\angular-message-format.min.js" />
     <Content Include="lib\angular\angular-messages.js" />
-    <Content Include="lib\angular\angular-messages.min.js" />
     <Content Include="lib\angular\angular-mocks.js" />
     <Content Include="lib\angular\angular-parse-ext.js" />
-    <Content Include="lib\angular\angular-parse-ext.min.js" />
     <Content Include="lib\angular\angular-resource.js" />
-    <Content Include="lib\angular\angular-resource.min.js" />
     <Content Include="lib\angular\angular-route.js" />
-    <Content Include="lib\angular\angular-route.min.js" />
     <Content Include="lib\angular\angular-sanitize.js" />
-    <Content Include="lib\angular\angular-sanitize.min.js" />
     <Content Include="lib\angular\angular-scenario.js" />
     <Content Include="lib\angular\angular-touch.js" />
-    <Content Include="lib\angular\angular-touch.min.js" />
     <Content Include="lib\angular\angular.js" />
-    <Content Include="lib\angular\angular.min.js" />
-    <Content Include="lib\angular\version.txt" />
-    <Content Include="partials\partial1.html" />
+    <Content Include="partials\editCustomer.html" />
+    <Content Include="partials\editEmployee.html" />
+    <Content Include="partials\editField.html" />
+    <Content Include="partials\editInvitation.html" />
+    <Content Include="partials\guestPendingInvitations.html" />
+    <Content Include="partials\loginForm.html" />
+    <Content Include="partials\ownedInvitations.html" />
+    <Content Include="partials\ownedPendingInvitations.html" />
+    <Content Include="partials\registrationForm.html" />
     <Content Include="partials\partial2.html" />
+    <Content Include="partials\reportComplaints.html" />
+    <Content Include="partials\reportCustomer.html" />
+    <Content Include="partials\reportCustomer2.html" />
+    <Content Include="partials\reportFields.html" />
+    <Content Include="partials\searchAvailableInvitation.html" />
+    <Content Include="partials\searchCustomers.html" />
+    <Content Include="partials\searchEmployee.html" />
+    <Content Include="partials\searchGuestInvitations.html" />
+    <Content Include="partials\searchInvitations.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -164,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="img\" />
-    <Folder Include="lib\angular\i18n\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
