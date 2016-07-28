@@ -9,7 +9,7 @@ namespace Domain
 
         public virtual DateTime EndDate { get; set; }
 
-        public virtual User Owner { get; set; }
+        public virtual Customer Owner { get; set; }
 
         public virtual int PlayersNumber { get; set; }
 

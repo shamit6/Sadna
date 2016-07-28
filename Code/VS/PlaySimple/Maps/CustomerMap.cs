@@ -3,11 +3,11 @@ using FluentNHibernate.Mapping;
 
 namespace Maps
 {
-    public class UserMap : ClassMap<User>
+    public class CustomerMap : ClassMap<Customer>
     {
-        public UserMap()
+        public CustomerMap()
         {
-            Table("User");
+            Table("Customer");
 
             Id(x => x.Id);
 

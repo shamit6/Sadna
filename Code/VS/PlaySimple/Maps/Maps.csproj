@@ -65,7 +65,7 @@
     <Compile Include="RegionDecodeMap.cs" />
     <Compile Include="ReviewMap.cs" />
     <Compile Include="OrderMap.cs" />
-    <Compile Include="UserMap.cs" />
+    <Compile Include="CustomerMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

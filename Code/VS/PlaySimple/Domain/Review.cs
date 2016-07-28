@@ -10,8 +10,8 @@ namespace Domain
 
         public virtual DateTime Date { get; set; }
 
-        public virtual User Reviewer { get; set; }
+        public virtual Customer Reviewer { get; set; }
 
-        public virtual User ReviewedUser { get; set; }
+        public virtual Customer ReviewedUser { get; set; }
     }
 }
