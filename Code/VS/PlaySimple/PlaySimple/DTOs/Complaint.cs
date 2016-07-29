@@ -13,11 +13,11 @@ namespace PlaySimple.DTOs
         [IsEnumOfType(typeof(ComplaintTypeDecode))]
         public virtual int Type { get; set; }
 	
-	    [ExistsInDB(typeof(Domain.User))]
-        public virtual User OffendingUser { get; set; }
+	    [ExistsInDB(typeof(Domain.Customer))]
+        public virtual User OffendingCustomer { get; set; }
 
-        [ExistsInDB(typeof(Domain.User))]
-        public virtual User OffendedUser { get; set; }
+        [ExistsInDB(typeof(Domain.Customer))]
+        public virtual User OffendedCustomer { get; set; }
 
         public override Complaint Initialize(Domain.Complaint domain)
         {

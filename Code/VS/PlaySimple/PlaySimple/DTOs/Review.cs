@@ -15,11 +15,11 @@ namespace PlaySimple.DTOs
 
         public virtual DateTime Date { get; set; }
 
-        [ExistsInDB(typeof(Domain.User))]
+        [ExistsInDB(typeof(Domain.Customer))]
         public virtual User Reviewer { get; set; }
 
-        [ExistsInDB(typeof(Domain.User))]
-        public virtual User ReviewedUser { get; set; }
+        [ExistsInDB(typeof(Domain.Customer))]
+        public virtual User ReviewedCustomer { get; set; }
 
         public override Review Initialize(Domain.Review domain)
         {

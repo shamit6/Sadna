@@ -10,7 +10,7 @@ namespace PlaySimple.DTOs
         [NotInPast]
         public virtual DateTime StartDate { get; set; }
 
-        [ExistsInDB(typeof(Domain.User))]
+        [ExistsInDB(typeof(Domain.Customer))]
         public virtual User Owner { get; set; }
 
         [Above(0)]

@@ -6,7 +6,7 @@ using PlaySimple.Validators;
 
 namespace PlaySimple.DTOs
 {
-    public class User : Entity<DTOs.User, Domain.User>
+    public class User : Entity<DTOs.User, Domain.Customer>
     {
         [MaxLength(20)]
         public virtual string Username { get; set; }
@@ -30,7 +30,7 @@ namespace PlaySimple.DTOs
         [IsEnumOfType(typeof(RegionDecode))]
         public virtual int Region { get; set; }
 
-        public override User Initialize(Domain.User domain)
+        public override User Initialize(Domain.Customer domain)
         {
             throw new NotImplementedException();
         }
