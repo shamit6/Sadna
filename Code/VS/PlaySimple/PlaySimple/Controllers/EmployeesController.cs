@@ -1,4 +1,5 @@
 ﻿using PlaySimple.Common;
+using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,17 @@ namespace PlaySimple.Controllers
     [Authorize(Roles = Consts.Roles.Admin)]
     public class EmployeesController : ApiController
     {
-        [HttpGet]
-        public IEnumerable<string> Search()
+        private readonly IEmployeesQueryProcessor _employessQueryProcessor;
+
+        public EmployeesController(IEmployeesQueryProcessor employessQueryProcessor)
         {
-            return new string[] { "value1", "value2" };
+            _employessQueryProcessor = employessQueryProcessor;
+        }
+
+        [HttpGet]
+        public IEnumerable<DTOs.Employee> Search(string firstName, string lastName, int eMail, int id)
+        {
+            return null;
         }
 
         [HttpGet]

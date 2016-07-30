@@ -11,7 +11,7 @@ namespace PlaySimple.DTOs
         public virtual DateTime StartDate { get; set; }
 
         [ExistsInDB(typeof(Domain.Customer))]
-        public virtual User Owner { get; set; }
+        public virtual Customer Owner { get; set; }
 
         [Above(0)]
         public virtual int PlayersNumber { get; set; }

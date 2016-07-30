@@ -1,47 +1,50 @@
-﻿using Domain;
-using PlaySimple.Common;
+﻿using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
     public class OrdersController : ApiController
     {
+        private readonly IOrdersQueryProcessor _ordersQueryProcessor;
+        // participant
+
+        public OrdersController(IOrdersQueryProcessor ordersQueryProcessor)
+        {
+            _ordersQueryProcessor = ordersQueryProcessor;
+        }
+
+        public IEnumerable<DTOs.Order> Search(int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        {
+            return null;
+        }
+
         // GET: api/Orders/5
         [HttpGet]
-        public string Get(int id)
+        public DTOs.Order Get(int id)
         {
-            return "hi";
+            return null;
         }
 
         // POST: api/Orders
         [HttpPost]
-        [Authorize(Roles = Consts.Roles.User)]
-        public void Save([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Orders/5
-        [HttpPut]
-        public void Update(int id, [FromBody]string value)
+        [Authorize(Roles = Consts.Roles.Customer)]
+        public void Save(DTOs.Order order)
         {
         }
 
         [HttpPut]
-        [Authorize(Roles = Consts.Roles.Employee + "," + Consts.Roles.User)]
-        public void ChangeOrderStatus(int id, [FromBody]int statusId)
+        [Authorize(Roles = Consts.Roles.Employee + "," + Consts.Roles.Customer)]
+        public void Update(int id, DTOs.Order statusId)
         {
             // user can cancel employee can reject/accept
         }
 
         [HttpGet]
-        public void SubmitRequestToJoin(int id)
+        public IEnumerable<DTOs.Participant> SearchParticipants(int orderId, int? customerId)
         {
-            // needs to change name because it clashes with get request
+            return null;
         }
     }
 }

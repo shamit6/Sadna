@@ -7,7 +7,7 @@ namespace PlaySimple.DTOs
     public class Participant : Entity<DTOs.Participant ,Participant>
     {
         [ExistsInDB(typeof(Domain.Customer))]
-        public virtual User User { get; set; }
+        public virtual Customer Customer { get; set; }
 
         public virtual DateTime Date { get; set; }
 

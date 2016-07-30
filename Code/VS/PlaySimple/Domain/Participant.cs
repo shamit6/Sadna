@@ -4,7 +4,7 @@ namespace Domain
 {
     public class Participant : Entity
     {
-        public virtual Customer User { get; set; }
+        public virtual Customer Customer { get; set; }
 
         public virtual Order Order { get; set; }
 

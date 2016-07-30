@@ -12,8 +12,8 @@ namespace Maps
             Map(x => x.Description);
 
             References(x => x.Type);
-            References(x => x.OffendingUser);
-            References(x => x.OffendedUser);
+            References(x => x.OffendingCustomer);
+            References(x => x.OffendedCustomer);
         }
     }
 }

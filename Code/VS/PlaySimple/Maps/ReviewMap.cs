@@ -14,7 +14,7 @@ namespace Maps
             Map(x => x.Date);
 
             References(x => x.Reviewer);
-            References(x => x.ReviewedUser);
+            References(x => x.ReviewedCustomer);
         }
     }
 }

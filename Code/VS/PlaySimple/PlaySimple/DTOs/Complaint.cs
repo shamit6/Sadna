@@ -14,10 +14,10 @@ namespace PlaySimple.DTOs
         public virtual int Type { get; set; }
 	
 	    [ExistsInDB(typeof(Domain.Customer))]
-        public virtual User OffendingCustomer { get; set; }
+        public virtual Customer OffendingCustomer { get; set; }
 
         [ExistsInDB(typeof(Domain.Customer))]
-        public virtual User OffendedCustomer { get; set; }
+        public virtual Customer OffendedCustomer { get; set; }
 
         public override Complaint Initialize(Domain.Complaint domain)
         {

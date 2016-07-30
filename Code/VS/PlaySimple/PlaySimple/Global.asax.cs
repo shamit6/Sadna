@@ -17,8 +17,6 @@ namespace PlaySimple
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
-            NhibernateManager.Instance.Init();
         }
     }
 }

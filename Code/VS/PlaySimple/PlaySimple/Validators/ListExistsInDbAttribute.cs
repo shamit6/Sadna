@@ -1,4 +1,5 @@
-﻿using PlaySimple.Common;
+﻿using NHibernate;
+using PlaySimple.Common;
 using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
@@ -17,7 +18,7 @@ namespace PlaySimple.Validators
         }
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var session = NhibernateManager.Instance.OpenSession();
+            ISession session = null; // NhibernateManager.Instance.OpenSession();
 
             try
             {
@@ -36,7 +37,6 @@ namespace PlaySimple.Validators
             }
             finally
             {
-                NhibernateManager.Instance.CloseSession();
             }
         }
     }

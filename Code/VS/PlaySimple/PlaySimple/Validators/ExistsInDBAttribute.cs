@@ -1,4 +1,5 @@
-﻿using PlaySimple.Common;
+﻿using NHibernate;
+using PlaySimple.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,7 +21,7 @@ namespace PlaySimple.Validators
             if (_type.BaseType != typeof(Domain.Entity))
                 throw new ValidationException("type must inherit from Domain.Entity");
 
-            var session = NhibernateManager.Instance.OpenSession();
+            ISession session = null;// NhibernateManager.Instance.OpenSession();
             try
             {
                 var entity = session.Get(_type, ((Domain.Entity)value).Id);
@@ -35,7 +36,6 @@ namespace PlaySimple.Validators
             }
             finally
             {
-                NhibernateManager.Instance.CloseSession();
             }
         }
     }

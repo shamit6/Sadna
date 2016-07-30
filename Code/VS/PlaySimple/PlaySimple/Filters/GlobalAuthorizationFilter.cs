@@ -1,4 +1,5 @@
 ﻿using Domain;
+using NHibernate;
 using PlaySimple.Common;
 using System;
 using System.Security;
@@ -49,16 +50,16 @@ namespace PlaySimple.Filters
         /// <returns></returns>
         private bool AuthorizeUser(string username, string password, HttpActionContext actionContext)
         {
-            var session = NhibernateManager.Instance.OpenSession();
+            ISession session = null;// NhibernateManager.Instance.OpenSession();
 
             try
             {
 
-                var user = session.QueryOver<User>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
+                var user = session.QueryOver<Customer>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
 
                 if (user != null)
                 {
-                    AuthorizationSucceed(user.Id, Consts.Roles.User);
+                    AuthorizationSucceed(user.Id, Consts.Roles.Customer);
                     return true;
                 }
 
@@ -80,7 +81,6 @@ namespace PlaySimple.Filters
             }
             catch
             {
-                NhibernateManager.Instance.CloseSession();
             }
 
             return false;

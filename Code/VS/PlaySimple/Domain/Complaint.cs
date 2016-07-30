@@ -6,8 +6,8 @@
 
         public virtual ComplaintTypeDecode Type { get; set; }
 
-        public virtual Customer OffendingUser { get; set; }
+        public virtual Customer OffendingCustomer { get; set; }
 
-        public virtual Customer OffendedUser { get; set; }
+        public virtual Customer OffendedCustomer { get; set; }
     }
 }

@@ -7,38 +7,29 @@ using NHibernate.Tool.hbm2ddl;
 using Ninject;
 using Ninject.Activation;
 using Ninject.Web.Common;
-using Ninject.Web.WebApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.Http;
 
 namespace PlaySimple.Common
 {
-    public class NinjectManager
+    public class NinjectConfigurator
     {
-        public static IKernel Init()
+        public void Configure(IKernel container)
         {
-            var kernel = new StandardKernel();
-            kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-            kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
-            RegisterServices(kernel);
-
-            // Install our Ninject-based IDependencyResolver into the Web API config
-            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
-
-            return kernel;
+            AddBindings(container);
         }
 
-        private static void RegisterServices(IKernel container)
+        public void AddBindings(IKernel container)
+        {
+            ConfigureNhibernate(container);
+        }
+
+        private void ConfigureNhibernate(IKernel container)
         {
             string absoluteDbPath = HttpContext.Current.Server.MapPath(Consts.DB_PATH);
 
             ISessionFactory _sessionFactory = Fluently.Configure()
                     .Database(SQLiteConfiguration.Standard.UsingFile(absoluteDbPath))
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMap>())
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<CustomerMap>())
                     .CurrentSessionContext("web")
                     .ExposeConfiguration(conf => new SchemaUpdate(conf).Execute(false, true))
                     .BuildSessionFactory();
@@ -48,9 +39,9 @@ namespace PlaySimple.Common
             container.Bind<ISession>().ToMethod(CreateSession).InRequestScope();
         }
 
-        private static ISession CreateSession(IContext container)
+        private ISession CreateSession(IContext context)
         {
-            var sessionFactory = (ISessionFactory)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ISessionFactory));
+            var sessionFactory = context.Kernel.Get<ISessionFactory>();
 
             if (!CurrentSessionContext.HasBind(sessionFactory))
             {

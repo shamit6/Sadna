@@ -7,16 +7,25 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using NHibernate.Linq;
+using NHibernate;
+using PlaySimple.QueryProcessors;
 
 namespace PlaySimple.Controllers
 {
     [Authorize(Roles = Consts.Roles.Employee)]
     public class FieldsController : ApiController
     {
+        private readonly IFieldsQueryProcessor _fieldsQueryProcessor;
+
+        public FieldsController(IFieldsQueryProcessor fieldsQueryProcessor)
+        {
+            _fieldsQueryProcessor = fieldsQueryProcessor;
+        }
+
         // GET: api/Fields
         public IEnumerable<DTOs.Field> Search(int pageNum, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate, int? fieldTypeId)
         {
-            var session = NhibernateManager.Instance.OpenSession();
+            ISession session = null; // NhibernateManager.Instance.OpenSession();
 
             try
             {
@@ -52,14 +61,14 @@ namespace PlaySimple.Controllers
             }
             finally
             {
-                NhibernateManager.Instance.CloseSession();
+                //NhibernateManager.Instance.CloseSession();
             }
         }
 
         // GET: api/Fields/5
         public DTOs.Field Get(int id)
         {
-            var session = NhibernateManager.Instance.OpenSession();
+            ISession session = null;// NhibernateManager.Instance.OpenSession();
 
             try
             {
@@ -68,7 +77,6 @@ namespace PlaySimple.Controllers
             }
             finally
             {
-                NhibernateManager.Instance.CloseSession();
             }
         }
 
@@ -98,7 +106,7 @@ namespace PlaySimple.Controllers
         // DELETE: api/Fields/5
         public void Delete(int id)
         {
-            var session = NhibernateManager.Instance.OpenSession();
+            ISession session = null; // NhibernateManager.Instance.OpenSession();
 
             try
             {
@@ -107,7 +115,6 @@ namespace PlaySimple.Controllers
             }
             finally
             {
-                NhibernateManager.Instance.CloseSession();
             }
         }
     }

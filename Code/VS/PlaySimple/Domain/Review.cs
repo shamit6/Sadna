@@ -12,6 +12,6 @@ namespace Domain
 
         public virtual Customer Reviewer { get; set; }
 
-        public virtual Customer ReviewedUser { get; set; }
+        public virtual Customer ReviewedCustomer { get; set; }
     }
 }

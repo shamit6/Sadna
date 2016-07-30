@@ -11,7 +11,7 @@ namespace Maps
 
             Map(x => x.Date);
 
-            References(x => x.User);
+            References(x => x.Customer);
             References(x => x.Status);
             References(x => x.Order);
         }

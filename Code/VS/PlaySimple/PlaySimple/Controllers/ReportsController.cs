@@ -1,4 +1,5 @@
 ﻿using PlaySimple.DTOs;
+using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,30 @@ namespace PlaySimple.Controllers
 {
     public class ReportsController : ApiController
     {
+        private readonly IReportsQueryProcessor _reportsQueryProcessor;
+
+        public ReportsController(IReportsQueryProcessor reportsQueryProcessor)
+        {
+            _reportsQueryProcessor = reportsQueryProcessor;
+        }
+
         [HttpGet]
         [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
-        public OffendingUsersReport ReportedUsersReport()
+        public OffendingCustomersReport GetOffendingCustomersReport(DateTime? fromDate, DateTime? untilDate, int? complaintType)
         {
             return null;
         }
 
         [HttpGet]
         [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
-        public UserActivityReport UserActivityReport()
+        public CustomersActivityReport GetCustomersActivityReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
             return null;
         }
 
         [HttpGet]
         [Authorize(Roles = Consts.Roles.Employee)]
-        public UserActivityReport FieldsReport()
+        public UsingFieldsReport GetUsingFieldsReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
         {
             return null;
         }
