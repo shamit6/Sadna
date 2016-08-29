@@ -9,27 +9,86 @@ namespace PlaySimple.QueryProcessors
 {
     public interface IFieldsQueryProcessor
     {
-        IEnumerable<DTOs.Field> Search(int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
+        IEnumerable<DTOs.Field> Search(int pageNum, int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
 
-        DTOs.Field Get(int id);
+        DTOs.Field GetField(int id);
 
-        DTOs.Field SaveOrUpdate(DTOs.Field field);
+        DTOs.Field Save(DTOs.Field field);
+
+        DTOs.Field Update(int id, DTOs.Field field);
     }
     
-    public class FieldsQueryProcessor : DBAccessBase<Order>, IFieldsQueryProcessor
+    public class FieldsQueryProcessor : DBAccessBase<Field>, IFieldsQueryProcessor
     {
-        public FieldsQueryProcessor(ISession session) : base(session)
-        {
+        IDecodesQueryProcessor _decodesQueryProcessor;
 
+        public FieldsQueryProcessor(IDecodesQueryProcessor decodesQueryProcessor, ISession session) : base(session)
+        {
+            _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Field> Search(int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        public IEnumerable<DTOs.Field> Search(int pageNum, int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
         {
-            return null;
+            var query = Query();
+
+            if (fieldId.HasValue)
+            {
+                query.Where(x => x.Id == fieldId);
+            }
+
+            if (!string.IsNullOrEmpty(fieldName))
+            {
+                query.Where(x => x.Name.Contains(fieldName));
+            }
+
+            if (startDate.HasValue || endDate.HasValue)
+            {
+                // add logic to query orders table
+            }
+
+            var queryResult =
+                query.Skip(Consts.Paging.PageSize * (pageNum - 1)).Take(Consts.Paging.PageSize).ToList();
+
+            return queryResult.Select(x =>
+            {
+                return new DTOs.Field().Initialize(x);
+            });
         }
 
-        public DTOs.Field Get(int id) { return null; }
+        public DTOs.Field GetField(int id)
+        {
+            return new DTOs.Field().Initialize(Get(id));
+        }
 
-        public DTOs.Field SaveOrUpdate(DTOs.Field field) { return null; }
+        public DTOs.Field Save(DTOs.Field field)
+        {
+            Field newField = new Field
+            {
+                Name = field.Name,
+                Size = _decodesQueryProcessor.Get<FieldSizeDecode>(field.Size),
+                Type = _decodesQueryProcessor.Get<FieldTypeDecode>(field.Type),
+            };
+
+            Field persistedField = SaveOrUpdate(newField);
+
+            return new DTOs.Field().Initialize(persistedField);
+        }
+
+        public DTOs.Field Update(int id, DTOs.Field field)
+        {
+            Field existingField = Get(id);
+
+            existingField.Name = field.Name ?? existingField.Name;
+
+            if (field.Size != null)
+                existingField.Size =  _decodesQueryProcessor.Get<FieldSizeDecode>(field.Size);
+
+            if (field.Type != null)
+                existingField.Type = _decodesQueryProcessor.Get<FieldTypeDecode>(field.Type);
+
+            Field newField = SaveOrUpdate(existingField);
+
+            return new DTOs.Field().Initialize(newField);
+        }
     }
 }

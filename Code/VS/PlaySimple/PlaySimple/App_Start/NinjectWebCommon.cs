@@ -23,15 +23,9 @@ namespace PlaySimple.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            IKernel container = null;
+            bootstrapper.Initialize(CreateKernel);
 
-            bootstrapper.Initialize(() => {
-                container = CreateKernel();
-                return container;
-            });
-
-            var resolver = new NinjectDependencyResolver(container);
-            GlobalConfiguration.Configuration.DependencyResolver = resolver;
+            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(bootstrapper.Kernel);
         }
         
         /// <summary>
@@ -70,6 +64,7 @@ namespace PlaySimple.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            new NinjectConfigurator().Configure(kernel);
         }        
     }
 }

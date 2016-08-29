@@ -1,11 +1,13 @@
 ﻿using Domain;
 using NHibernate;
 using PlaySimple.Common;
+using PlaySimple.Controllers;
 using System;
 using System.Security;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
+using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
@@ -24,12 +26,10 @@ namespace PlaySimple.Filters
 
             // no authentication header sent
             if (identity == null)
-            {
                 throw new SecurityException();
-            }
 
             var genericPrincipal = new GenericPrincipal(identity, null);
-
+            
             // saves the user details on the current thread
             Thread.CurrentPrincipal = genericPrincipal;
 
@@ -50,11 +50,10 @@ namespace PlaySimple.Filters
         /// <returns></returns>
         private bool AuthorizeUser(string username, string password, HttpActionContext actionContext)
         {
-            ISession session = null;// NhibernateManager.Instance.OpenSession();
+            ISession session =(ISession)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ISession));
 
             try
             {
-
                 var user = session.QueryOver<Customer>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
 
                 if (user != null)

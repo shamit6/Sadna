@@ -7,6 +7,8 @@ using NHibernate.Tool.hbm2ddl;
 using Ninject;
 using Ninject.Activation;
 using Ninject.Web.Common;
+using PlaySimple.QueryProcessors;
+using System;
 using System.Web;
 
 namespace PlaySimple.Common
@@ -21,11 +23,19 @@ namespace PlaySimple.Common
         public void AddBindings(IKernel container)
         {
             ConfigureNhibernate(container);
+            ConfigureQueryProcessors(container);
+        }
+
+        private void ConfigureQueryProcessors(IKernel container)
+        {
+            container.Bind<IDecodesQueryProcessor>().To<DecodesQueryProcessor>();
+            container.Bind<IFieldsQueryProcessor>().To<FieldsQueryProcessor>();
         }
 
         private void ConfigureNhibernate(IKernel container)
         {
-            string absoluteDbPath = HttpContext.Current.Server.MapPath(Consts.DB_PATH);
+            //string absoluteDbPath = HttpContext.Current.Server.MapPath(Consts.DB_PATH);
+            string absoluteDbPath = "D:/Dev/sadna/Sadna/Code/VS/PlaySimple/PlaySimple/App_Data/db.sqlite";
 
             ISessionFactory _sessionFactory = Fluently.Configure()
                     .Database(SQLiteConfiguration.Standard.UsingFile(absoluteDbPath))

@@ -18,7 +18,7 @@ namespace PlaySimple.Validators
             if (!_type.IsEnum)
                 throw new ValidationException("type must be an enum");
 
-            if (!Enum.GetValues(_type).Cast<int>().Any(x => x == (int)value))
+            if (!Enum.GetNames(_type).Any(x => x == (string)value))
             {
                 return new ValidationResult("Invalid enum");
             }

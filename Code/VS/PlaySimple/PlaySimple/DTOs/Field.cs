@@ -8,17 +8,22 @@ namespace PlaySimple.DTOs
     public class Field : Entity<DTOs.Field, Domain.Field>
     {
         [MaxLength(20)]
-        public virtual int Name { get; set; }
+        public virtual string Name { get; set; }
 
         [IsEnumOfType(typeof(FieldTypeDecode))]
-        public virtual int Type { get; set; }
+        public virtual string Type { get; set; }
 
         [IsEnumOfType(typeof(FieldSizeDecode))]
-        public virtual int Size { get; set; }
+        public virtual string Size { get; set; }
 
         public override Field Initialize(Domain.Field domain)
         {
-            throw new NotImplementedException();
+            Id = domain.Id;
+            Name = domain.Name;
+            Size = domain.Size.Name;
+            Type = domain.Type.Name;
+
+            return this;
         }
     }
 }
