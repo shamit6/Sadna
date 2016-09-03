@@ -18,6 +18,11 @@
             controller: 'MyCtrl2'
         });
 
+        $routeProvider.when('/fields', {
+            templateUrl: 'partials/reportFields.html',
+            controller: 'MyCtrl2'
+        });
+
         $routeProvider.otherwise({
             redirectTo: '/login'
         });
