@@ -4,9 +4,11 @@ using PlaySimple.Common;
 using PlaySimple.Controllers;
 using System;
 using System.Security;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
@@ -27,11 +29,12 @@ namespace PlaySimple.Filters
             // no authentication header sent
             if (identity == null)
                 throw new SecurityException();
-
-            var genericPrincipal = new GenericPrincipal(identity, null);
+            
+            var genericPrincipal = new ClaimsPrincipal(identity);
             
             // saves the user details on the current thread
             Thread.CurrentPrincipal = genericPrincipal;
+            HttpContext.Current.User = genericPrincipal;
 
             if (!AuthorizeUser(identity.Name, identity.Password, filterContext))
             {
@@ -52,34 +55,28 @@ namespace PlaySimple.Filters
         {
             ISession session =(ISession)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ISession));
 
-            try
+            var user = session.QueryOver<Customer>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
+
+            if (user != null)
             {
-                var user = session.QueryOver<Customer>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
-
-                if (user != null)
-                {
-                    AuthorizationSucceed(user.Id, Consts.Roles.Customer);
-                    return true;
-                }
-
-                var employee = session.QueryOver<Employee>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
-
-                if (employee != null)
-                {
-                    AuthorizationSucceed(employee.Id, Consts.Roles.Employee);
-                    return true;
-                }
-
-                var admin = session.QueryOver<Admin>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
-
-                if (admin != null)
-                {
-                    AuthorizationSucceed(admin.Id, Consts.Roles.Admin);
-                    return true;
-                }
+                AuthorizationSucceed(user.Id, Consts.Roles.Customer);
+                return true;
             }
-            catch
+
+            var employee = session.QueryOver<Employee>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
+
+            if (employee != null)
             {
+                AuthorizationSucceed(employee.Id, Consts.Roles.Employee);
+                return true;
+            }
+
+            var admin = session.QueryOver<Admin>().Where(x => x.Username == username && x.Password == password).SingleOrDefault();
+
+            if (admin != null)
+            {
+                AuthorizationSucceed(admin.Id, Consts.Roles.Admin);
+                return true;
             }
 
             return false;
@@ -87,11 +84,11 @@ namespace PlaySimple.Filters
 
         private void AuthorizationSucceed(int userId, string userRole)
         {
-            var basicAuthenticationIdentity = Thread.CurrentPrincipal.Identity as BasicAuthenticationIdentity;
-                    
-            basicAuthenticationIdentity.UserId = userId;
+            var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
 
-            // TODO: add user role for authorization
+            currIdentity.UserId = userId;
+            currIdentity.AddClaim(new Claim(ClaimTypes.Role, userRole));
         }
 
         /// <summary>

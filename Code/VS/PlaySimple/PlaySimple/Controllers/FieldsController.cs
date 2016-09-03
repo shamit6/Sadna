@@ -5,7 +5,7 @@ using PlaySimple.QueryProcessors;
 
 namespace PlaySimple.Controllers
 {
-    //[Authorize(Roles = Consts.Roles.Employee)]
+    [Authorize(Roles = Consts.Roles.Customer)]
     public class FieldsController : ApiController
     {
         private readonly IFieldsQueryProcessor _fieldsQueryProcessor;
