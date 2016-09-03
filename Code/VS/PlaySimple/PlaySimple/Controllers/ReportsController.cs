@@ -27,16 +27,21 @@ namespace PlaySimple.Controllers
 
         [HttpGet]
         [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
-        public CustomersActivityReport GetCustomersActivityReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
+        public CustomersActivityReport GetCustomersActivityReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
         {
             return null;
         }
 
         [HttpGet]
-        [Authorize(Roles = Consts.Roles.Employee)]
-        public UsingFieldsReport GetUsingFieldsReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
+        public List<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate = null, DateTime? untilDate = null)
         {
-            return null;
+            return new List<UsingFieldsReport>()
+            {
+                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 },
+                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 },
+                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 },
+                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 }
+            };
         }
     }
 }

@@ -21,4 +21,21 @@
 
     myApp.controller('MyCtrl2', ['$scope', function ($scope) {
     }]);
+
+    myApp.controller('SearchFieldsCtrl', ['$scope', '$http', function ($scope, $http) {
+        $scope.model = {};
+        $scope.results;
+
+        var authorizationHeader = "Basic " + window.btoa("gilad:gilad");
+
+        $scope.submitSearch = function () {
+            $http({
+                url: 'http://localhost:59233/api/reports',
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
+    }]);
 })();

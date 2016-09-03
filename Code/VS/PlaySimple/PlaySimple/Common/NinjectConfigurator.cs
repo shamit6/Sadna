@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Cfg;
+﻿using Domain;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Maps;
 using NHibernate;
@@ -28,8 +29,15 @@ namespace PlaySimple.Common
 
         private void ConfigureQueryProcessors(IKernel container)
         {
+            container.Bind<IComplaintsQueryProcessor>().To<ComplaintsQueryProcessor>();
+            container.Bind<ICustomersQueryProcessor>().To<CustomersQueryProcessor>();
             container.Bind<IDecodesQueryProcessor>().To<DecodesQueryProcessor>();
+            container.Bind<IEmployeesQueryProcessor>().To<EmployeesQueryProcessor>();
             container.Bind<IFieldsQueryProcessor>().To<FieldsQueryProcessor>();
+            container.Bind<IOrdersQueryProcessor>().To<OrdersQueryProcessor>();
+            container.Bind<IParticipantsQueryProcessor>().To<ParticipantsQueryProcessor>();
+            container.Bind<IReportsQueryProcessor>().To<ReportsQueryProcessor>();
+            container.Bind<IReviewsQueryProcessor>().To<ReviewsQueryProcessor>();
         }
 
         private void ConfigureNhibernate(IKernel container)

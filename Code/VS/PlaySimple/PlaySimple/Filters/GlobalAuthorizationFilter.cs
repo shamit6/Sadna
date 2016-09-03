@@ -24,6 +24,8 @@ namespace PlaySimple.Filters
         /// <param name="filterContext"></param>
         public override void OnAuthorization(HttpActionContext filterContext)
         {
+            return;
+
             var identity = FetchAuthHeader(filterContext);
 
             // no authentication header sent

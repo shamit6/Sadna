@@ -18,9 +18,9 @@ namespace PlaySimple.QueryProcessors
 
     public class ParticipantsQueryProcessor : DBAccessBase<Participant>, IParticipantsQueryProcessor
     {
-        private DBAccessBase<Customer> _customersQueryProcessor;
+        private CustomersQueryProcessor _customersQueryProcessor;
 
-        public ParticipantsQueryProcessor(ISession session, DBAccessBase<Customer> customersQueryProcessor) : base(session)
+        public ParticipantsQueryProcessor(ISession session, CustomersQueryProcessor customersQueryProcessor) : base(session)
         {
             _customersQueryProcessor = customersQueryProcessor;
         }
@@ -28,7 +28,6 @@ namespace PlaySimple.QueryProcessors
         public IEnumerable<DTOs.Participant> Search(int orderId, int? customerId)
         {
             return null;
-
         }
 
         public DTOs.Participant GetParticipant(int id)

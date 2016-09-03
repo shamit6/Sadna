@@ -21,12 +21,10 @@ namespace PlaySimple.QueryProcessors
 
     public class CustomersQueryProcessor : DBAccessBase<Customer>, ICustomersQueryProcessor
     {
-        private readonly IParticipantsQueryProcessor _participantsQueryProcessor;
         private readonly IDecodesQueryProcessor _decodesQueryProcessor;
 
-        public CustomersQueryProcessor(ISession session, IParticipantsQueryProcessor participantsQueryProcessor, IDecodesQueryProcessor decodesQueryProcessor) : base(session)
+        public CustomersQueryProcessor(ISession session, IDecodesQueryProcessor decodesQueryProcessor) : base(session)
         {
-            _participantsQueryProcessor = participantsQueryProcessor;
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 

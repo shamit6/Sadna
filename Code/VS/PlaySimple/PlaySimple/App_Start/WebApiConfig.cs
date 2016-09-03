@@ -9,11 +9,13 @@ namespace PlaySimple
     {
         public static void Register(HttpConfiguration config)
         {
+            GlobalConfiguration.Configuration.Filters.Add(new AllowCORSFilterAttribute());
+
             // Adds authorization / authentication for all requests to controllers
             GlobalConfiguration.Configuration.Filters.Add(new GlobalAuthorizationFilter());
 
-	    // Adds a filter that validate that the data sent from the client is valid.
-	    GlobalConfiguration.Configuration.Filters.Add(new ValidateModelAttribute());
+	        // Adds a filter that validate that the data sent from the client is valid.
+	        GlobalConfiguration.Configuration.Filters.Add(new ValidateModelAttribute());
 
             // formats errors for client
             config.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());

@@ -142,6 +142,7 @@
     <Compile Include="Common\NinjectConfigurator.cs" />
     <Compile Include="Common\NinjectDependencyResolver.cs" />
     <Compile Include="DTOs\UsingFieldsReport.cs" />
+    <Compile Include="Filters\AllowCORS.cs" />
     <Compile Include="Filters\TransactionFilterAttribute.cs" />
     <Compile Include="Filters\ValidateModelAttribute.cs" />
     <Compile Include="QueryProcessors\ComplaintsQueryProcessor.cs" />

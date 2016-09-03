@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 
 namespace PlaySimple.QueryProcessors
 {
     public interface IReportsQueryProcessor
     {
         OffendingCustomersReport GetOffendingCustomersReport(DateTime? fromDate, DateTime? untilDate, int? complaintType);
-        CustomersActivityReport GetCustomersActivityReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate);
-        UsingFieldsReport GetUsingFieldsReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate);
+        CustomersActivityReport GetCustomersActivityReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate);
+        UsingFieldsReport GetUsingFieldsReport(int fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate);
     }
 
     public class ReportsQueryProcessor : IReportsQueryProcessor
@@ -28,11 +29,12 @@ namespace PlaySimple.QueryProcessors
         {
             return null;
         }
-        public CustomersActivityReport GetCustomersActivityReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
+        public CustomersActivityReport GetCustomersActivityReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
         {
             return null;
         }
-        public UsingFieldsReport GetUsingFieldsReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
+
+        public UsingFieldsReport GetUsingFieldsReport(int fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
             return null;
         }
