@@ -9,6 +9,8 @@ namespace PlaySimple.DTOs
     {
         public virtual int FieldId { get; set; }
 
+        public virtual string FieldName { get; set; }
+
         public virtual int WeekDayOrders { get; set; }
 
         public virtual int WeekEndOrders { get; set; }
