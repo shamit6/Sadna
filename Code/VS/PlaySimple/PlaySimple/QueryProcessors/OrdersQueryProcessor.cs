@@ -11,26 +11,54 @@ namespace PlaySimple.QueryProcessors
     {
         IEnumerable<DTOs.Order> Search(int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
 
-        DTOs.Order Get(int id);
+        DTOs.Order GetOrder(int id);
 
-        DTOs.Order SaveOrUpdate(DTOs.Order order);
+        DTOs.Order Save(DTOs.Order order);
+
+        DTOs.Order Update(DTOs.Order order);
     }
 
 
     public class OrdersQueryProcessor : DBAccessBase<Order>, IOrdersQueryProcessor
     {
-        public OrdersQueryProcessor(ISession session) : base(session)
-        {
+        private DBAccessBase<Customer> _customersQueryProcessor;
+        private DBAccessBase<Field> _fieldsQueryProcessor;
+        private IDecodesQueryProcessor _decodesQueryProcessor;
 
+        public OrdersQueryProcessor(ISession session, DBAccessBase<Customer> customersQueryProcessor, DBAccessBase<Field> fieldsQueryProcessor,
+            IDecodesQueryProcessor decodesQueryProcessor) : base(session)
+        {
+            _customersQueryProcessor = customersQueryProcessor;
+            _fieldsQueryProcessor = fieldsQueryProcessor;
+            _decodesQueryProcessor = decodesQueryProcessor;
         }
 
         public IEnumerable<DTOs.Order> Search(int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
         {
+
             return null;
         }
 
-        public DTOs.Order Get(int id) { return null; }
+        public DTOs.Order GetOrder(int id) { return null; }
 
-        public DTOs.Order SaveOrUpdate(DTOs.Order order) { return null; }
+        public DTOs.Order Save(DTOs.Order order)
+        {
+            // TODO remove EndDate from Order
+            Order newOrder = new Order()
+            {
+                Owner = _customersQueryProcessor.Get(order.Owner.Id ?? 0),
+                StartDate = order.StartDate,
+                Field = _fieldsQueryProcessor.Get(order.Field.Id ?? 0),
+                PlayersNumber = order.PlayersNumber,
+                Status = _decodesQueryProcessor.Get<OrderStatusDecode>(order.Status),
+                Participants = new List<Participant>()
+            };
+
+
+
+            return null;
+        }
+
+        public DTOs.Order Update(DTOs.Order order) { return null; }
     }
 }

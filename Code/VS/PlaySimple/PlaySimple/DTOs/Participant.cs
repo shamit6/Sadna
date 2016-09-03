@@ -4,7 +4,7 @@ using System;
 
 namespace PlaySimple.DTOs
 {
-    public class Participant : Entity<DTOs.Participant ,Participant>
+    public class Participant : Entity<DTOs.Participant , Domain.Participant>
     {
         [ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer Customer { get; set; }
@@ -14,7 +14,7 @@ namespace PlaySimple.DTOs
         [IsEnumOfType(typeof(InvitationStatusDecode))]
         public virtual int Status { get; set; }
 
-        public override Participant Initialize(Participant domain)
+        public override Participant Initialize(Domain.Participant domain)
         {
             throw new NotImplementedException();
         }

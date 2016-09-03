@@ -28,7 +28,9 @@ namespace PlaySimple.DTOs
         public virtual string Email { get; set; }
 
         [IsEnumOfType(typeof(RegionDecode))]
-        public virtual int Region { get; set; }
+        public virtual string Region { get; set; }
+
+        public virtual DateTime? FreezeDate { get; set; }
 
         public override Customer Initialize(Domain.Customer domain)
         {

@@ -11,6 +11,8 @@ namespace PlaySimple.QueryProcessors
     public interface IDecodesQueryProcessor
     {
         T Get<T>(string name) where T : Decode;
+
+        T Get<T>(int id) where T : Decode;
     }
 
     public class DecodesQueryProcessor : IDecodesQueryProcessor
@@ -25,6 +27,11 @@ namespace PlaySimple.QueryProcessors
         public T Get<T>(string name) where T : Decode
         {
             return _session.Query<T>().Single(decode => decode.Name == name);
+        }
+
+        public T Get<T>(int id) where T : Decode
+        {
+            return _session.Query<T>().Single(encode => encode.Id == id);
         }
     }
 }

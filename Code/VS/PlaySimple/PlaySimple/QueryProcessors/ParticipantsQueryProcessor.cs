@@ -2,8 +2,6 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PlaySimple.QueryProcessors
 {
@@ -11,25 +9,41 @@ namespace PlaySimple.QueryProcessors
     {
         IEnumerable<DTOs.Participant> Search(int orderId, int? customerId);
 
-        DTOs.Participant Get(int id);
+        DTOs.Participant GetParticipant(int id);
 
-        DTOs.Participant SaveOrUpdate(DTOs.Participant participant);
+        DTOs.Participant Save(DTOs.Participant participant);
+
+        DTOs.Participant Update(DTOs.Participant participant);
     }
 
     public class ParticipantsQueryProcessor : DBAccessBase<Participant>, IParticipantsQueryProcessor
     {
-        public ParticipantsQueryProcessor(ISession session) : base(session)
-        {
+        private DBAccessBase<Customer> _customersQueryProcessor;
 
+        public ParticipantsQueryProcessor(ISession session, DBAccessBase<Customer> customersQueryProcessor) : base(session)
+        {
+            _customersQueryProcessor = customersQueryProcessor;
         }
 
         public IEnumerable<DTOs.Participant> Search(int orderId, int? customerId)
         {
             return null;
+
         }
 
-        public DTOs.Participant Get(int id) { return null; }
+        public DTOs.Participant GetParticipant(int id)
+        {
+            return new DTOs.Participant().Initialize(Get(id));
+        }
 
-        public DTOs.Participant SaveOrUpdate(DTOs.Participant Customer) { return null; }
+        public DTOs.Participant Save(DTOs.Participant participant)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DTOs.Participant Update(DTOs.Participant participant)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

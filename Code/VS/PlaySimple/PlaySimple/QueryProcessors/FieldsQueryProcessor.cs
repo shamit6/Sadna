@@ -43,7 +43,7 @@ namespace PlaySimple.QueryProcessors
 
             if (startDate.HasValue || endDate.HasValue)
             {
-                // add logic to query orders table
+                // TODO add logic to query orders table
             }
 
             var queryResult =
