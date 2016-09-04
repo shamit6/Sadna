@@ -7,8 +7,6 @@ namespace Domain
     {
         public virtual DateTime StartDate { get; set; }
 
-        public virtual DateTime EndDate { get; set; }
-
         public virtual Customer Owner { get; set; }
 
         public virtual int PlayersNumber { get; set; }

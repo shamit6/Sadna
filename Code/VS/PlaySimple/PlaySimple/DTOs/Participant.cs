@@ -11,12 +11,21 @@ namespace PlaySimple.DTOs
 
         public virtual DateTime Date { get; set; }
 
+        [ExistsInDB(typeof(Domain.Order))]
+        public virtual Order Order { get; set; }
+
         [IsEnumOfType(typeof(InvitationStatusDecode))]
-        public virtual int Status { get; set; }
+        public virtual String Status { get; set; }
 
         public override Participant Initialize(Domain.Participant domain)
         {
-            throw new NotImplementedException();
+            Id = domain.Id;
+            Customer = new DTOs.Customer().Initialize(domain.Customer);
+            Date = domain.Date;
+            Order = new DTOs.Order().Initialize(domain.Order);
+            Status = domain.Status.Name;
+
+            return this;
         }
     }
 }

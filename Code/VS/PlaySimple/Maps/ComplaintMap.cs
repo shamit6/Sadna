@@ -10,6 +10,7 @@ namespace Maps
             Id(x => x.Id);
 
             Map(x => x.Description);
+            Map(x => x.Date);
 
             References(x => x.Type);
             References(x => x.OffendingCustomer);

@@ -34,7 +34,17 @@ namespace PlaySimple.DTOs
 
         public override Customer Initialize(Domain.Customer domain)
         {
-            throw new NotImplementedException();
+            Id = domain.Id;
+            Username = domain.Username;
+            Password = domain.Password;
+            FirstName = domain.FirstName;
+            LastName = domain.LastName;
+            BirthDate = domain.BirthDate;
+            Email = domain.Email;
+            Region = domain.Region.Name;
+            FreezeDate = domain.FreezeDate;
+
+            return this;
         }
     }
 }

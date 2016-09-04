@@ -10,7 +10,6 @@ namespace Maps
             Id(x => x.Id);
 
             Map(x => x.StartDate);
-            Map(x => x.EndDate);
             Map(x => x.PlayersNumber);
 
             References(x => x.Field);

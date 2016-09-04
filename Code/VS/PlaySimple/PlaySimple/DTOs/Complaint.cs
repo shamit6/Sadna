@@ -11,9 +11,11 @@ namespace PlaySimple.DTOs
         public virtual string Description { get; set; }
 
         [IsEnumOfType(typeof(ComplaintTypeDecode))]
-        public virtual int Type { get; set; }
-	
-	    [ExistsInDB(typeof(Domain.Customer))]
+        public virtual string Type { get; set; }
+
+        public virtual DateTime Date { get; set; }
+
+        [ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer OffendingCustomer { get; set; }
 
         [ExistsInDB(typeof(Domain.Customer))]
@@ -21,7 +23,14 @@ namespace PlaySimple.DTOs
 
         public override Complaint Initialize(Domain.Complaint domain)
         {
-            throw new NotImplementedException();
+            Id = domain.Id;
+            Description = domain.Description;
+            Type = domain.Type.Name;
+            Date = domain.Date;
+            OffendingCustomer = new DTOs.Customer().Initialize(domain.OffendingCustomer);
+            OffendedCustomer = new DTOs.Customer().Initialize(domain.OffendedCustomer);
+
+            return this;
         }
     }
 }

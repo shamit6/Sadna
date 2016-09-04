@@ -55,6 +55,7 @@ namespace PlaySimple.QueryProcessors
             });
         }
 
+        // TODO handle not found
         public DTOs.Field GetField(int id)
         {
             return new DTOs.Field().Initialize(Get(id));

@@ -23,7 +23,14 @@ namespace PlaySimple.DTOs
 
         public override Review Initialize(Domain.Review domain)
         {
-            throw new NotImplementedException();
+            Id = domain.Id;
+            Title = domain.Title;
+            Description = domain.Description;
+            Date = domain.Date;
+            Reviewer = new DTOs.Customer().Initialize(domain.Reviewer);
+            ReviewedCustomer = new DTOs.Customer().Initialize(domain.ReviewedCustomer); ;
+
+            return this;
         }
     }
 }

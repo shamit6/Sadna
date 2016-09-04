@@ -10,7 +10,7 @@ namespace PlaySimple.QueryProcessors
 {
     public interface ICustomersQueryProcessor
     {
-        IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int minAge, int maxAge, int regionId, int customerId);
+        IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int? minAge, int? maxAge, string region, int? customerId);
 
         DTOs.Customer GetCustomer(int id);
 
@@ -28,7 +28,7 @@ namespace PlaySimple.QueryProcessors
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int minAge, int maxAge, int regionId, int customerId)
+        public IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int? minAge, int? maxAge, string region, int? customerId)
         {
             var query = Query();
 
@@ -42,23 +42,23 @@ namespace PlaySimple.QueryProcessors
                 query.Where(x => x.FirstName.Contains(lastName));
             }
 
-            if (minAge != 0)
+            if (minAge.HasValue)
             {
                 query.Where(x => DateUtils.GetAge(x.BirthDate) >= minAge);
             }
 
-            if (maxAge != 0)
+            if (maxAge.HasValue)
             {
                 query.Where(x => DateUtils.GetAge(x.BirthDate) <= minAge);
             }
 
-            if (regionId != 0)
+            if (region != null)
             {
-                RegionDecode region = _decodesQueryProcessor.Get<RegionDecode>(regionId);
-                query.Where(x => x.Region == region);
+                RegionDecode regionDecode = _decodesQueryProcessor.Get<RegionDecode>(region);
+                query.Where(x => x.Region == regionDecode);
             }
 
-            if (customerId != 0)
+            if (customerId.HasValue)
             {
                 query.Where(x => x.Id == customerId);
             }

@@ -28,7 +28,15 @@ namespace PlaySimple.DTOs
 
         public override Employee Initialize(Domain.Employee domain)
         {
-            throw new NotImplementedException();
+            Id = domain.Id;
+            Username = domain.Username;
+            Password = domain.Password;
+            FirstName = domain.FirstName;
+            LastName = domain.LastName;
+            Salary = domain.Salary;
+            Email = domain.Email;
+
+            return this;
         }
     }
 }
