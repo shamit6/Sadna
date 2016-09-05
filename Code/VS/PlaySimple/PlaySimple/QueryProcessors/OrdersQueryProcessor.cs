@@ -70,9 +70,10 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => x.StartDate >= startDate);
             }
 
-            if (startDate.HasValue)
+            if (endDate.HasValue)
             {
-                filter.And(x => x.StartDate <= endDate);
+                DateTime? calcEndDate = endDate.Value.AddDays(1);
+                filter.And(x => x.StartDate <= calcEndDate);
             }
 
 
@@ -127,14 +128,25 @@ namespace PlaySimple.QueryProcessors
         }
 
         // TODO add to doc date is mandator
-        public IEnumerable<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int fieldTypeId, DateTime date)
+        public IEnumerable<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date)
         {
             IList<DTOs.Field> fields = _fieldsQueryProcessor.Search(null, fieldId, fieldName).ToList();
-            //IList<DateTime> possibleDate = DateUtils.PossibleDateOrders(date);
+            IList<DateTime> possibleDate = DateUtils.PossibleDateOrders(date);
 
+            var possibleEvent = from field in _fieldsQueryProcessor.Search(null, fieldId, fieldName).ToList()
+                                from dateStart in DateUtils.PossibleDateOrders(date)
+                                select new { field, dateStart };
 
-            //var possibleEvent = from
-            return null;
+            var order = Search(null, null, null, null, null, date, date);
+
+            var possibleOrders = possibleEvent.Where(a => !order.Any(r => r.StartDate == a.dateStart & r.Field.Id == a.field.Id)).
+                Select(possibleOrder => new DTOs.Order()
+                {
+                    Field = possibleOrder.field,
+                    StartDate = possibleOrder.dateStart
+                });
+
+            return possibleOrders;
         }
     }
 }
