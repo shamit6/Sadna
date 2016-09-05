@@ -41,13 +41,17 @@
         $scope.model = {};
         $scope.originalModel = {};
 
+        $scope.sizes = ["קטן","בינוני","גדול"];
+        $scope.types = ["כדורגל","כדורסל","טניס"];
+
         $scope.submitField = function () {
             $http({
                 url: 'http://localhost:59233/api/fields',
                 method: "POST",
                 data: $scope.model,
             }).then(function searchCompleted(response) {
-                $scope.originalModel = response.data;
+                $scope.model.Id = response.data.Id;
+                $scope.originalModel = angular.copy($scope.model);
             });
         };
 

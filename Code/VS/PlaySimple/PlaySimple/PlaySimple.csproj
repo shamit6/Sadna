@@ -165,6 +165,8 @@
     <Compile Include="Validators\ListExistsInDbAttribute.cs" />
     <Compile Include="Validators\NotInFutureAttribute.cs" />
     <Compile Include="Validators\NotInPastAttribute.cs" />
+    <Content Include="css\app.css" />
+    <Content Include="css\normalize.css" />
     <Content Include="Global.asax" />
     <Compile Include="DTOs\Complaint.cs" />
     <Compile Include="DTOs\Employee.cs" />
@@ -177,6 +179,46 @@
     <Compile Include="DTOs\Customer.cs" />
     <Compile Include="DTOs\CustomersActivityReport.cs" />
     <Compile Include="Validators\ExistsInDBAttribute.cs" />
+    <Content Include="index.html" />
+    <Content Include="js\app.js" />
+    <Content Include="js\controllers.js" />
+    <Content Include="js\directives.js" />
+    <Content Include="js\filters.js" />
+    <Content Include="js\services.js" />
+    <Content Include="lib\angular\angular-animate.js" />
+    <Content Include="lib\angular\angular-aria.js" />
+    <Content Include="lib\angular\angular-cookies.js" />
+    <Content Include="lib\angular\angular-csp.css" />
+    <Content Include="lib\angular\angular-loader.js" />
+    <Content Include="lib\angular\angular-message-format.js" />
+    <Content Include="lib\angular\angular-messages.js" />
+    <Content Include="lib\angular\angular-mocks.js" />
+    <Content Include="lib\angular\angular-parse-ext.js" />
+    <Content Include="lib\angular\angular-resource.js" />
+    <Content Include="lib\angular\angular-route.js" />
+    <Content Include="lib\angular\angular-sanitize.js" />
+    <Content Include="lib\angular\angular-scenario.js" />
+    <Content Include="lib\angular\angular-touch.js" />
+    <Content Include="lib\angular\angular.js" />
+    <Content Include="partials\editCustomer.html" />
+    <Content Include="partials\editEmployee.html" />
+    <Content Include="partials\editField.html" />
+    <Content Include="partials\editInvitation.html" />
+    <Content Include="partials\guestPendingInvitations.html" />
+    <Content Include="partials\loginForm.html" />
+    <Content Include="partials\ownedInvitations.html" />
+    <Content Include="partials\ownedPendingInvitations.html" />
+    <Content Include="partials\partial2.html" />
+    <Content Include="partials\registrationForm.html" />
+    <Content Include="partials\reportComplaints.html" />
+    <Content Include="partials\reportCustomer.html" />
+    <Content Include="partials\reportCustomer2.html" />
+    <Content Include="partials\reportFields.html" />
+    <Content Include="partials\searchAvailableInvitation.html" />
+    <Content Include="partials\searchCustomers.html" />
+    <Content Include="partials\searchEmployee.html" />
+    <Content Include="partials\searchGuestInvitations.html" />
+    <Content Include="partials\searchInvitations.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -209,7 +251,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="img\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{7035209C-29DF-4B24-97EF-B72E9AD009BC}</Project>

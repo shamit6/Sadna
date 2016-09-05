@@ -18,7 +18,22 @@ namespace PlaySimple.Validators
             if (!_type.IsEnum)
                 throw new ValidationException("type must be an enum");
 
-            if (!Enum.GetNames(_type).Any(x => x == (string)value))
+            if (value == null)
+                return new ValidationResult("Invalid enum - null sent");
+
+            var enumTypesArr = Enum.GetValues(_type).GetEnumerator();
+
+            enumTypesArr.Reset();
+
+            while (enumTypesArr.MoveNext())
+            {
+                if ((int)enumTypesArr.Current == (int)value)
+                   return ValidationResult.Success;
+            }
+
+            return new ValidationResult("Invalid enum");
+
+            if (!((int[])Enum.GetValues(_type)).Any(x => x == (int)value))
             {
                 return new ValidationResult("Invalid enum");
             }

@@ -3,20 +3,20 @@
 <form class="page clearfix">
 	<fieldset>
 		<div class="fieldContainer threePerRow">
-			<label>מזהה</label><input disabled ng-model="model.fieldId">
+			<label>מזהה</label><input disabled ng-model="model.Id">
 		</div>			
 		<div class="fieldContainer threePerRow">
-			<label>שם</label><input ng-model="model.fieldName">
+			<label>שם</label><input ng-model="model.Name">
 		</div>	
 		<div class="fieldContainer threePerRow">
-			<label>גודל</label><select ng-model="model.fieldSize">
+			<label>גודל</label><select ng-model="model.Size">
 				<option value="1">קטן</option>
 				<option value="2">בינוני</option>
 				<option value="3">גדול</option>
 			</select>
 		</div>					
-		<div class="fieldContainer newLine threePerRow" ng-model="model.fieldType">
-            <label>סוג</label><select ng-model="model.fieldType">
+		<div class="fieldContainer newLine threePerRow">
+            <label>סוג</label><select ng-model="model.Type">
                 <option value="1">כדורגל</option>
                 <option value="2">כדורסל</option>
                 <option value="3">טניס</option>

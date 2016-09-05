@@ -42,7 +42,7 @@
 
             public enum FieldType
             {
-                Footbal=1,
+                Football=1,
                 Basketball,
                 Tennis
             }

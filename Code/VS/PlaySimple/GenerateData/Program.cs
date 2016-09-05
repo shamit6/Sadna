@@ -35,7 +35,8 @@ namespace GenerateData
 
             ReportsQueryProcessor reportsQP = new ReportsQueryProcessor(customerQP, orderQP, complaintQP, participantQP);
 
-            IEnumerable<CustomersActivityReport> resualt = reportsQP.GetCustomersActivityReport(null, null, null, null);
+            IEnumerable<Order> orrr = orderQP.GetAvailbleOrders(2, null, 1, new System.DateTime(2016, 8, 20, 0, 0, 0));
+            IEnumerable<CustomersActivityReport> result = reportsQP.GetCustomersActivityReport(null, null, null, null);
             //Order order = new Order()
             //{
             //    Field = fieldQP.GetField(1),
@@ -46,13 +47,6 @@ namespace GenerateData
             //};
 
             //orderQP.Save(order);
-
-            foreach (var item in resualt)
-            {
-                item.ToString();
-            }
-            int i = 0;
-            i++;
         }
     }
 }
