@@ -1,0 +1,22 @@
+authorization + contextual menus
+
+service for url
+
+bootstrap
+
+date picker
+
+modal windows
+
+sub menus
+
+validation
+
+loader + interceptor
+
+client side error handling!
+
+paging
+
+
+

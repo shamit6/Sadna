@@ -92,6 +92,7 @@
       <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SQLite, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net451\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
@@ -145,6 +146,8 @@
     <Compile Include="Common\DateUtils.cs" />
     <Compile Include="Common\NinjectConfigurator.cs" />
     <Compile Include="Common\NinjectDependencyResolver.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="DTOs\UserCredentials.cs" />
     <Compile Include="DTOs\UsingFieldsReport.cs" />
     <Compile Include="Filters\AllowCORS.cs" />
     <Compile Include="Filters\TransactionFilterAttribute.cs" />

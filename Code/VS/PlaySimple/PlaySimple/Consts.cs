@@ -9,6 +9,7 @@
             public const string Customer = "Customer";
             public const string Employee = "Employee";
             public const string Admin = "Admin";
+            public const string None = "None";
         }
 
         public static class Paging

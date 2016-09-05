@@ -4,6 +4,12 @@
 
     playSimpleApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         //$httpProvider.defaults.headers.common.Authorization = 'Basic Z2lsYWQ6Z2lsYWQ=';
+
+        $routeProvider.when('/', {
+            templateUrl: 'partials/loginForm.html',
+            controller: 'LoginCtrl'
+        });
+
         $routeProvider.when('/login', {
             templateUrl: 'partials/loginForm.html',
             controller: 'MyCtrl1'
