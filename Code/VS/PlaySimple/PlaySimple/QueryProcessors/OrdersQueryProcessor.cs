@@ -1,6 +1,7 @@
 ﻿using Domain;
 using LinqKit;
 using NHibernate;
+using PlaySimple.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -123,6 +124,17 @@ namespace PlaySimple.QueryProcessors
             Update(existingOrder);
 
             return new DTOs.Order().Initialize(existingOrder);
+        }
+
+        // TODO add to doc date is mandator
+        public IEnumerable<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int fieldTypeId, DateTime date)
+        {
+            IList<DTOs.Field> fields = _fieldsQueryProcessor.Search(null, fieldId, fieldName).ToList();
+            //IList<DateTime> possibleDate = DateUtils.PossibleDateOrders(date);
+
+
+            //var possibleEvent = from
+            return null;
         }
     }
 }

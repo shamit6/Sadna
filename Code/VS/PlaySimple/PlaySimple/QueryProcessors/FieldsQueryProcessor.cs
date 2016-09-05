@@ -10,7 +10,7 @@ namespace PlaySimple.QueryProcessors
 {
     public interface IFieldsQueryProcessor
     {
-        IEnumerable<DTOs.Field> Search(int pageNum, int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
+        IEnumerable<DTOs.Field> Search(int? pageNum, int? fieldId, string fieldName);
 
         DTOs.Field GetField(int id);
 
@@ -28,7 +28,7 @@ namespace PlaySimple.QueryProcessors
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Field> Search(int pageNum, int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        public IEnumerable<DTOs.Field> Search(int? pageNum, int? fieldId, string fieldName)
         {
             var filter = PredicateBuilder.New<Field>(x => true);
 
@@ -42,14 +42,16 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => x.Name.Contains(fieldName));
             }
 
-            if (startDate.HasValue || endDate.HasValue)
+
+            var queryResult = Query().Where(filter);
+
+            if (pageNum.HasValue)
             {
-                // TODO add logic to query orders table
+                queryResult = queryResult.Skip(Consts.Paging.PageSize * (pageNum??0 - 1)).Take(Consts.Paging.PageSize);
             }
+        
 
-            var queryResult =  Query().Where(filter).Skip(Consts.Paging.PageSize * (pageNum - 1)).Take(Consts.Paging.PageSize).ToList();
-
-            return queryResult.Select(x =>
+            return queryResult.ToList().Select(x =>
             {
                 return new DTOs.Field().Initialize(x);
             });
