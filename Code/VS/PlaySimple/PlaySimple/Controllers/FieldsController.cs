@@ -5,7 +5,7 @@ using PlaySimple.QueryProcessors;
 
 namespace PlaySimple.Controllers
 {
-    [Authorize(Roles = Consts.Roles.Customer)]
+    //[Authorize(Roles = Consts.Roles.Customer)]
     public class FieldsController : ApiController
     {
         private readonly IFieldsQueryProcessor _fieldsQueryProcessor;
@@ -25,14 +25,22 @@ namespace PlaySimple.Controllers
             return _fieldsQueryProcessor.GetField(id);
         }
 
-        public DTOs.Field Save(DTOs.Field field)
+        [HttpPost]
+        public DTOs.Field Save([FromBody]DTOs.Field field)
         {
             return _fieldsQueryProcessor.Save(field);
         }
 
-        public DTOs.Field Update(int id, DTOs.Field field)
+        [HttpPut]
+        public DTOs.Field Update([FromUri]int id, [FromBody]DTOs.Field field)
         {
             return _fieldsQueryProcessor.Update(id, field);
+        }
+
+        [HttpDelete]
+        public void Delete(int id)
+        {
+
         }
     }
 }
