@@ -35,7 +35,7 @@ namespace PlaySimple.Controllers
         [HttpGet]
         public List<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate = null, DateTime? untilDate = null)
         {
-            return _reportsQueryProcessor.GetUsingFieldsReport(fieldId, fieldName, fromDate, untilDate);
+            return _reportsQueryProcessor.GetUsingFieldsReport(fieldId, fieldName, fromDate, untilDate).ToList();
         }
     }
 }
