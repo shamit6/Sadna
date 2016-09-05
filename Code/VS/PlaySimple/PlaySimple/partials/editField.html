@@ -9,18 +9,12 @@
 			<label>שם</label><input ng-model="model.Name">
 		</div>	
 		<div class="fieldContainer threePerRow">
-			<label>גודל</label><select ng-model="model.Size">
-				<option value="1">קטן</option>
-				<option value="2">בינוני</option>
-				<option value="3">גדול</option>
-			</select>
+			<label>גודל</label><select ng-model="model.Size" ng-options="size.id as size.name for size in sizes">
+            </select>
 		</div>					
 		<div class="fieldContainer newLine threePerRow">
-            <label>סוג</label><select ng-model="model.Type">
-                <option value="1">כדורגל</option>
-                <option value="2">כדורסל</option>
-                <option value="3">טניס</option>
-            </select>
+            <label>סוג</label><select ng-model="model.Type" ng-options="type.id as type.name for type in types">
+        </select>
 		</div>				
 	</fieldset>
 	<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
@@ -28,7 +22,7 @@
 		<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft" ng-click="cancelChanges()">
 		<input type="button" value="מחק" class="btn btn-danger pullLeft" ng-click="delete()" ng-hide="isNew">
 	</div>
-    <pre>
-        {{model | json}}
-    </pre>
 </form>
+<pre style="float:left; direction:ltr">
+{{model | json}}
+</pre>

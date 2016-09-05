@@ -1,4 +1,4 @@
-!(function () {
+ï»¿!(function () {
     var myApp = angular.module('myApp');
     myApp.controller('MyCtrl1', ['$scope', '$http', function ($scope, $http) {
         $scope.model = {};
@@ -40,8 +40,33 @@
     myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
 
         var init = function () {
-            $scope.sizes = ["÷èï", "áéðåðé", "âãåì"];
-            $scope.types = ["ëãåøâì", "ëãåøñì", "èðéñ"];
+            $scope.sizes = [
+            {
+                id: 1,
+                name: '×§×˜×Ÿ'
+            },
+            {
+                id: 2,
+                name: '×‘×™× ×•× ×™'
+            },
+            {
+                id: 3,
+                name: '×’×“×•×œ'
+            }];
+
+            $scope.types = [
+            {
+                id: 1,
+                name: '×›×“×•×¨×’×œ'
+            },
+            {
+                id: 2,
+                name: '×›×“×•×¨×¡×œ'
+            },
+            {
+                id: 3,
+                name: '×˜× ×™×¡'
+            }];
 
             $scope.model = {};
             $scope.originalModel = {};
@@ -54,11 +79,7 @@
                     method: "GET",
                     params: { id: $routeParams.Id },
                 }).then(function searchCompleted(response) {
-                    $scope.model.Id = response.data.Id;
-                    $scope.model.Name = response.data.Name;
-                    $scope.model.Size = response.data.Size.toString();
-                    $scope.model.Type = response.data.Type.toString();
-
+                    $scope.model = angular.copy(response.data)
                     $scope.originalModel = angular.copy($scope.model);
                 });
             }
@@ -95,7 +116,13 @@
         };
 
         $scope.delete = function () {
-            $scope.model = {};
+            $http({
+                url: 'http://localhost:59233/api/fields',
+                method: "DELETE",
+                params: { id: $scope.model.Id }
+            }).then(function searchCompleted(response) {
+                $location.path('/editField');
+            });
         };
 
         init();
