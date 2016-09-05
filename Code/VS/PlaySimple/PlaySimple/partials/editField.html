@@ -26,7 +26,7 @@
 	<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
 		<input type="button" value="שמור" class="btn pullLeft" ng-click="submitField()">
 		<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft" ng-click="cancelChanges()">
-		<input type="button" value="מחק" class="btn btn-danger pullLeft" ng-click="delete()">
+		<input type="button" value="מחק" class="btn btn-danger pullLeft" ng-click="delete()" ng-hide="isNew">
 	</div>
     <pre>
         {{model | json}}

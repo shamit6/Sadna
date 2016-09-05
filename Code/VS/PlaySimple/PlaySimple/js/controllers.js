@@ -37,22 +37,57 @@
         }
     }]);
 
-    myApp.controller('FieldsCtrl', ['$scope', '$http', function ($scope, $http) {
-        $scope.model = {};
-        $scope.originalModel = {};
+    myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
 
-        $scope.sizes = ["קטן","בינוני","גדול"];
-        $scope.types = ["כדורגל","כדורסל","טניס"];
+        var init = function () {
+            $scope.sizes = ["קטן", "בינוני", "גדול"];
+            $scope.types = ["כדורגל", "כדורסל", "טניס"];
+
+            $scope.model = {};
+            $scope.originalModel = {};
+
+            if ($routeParams.Id) {
+                $scope.isNew = false;
+
+                $http({
+                    url: 'http://localhost:59233/api/fields',
+                    method: "GET",
+                    params: { id: $routeParams.Id },
+                }).then(function searchCompleted(response) {
+                    $scope.model.Id = response.data.Id;
+                    $scope.model.Name = response.data.Name;
+                    $scope.model.Size = response.data.Size.toString();
+                    $scope.model.Type = response.data.Type.toString();
+
+                    $scope.originalModel = angular.copy($scope.model);
+                });
+            }
+            else {
+                $scope.isNew = true;
+            }
+        }
 
         $scope.submitField = function () {
-            $http({
-                url: 'http://localhost:59233/api/fields',
-                method: "POST",
-                data: $scope.model,
-            }).then(function searchCompleted(response) {
-                $scope.model.Id = response.data.Id;
-                $scope.originalModel = angular.copy($scope.model);
-            });
+            if ($scope.isNew) {
+                $http({
+                    url: 'http://localhost:59233/api/fields',
+                    method: "POST",
+                    data: $scope.model,
+                }).then(function searchCompleted(response) {
+                    $location.path('/editField/' + response.data.Id);
+                });
+            }
+            else {
+                $http({
+                    url: 'http://localhost:59233/api/fields',
+                    method: "PUT",
+                    params: { id: $scope.model.Id },
+                    data: $scope.model,
+                }).then(function searchCompleted(response) {
+                    $scope.originalModel = angular.copy($scope.model);
+                    alert("data saved successfully");
+                });
+            }
         };
 
         $scope.cancelChanges = function () {
@@ -62,5 +97,7 @@
         $scope.delete = function () {
             $scope.model = {};
         };
+
+        init();
     }]);
 })();

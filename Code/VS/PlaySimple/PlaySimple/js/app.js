@@ -19,7 +19,7 @@
             controller: 'MyCtrl2'
         });
 
-        $routeProvider.when('/editField', {
+        $routeProvider.when('/editField/:Id?', {
             templateUrl: 'partials/editField.html',
             controller: 'FieldsCtrl'
         });

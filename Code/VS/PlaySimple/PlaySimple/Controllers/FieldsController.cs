@@ -38,7 +38,7 @@ namespace PlaySimple.Controllers
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromUri]int id)
         {
 
         }
