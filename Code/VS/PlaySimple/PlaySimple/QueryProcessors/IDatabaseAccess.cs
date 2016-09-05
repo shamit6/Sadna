@@ -9,8 +9,9 @@ namespace PlaySimple.QueryProcessors
 {
     interface IDatabaseAccess<T> where T : Entity
     {
-        T SaveOrUpdate(T entity);
         T Get(int id);
+        void Update(T entity);
+        T Save(T entity);
         IQueryable<T> Query();
     }
 }

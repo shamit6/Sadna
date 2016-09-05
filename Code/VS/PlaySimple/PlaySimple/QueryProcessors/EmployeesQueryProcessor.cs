@@ -1,4 +1,5 @@
 ﻿using Domain;
+using LinqKit;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -25,29 +26,29 @@ namespace PlaySimple.QueryProcessors
         }
         public IEnumerable<DTOs.Employee> Search(string firstName, string lastName, string eMail, int? id)
         {
-            var query = Query();
+            var filter = PredicateBuilder.New<Employee>(x => true);
 
             if (!string.IsNullOrEmpty(firstName))
             {
-                query.Where(x => x.FirstName.Contains(firstName));
+                filter.And(x => x.FirstName.Contains(firstName));
             }
 
             if (!string.IsNullOrEmpty(lastName))
             {
-                query.Where(x => x.LastName.Contains(lastName));
+                filter.And(x => x.LastName.Contains(lastName));
             }
 
             if (!string.IsNullOrEmpty(eMail))
             {
-                query.Where(x => x.Email.Contains(eMail));
+                filter.And(x => x.Email.Contains(eMail));
             }
 
             if (id.HasValue)
             {
-                query.Where(x => x.Id == id);
+                filter.And(x => x.Id == id);
             }
 
-            return query.Select(x => new DTOs.Employee().Initialize(x));
+            return Query().Where(filter).Select(x => new DTOs.Employee().Initialize(x));
         }
 
         public DTOs.Employee GetEmployee(int id)
@@ -67,7 +68,7 @@ namespace PlaySimple.QueryProcessors
                 Email = employee.Email
             };
 
-            Employee persistedEmployee = SaveOrUpdate(newEmployee);
+            Employee persistedEmployee = Save(newEmployee);
 
             return new DTOs.Employee().Initialize(persistedEmployee);
         }
@@ -85,9 +86,9 @@ namespace PlaySimple.QueryProcessors
             if (employee.Salary != 0)
                 existingEmployee.Salary = employee.Salary;
 
-            Employee newEmployee = SaveOrUpdate(existingEmployee);
+            Update(existingEmployee);
 
-            return new DTOs.Employee().Initialize(newEmployee);
+            return new DTOs.Employee().Initialize(existingEmployee);
         }
     }
 }

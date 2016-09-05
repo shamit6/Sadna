@@ -1,15 +1,17 @@
 ﻿using Domain;
+using LinqKit;
 using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace PlaySimple.QueryProcessors
 {
     public interface IOrdersQueryProcessor
     {
-        IEnumerable<DTOs.Order> Search(int? orderId, int? ownerId, string orderStatus, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
+        IEnumerable<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
 
         DTOs.Order GetOrder(int id);
 
@@ -33,46 +35,49 @@ namespace PlaySimple.QueryProcessors
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Order> Search(int? orderId, int? ownerId, string orderStatus, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        public IEnumerable<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
         {
-            var query = Query();
-            
+            var filter = PredicateBuilder.New<Order>(x => true);
+
             if (orderId.HasValue)
             {
-                query.Where(x => x.Id == orderId);
+                filter.And(x => x.Id == orderId);
             }
 
             if (ownerId.HasValue)
             {
-                query.Where(x => x.Owner.Id == ownerId);
+                filter.And(x => x.Owner.Id == ownerId);
             }
 
-            if (orderStatus != null)
+            if (orderStatusIds != null)
             {
-                query.Where(x => x.Status.Name == orderStatus);
+                filter.And(x => orderStatusIds.Contains(x.Status.Id));
             }
 
             if (fieldId.HasValue)
             {
-                query.Where(x => x.Field.Id == fieldId);
+                filter.And(x => x.Field.Id == fieldId);
             }
 
             if (!string.IsNullOrEmpty(fieldName))
             {
-                query.Where(x => x.Field.Name.Contains(fieldName));
+                filter.And(x => x.Field.Name.Contains(fieldName));
             }
 
             if (startDate.HasValue)
             {
-                query.Where(x => x.StartDate >= startDate);
+                filter.And(x => x.StartDate >= startDate);
             }
 
             if (startDate.HasValue)
             {
-                query.Where(x => x.StartDate <= endDate);
+                filter.And(x => x.StartDate <= endDate);
             }
 
-            return query.Select(x => new DTOs.Order().Initialize(x));
+
+            var result = Query().Where(filter).Select(x => new DTOs.Order().Initialize(x));
+
+            return result;
         }
 
         public DTOs.Order GetOrder(int id)
@@ -93,7 +98,7 @@ namespace PlaySimple.QueryProcessors
                 Participants = new List<Participant>()
             };
 
-            Order persistedOrder = SaveOrUpdate(newOrder);
+            Order persistedOrder = Save(newOrder);
 
             return new DTOs.Order().Initialize(persistedOrder);
         }
@@ -115,9 +120,9 @@ namespace PlaySimple.QueryProcessors
             if (order.StartDate != null)
                 existingOrder.StartDate = order.StartDate;
 
-            Order newField = SaveOrUpdate(existingOrder);
+            Update(existingOrder);
 
-            return new DTOs.Order().Initialize(newField);
+            return new DTOs.Order().Initialize(existingOrder);
         }
     }
 }

@@ -17,21 +17,6 @@ namespace PlaySimple.QueryProcessors
             _session = session;
         }
 
-        // TODO improve
-        public T SaveOrUpdate(T entity)
-        {
-            if (entity.Id != 0)
-            {
-                _session.Update(entity);       
-            }
-            else
-            {
-                entity.Id = (int)_session.Save(entity);
-            }
-
-            return entity;
-        }
-
         public T Get(int id)
         {
             return _session.Get<T>(id);
@@ -40,6 +25,17 @@ namespace PlaySimple.QueryProcessors
         public IQueryable<T> Query()
         {
             return _session.Query<T>();
+        }
+
+        public void Update(T entity)
+        {
+            _session.Update(entity);
+        }
+
+        public T Save(T entity)
+        {
+            entity.Id = (int)_session.Save(entity);
+            return entity;
         }
     }
 

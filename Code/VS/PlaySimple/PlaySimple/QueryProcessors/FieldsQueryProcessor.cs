@@ -1,4 +1,5 @@
 ﻿using Domain;
+using LinqKit;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -29,16 +30,16 @@ namespace PlaySimple.QueryProcessors
 
         public IEnumerable<DTOs.Field> Search(int pageNum, int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
         {
-            var query = Query();
+            var filter = PredicateBuilder.New<Field>(x => true);
 
             if (fieldId.HasValue)
             {
-                query.Where(x => x.Id == fieldId);
+                filter.And(x => x.Id == fieldId);
             }
 
             if (!string.IsNullOrEmpty(fieldName))
             {
-                query.Where(x => x.Name.Contains(fieldName));
+                filter.And(x => x.Name.Contains(fieldName));
             }
 
             if (startDate.HasValue || endDate.HasValue)
@@ -46,8 +47,7 @@ namespace PlaySimple.QueryProcessors
                 // TODO add logic to query orders table
             }
 
-            var queryResult =
-                query.Skip(Consts.Paging.PageSize * (pageNum - 1)).Take(Consts.Paging.PageSize).ToList();
+            var queryResult =  Query().Where(filter).Skip(Consts.Paging.PageSize * (pageNum - 1)).Take(Consts.Paging.PageSize).ToList();
 
             return queryResult.Select(x =>
             {
@@ -70,7 +70,7 @@ namespace PlaySimple.QueryProcessors
                 Type = _decodesQueryProcessor.Get<FieldTypeDecode>(field.Type),
             };
 
-            Field persistedField = SaveOrUpdate(newField);
+            Field persistedField = Save(newField);
 
             return new DTOs.Field().Initialize(persistedField);
         }
@@ -87,9 +87,9 @@ namespace PlaySimple.QueryProcessors
             if (field.Type != null)
                 existingField.Type = _decodesQueryProcessor.Get<FieldTypeDecode>(field.Type);
 
-            Field newField = SaveOrUpdate(existingField);
+            Update(existingField);
 
-            return new DTOs.Field().Initialize(newField);
+            return new DTOs.Field().Initialize(existingField);
         }
     }
 }

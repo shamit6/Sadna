@@ -1,9 +1,7 @@
 ﻿using Domain;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace PlaySimple.QueryProcessors
 {
@@ -48,12 +46,12 @@ namespace PlaySimple.QueryProcessors
                 ReviewedCustomer = _customersQueryProcessor.Get(review.ReviewedCustomer.Id ?? 0)
             };
 
-            Review persistedReview = SaveOrUpdate(newReview);
+            Review persistedReview = Save(newReview);
 
             return new DTOs.Review().Initialize(persistedReview);
         }
 
-        // TODO considr delete
+        // TODO consider delete
         public DTOs.Review Update(int id, DTOs.Review review) { return null; }
     }
 }

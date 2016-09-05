@@ -1,4 +1,5 @@
 ﻿using Domain;
+using LinqKit;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -30,21 +31,21 @@ namespace PlaySimple.QueryProcessors
 
         public IEnumerable<DTOs.Complaint> Search(int? customerId, DateTime? fromDate, DateTime? untilDate, int? complaintType)
         {
-            var query = Query();
+            var filter = PredicateBuilder.New<Complaint>(x => true);
 
             if (customerId.HasValue)
-                query.Where(x => x.OffendingCustomer.Id == customerId);
+                filter.And(x => x.OffendingCustomer.Id == customerId);
 
             if (fromDate.HasValue)
-                query.Where(x => x.Date >= fromDate);
+                filter.And(x => x.Date >= fromDate);
 
             if (untilDate.HasValue)
-                query.Where(x => x.Date <= untilDate);
+                filter.And(x => x.Date <= untilDate);
 
             if (complaintType.HasValue)
-                query.Where(x => x.Type == _decodesQueryProcessor.Get<ComplaintTypeDecode>(complaintType??0));
+                filter.And(x => x.Type == _decodesQueryProcessor.Get<ComplaintTypeDecode>(complaintType??0));
 
-            return query.Where(x => x.OffendingCustomer.Id == customerId).Select(x => new DTOs.Complaint().Initialize(x));
+            return Query().Where(filter).Select(x => new DTOs.Complaint().Initialize(x));
         }
 
         public DTOs.Complaint GetComplaint(int id)
@@ -64,7 +65,7 @@ namespace PlaySimple.QueryProcessors
                 
             };
 
-            Complaint persistedComplaint = SaveOrUpdate(newComplaint);
+            Complaint persistedComplaint = Save(newComplaint);
 
             return new DTOs.Complaint().Initialize(persistedComplaint);
         }

@@ -11,19 +11,21 @@ namespace PlaySimple.DTOs
         public virtual string Name { get; set; }
 
         [IsEnumOfType(typeof(FieldTypeDecode))]
-        public virtual string Type { get; set; }
+        public virtual int? Type { get; set; }
 
         [IsEnumOfType(typeof(FieldSizeDecode))]
-        public virtual string Size { get; set; }
+        public virtual int? Size { get; set; }
 
         public override Field Initialize(Domain.Field domain)
         {
-            Id = domain.Id;
-            Name = domain.Name;
-            Size = domain.Size.Name;
-            Type = domain.Type.Name;
+            Field newField = new Field();
 
-            return this;
+            newField.Id = domain.Id;
+            newField.Name = domain.Name;
+            newField.Size = domain.Size.Id;
+            newField.Type = domain.Type.Id;
+
+            return newField;
         }
     }
 }

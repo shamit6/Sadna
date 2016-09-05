@@ -1,4 +1,5 @@
 ﻿using Domain;
+using LinqKit;
 using NHibernate;
 using PlaySimple.Common;
 using System;
@@ -10,7 +11,7 @@ namespace PlaySimple.QueryProcessors
 {
     public interface ICustomersQueryProcessor
     {
-        IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int? minAge, int? maxAge, string region, int? customerId);
+        IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int? minAge, int? maxAge, int? region, int? customerId);
 
         DTOs.Customer GetCustomer(int id);
 
@@ -28,42 +29,43 @@ namespace PlaySimple.QueryProcessors
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int? minAge, int? maxAge, string region, int? customerId)
+        public IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int? minAge, int? maxAge, int? region, int? customerId)
         {
-            var query = Query();
+            var filter = PredicateBuilder.New<Customer>(x => true);
 
             if (!string.IsNullOrEmpty(firstName))
             {
-                query.Where(x => x.FirstName.Contains(firstName));
+                filter.And(x => x.FirstName.Contains(firstName));
             }
 
             if (!string.IsNullOrEmpty(lastName))
             {
-                query.Where(x => x.FirstName.Contains(lastName));
+                filter.And(x => x.FirstName.Contains(lastName));
             }
 
             if (minAge.HasValue)
             {
-                query.Where(x => DateUtils.GetAge(x.BirthDate) >= minAge);
+                filter.And(x => DateUtils.GetAge(x.BirthDate) >= minAge);
             }
 
             if (maxAge.HasValue)
             {
-                query.Where(x => DateUtils.GetAge(x.BirthDate) <= minAge);
+                filter.And(x => DateUtils.GetAge(x.BirthDate) <= minAge);
             }
 
-            if (region != null)
+            if (region.HasValue)
             {
                 RegionDecode regionDecode = _decodesQueryProcessor.Get<RegionDecode>(region);
-                query.Where(x => x.Region == regionDecode);
+                filter.And(x => x.Region == regionDecode);
             }
 
             if (customerId.HasValue)
             {
-                query.Where(x => x.Id == customerId);
+                filter.And(x => x.Id == customerId);
             }
+            var result = Query().Where(filter).Select(x => new DTOs.Customer().Initialize(x));
 
-            return query.Select(x => new DTOs.Customer().Initialize(x));
+            return result;
         }
 
         public DTOs.Customer GetCustomer(int id)
@@ -85,7 +87,7 @@ namespace PlaySimple.QueryProcessors
                 FreezeDate = customer.FreezeDate
             };
 
-            Customer persistedCustomer = SaveOrUpdate(newCustomer);
+            Customer persistedCustomer = Save(newCustomer);
 
             return new DTOs.Customer().Initialize(persistedCustomer);
         }
@@ -109,9 +111,9 @@ namespace PlaySimple.QueryProcessors
             if (customer.FreezeDate != null)
                 existingCustomer.FreezeDate = customer.FreezeDate;
 
-            Customer persistedCustomer = SaveOrUpdate(existingCustomer);
+            Update(existingCustomer);
 
-            return new DTOs.Customer().Initialize(persistedCustomer);
+            return new DTOs.Customer().Initialize(existingCustomer);
         }
     }
 }

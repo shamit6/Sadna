@@ -35,13 +35,7 @@ namespace PlaySimple.Controllers
         [HttpGet]
         public List<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate = null, DateTime? untilDate = null)
         {
-            return new List<UsingFieldsReport>()
-            {
-                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 },
-                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 },
-                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 },
-                new UsingFieldsReport() {FieldId=1, FieldName="field", hours16_18Orders = 1, hours18_20Orders = 1, hours20_22Orders = 1, WeekDayOrders =2, WeekEndOrders = 3 }
-            };
+            return _reportsQueryProcessor.GetUsingFieldsReport(fieldId, fieldName, fromDate, untilDate);
         }
     }
 }

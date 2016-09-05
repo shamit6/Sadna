@@ -9,6 +9,7 @@ namespace PlaySimple.DTOs
     public class Customer : Entity<DTOs.Customer, Domain.Customer>
     {
         [MaxLength(20)]
+        [Key]
         public virtual string Username { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9]+$")]
@@ -28,23 +29,24 @@ namespace PlaySimple.DTOs
         public virtual string Email { get; set; }
 
         [IsEnumOfType(typeof(RegionDecode))]
-        public virtual string Region { get; set; }
+        public virtual int? Region { get; set; }
 
         public virtual DateTime? FreezeDate { get; set; }
 
         public override Customer Initialize(Domain.Customer domain)
         {
-            Id = domain.Id;
-            Username = domain.Username;
-            Password = domain.Password;
-            FirstName = domain.FirstName;
-            LastName = domain.LastName;
-            BirthDate = domain.BirthDate;
-            Email = domain.Email;
-            Region = domain.Region.Name;
-            FreezeDate = domain.FreezeDate;
+            Customer newCustomer = new Customer();
+            newCustomer.Id = domain.Id;
+            newCustomer.Username = domain.Username;
+            newCustomer.Password = domain.Password;
+            newCustomer.FirstName = domain.FirstName;
+            newCustomer.LastName = domain.LastName;
+            newCustomer.BirthDate = domain.BirthDate;
+            newCustomer.Email = domain.Email;
+            newCustomer.Region = domain.Region.Id;
+            newCustomer.FreezeDate = domain.FreezeDate;
 
-            return this;
+            return newCustomer;
         }
     }
 }

@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using PlaySimple.QueryProcessors;
 using PlaySimple.DTOs;
+using System.Collections.Generic;
 
 namespace GenerateData
 {
@@ -32,16 +33,26 @@ namespace GenerateData
             ParticipantsQueryProcessor participantQP = new ParticipantsQueryProcessor(session, customerQP, orderQP, decode);
             ReviewsQueryProcessor reviewQP = new ReviewsQueryProcessor(session, customerQP);
 
-            Order order = new Order()
-            {
-                Field = fieldQP.GetField(1),
-                Owner = customerQP.GetCustomer(1),
-                StartDate = new System.DateTime(2016, 8, 27, 18, 0, 0),
-                Status = "Sent",
-                PlayersNumber = 2
-            };
+            ReportsQueryProcessor reportsQP = new ReportsQueryProcessor(customerQP, orderQP, complaintQP, participantQP);
 
-            orderQP.Save(order);
+            IEnumerable<CustomersActivityReport> resualt = reportsQP.GetCustomersActivityReport(null, null, null, null);
+            //Order order = new Order()
+            //{
+            //    Field = fieldQP.GetField(1),
+            //    Owner = customerQP.GetCustomer(1),
+            //    StartDate = new System.DateTime(2016, 8, 27, 18, 0, 0),
+            //    Status = 1,
+            //    PlayersNumber = 2
+            //};
+
+            //orderQP.Save(order);
+
+            foreach (var item in resualt)
+            {
+                item.ToString();
+            }
+            int i = 0;
+            i++;
         }
     }
 }

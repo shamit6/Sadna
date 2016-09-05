@@ -20,34 +20,46 @@
         {
             public enum OrderStatus
             {
-                Sent,
+                Sent=1,
                 Accepted,
-                Rejected
+                Rejected,
+                Canceled
             }
 
             public enum ComplaintType
             {
-
+                Payment=1,
+                Attendance,
+                Sportsmanship
             }
 
             public enum FieldSize
             {
-
+                Small = 1,
+                Medium,
+                Large
             }
 
             public enum FieldType
             {
-
+                Footbal=1,
+                Basketball,
+                Tennis
             }
 
             public enum InvitationStatus
             {
-
+                Sent=1,
+                Accepted,
+                Rejected
             }
 
             public enum RegionDecode
             {
-
+                Dan=1,
+                Negev,
+                Haifa,
+                Jerusalem
             }
         }
     }

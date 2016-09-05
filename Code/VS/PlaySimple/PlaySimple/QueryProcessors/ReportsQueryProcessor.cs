@@ -43,18 +43,18 @@ namespace PlaySimple.QueryProcessors
 
         public IEnumerable<CustomersActivityReport> GetCustomersActivityReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
         {
-            return _customersQueryProcessor.Search(firstName, lastName, null, null, null, null).
-                Select(x => new CustomersActivityReport
+            var customers = _customersQueryProcessor.Search(firstName, lastName, null, null, null, null);
+            var report = customers.Select(x => new CustomersActivityReport
                 {
+                    CoustomerId = x.Id ?? 0,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    NumberOfOrders = _ordersQueryProcessor.Search(null, x.Id, "Oshar", null, null, fromDate, untilDate).Count(),
-                    NumberOfCanceledOrders = _ordersQueryProcessor.Search(null, x.Id, "Cancel", null, null, fromDate, untilDate).Count(),
-                    NumberOfJoiningAsGuest = _participantsQueryProcessor.Search(null, x.Id, "Ushar").Count()
+                    NumberOfOrders = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Count(),
+                    NumberOfCanceledOrders = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Canceled }, null, null, fromDate, untilDate).Count(),
+                    NumberOfJoiningAsGuest = _participantsQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.InvitationStatus.Accepted }).Count()
                 });
-            //var orders = _ordersQueryProcessor.Search(null, null, null, null, fromDate, untilDate);
-            //var join = customers.GroupJoin(orders, x => x.Id, x => x.Owner.Id, (x, y) => new { customers = x, orders = y}).
-            //    Select(x => x.customers);
+
+            return report;
         }
         public IEnumerable<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
@@ -63,6 +63,7 @@ namespace PlaySimple.QueryProcessors
                 Select(x => new UsingFieldsReport()
                 {
                     FieldId = x.Key.Id ?? 0,
+                    FieldName = x.Key.Name,
                     hours16_18Orders = x.Where(f => f.StartDate.Hour == 16).Count(),
                     hours18_20Orders = x.Where(f => f.StartDate.Hour == 18).Count(),
                     hours20_22Orders = x.Where(f => f.StartDate.Hour == 20).Count(),

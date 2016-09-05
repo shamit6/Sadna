@@ -15,17 +15,19 @@ namespace PlaySimple.DTOs
         public virtual Order Order { get; set; }
 
         [IsEnumOfType(typeof(InvitationStatusDecode))]
-        public virtual String Status { get; set; }
+        public virtual int? Status { get; set; }
 
         public override Participant Initialize(Domain.Participant domain)
         {
-            Id = domain.Id;
-            Customer = new DTOs.Customer().Initialize(domain.Customer);
-            Date = domain.Date;
-            Order = new DTOs.Order().Initialize(domain.Order);
-            Status = domain.Status.Name;
+            Participant newParticipant = new Participant();
 
-            return this;
+            newParticipant.Id = domain.Id;
+            newParticipant.Customer = new DTOs.Customer().Initialize(domain.Customer);
+            newParticipant.Date = domain.Date;
+            newParticipant.Order = new DTOs.Order().Initialize(domain.Order);
+            newParticipant.Status = domain.Status.Id;
+
+            return newParticipant;
         }
     }
 }

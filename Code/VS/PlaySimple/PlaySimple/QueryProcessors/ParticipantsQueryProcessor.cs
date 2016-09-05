@@ -1,4 +1,5 @@
 ﻿using Domain;
+using LinqKit;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace PlaySimple.QueryProcessors
 {
     public interface IParticipantsQueryProcessor
     {
-        IEnumerable<DTOs.Participant> Search(int? orderId, int? customerId, string status);
+        IEnumerable<DTOs.Participant> Search(int? orderId, int? customerId, int?[] statusIds);
 
         DTOs.Participant GetParticipant(int id);
 
@@ -30,26 +31,27 @@ namespace PlaySimple.QueryProcessors
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Participant> Search(int? orderId, int? customerId, string status)
+        public IEnumerable<DTOs.Participant> Search(int? orderId, int? customerId, int?[] statusIds)
         {
-            var query = Query();
+            var filter = PredicateBuilder.New<Participant>(x => true);
 
-            if (customerId.HasValue)
+            if (orderId.HasValue)
             {
-                query.Where(x => x.Order.Id == customerId);
+                filter.And(x => x.Order.Id == orderId);
             }
 
             if (customerId.HasValue)
             {
-                query.Where(x => x.Customer.Id == customerId);
+                filter.And(x => x.Customer.Id == customerId);
             }
 
-            if (status != null)
+            if (statusIds != null)
             {
-                query.Where(x => x.Status == _decodesQueryProcessor.Get<InvitationStatusDecode>(status));
+                filter.And(x => statusIds.Contains(x.Status.Id));
             }
 
-            return query.Select(x => new DTOs.Participant().Initialize(x));
+            var result =  Query().Where(filter).Select(x => new DTOs.Participant().Initialize(x));
+            return result;
 
         }
 
@@ -68,7 +70,7 @@ namespace PlaySimple.QueryProcessors
                 Status = _decodesQueryProcessor.Get<InvitationStatusDecode>(participant.Status)
             };
 
-            Participant persistedParticipant = SaveOrUpdate(newParticipant);
+            Participant persistedParticipant = Save(newParticipant);
 
             return new DTOs.Participant().Initialize(persistedParticipant);
         }
@@ -80,9 +82,9 @@ namespace PlaySimple.QueryProcessors
 
             existingParticipant.Status = _decodesQueryProcessor.Get<InvitationStatusDecode>(participant.Status);
 
-            Participant newParticipant = SaveOrUpdate(existingParticipant);
+            Update(existingParticipant);
 
-            return new DTOs.Participant().Initialize(newParticipant);
+            return new DTOs.Participant().Initialize(existingParticipant);
         }
     }
 }

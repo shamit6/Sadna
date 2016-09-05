@@ -17,7 +17,7 @@ namespace PlaySimple.DTOs
         public virtual int PlayersNumber { get; set; }
 
         [IsEnumOfType(typeof(OrderStatusDecode))]
-        public virtual string Status { get; set; }
+        public virtual int? Status { get; set; }
 
         [IsEnumOfType(typeof(OrderStatusDecode))]
         public virtual Field Field { get; set; }
@@ -27,15 +27,17 @@ namespace PlaySimple.DTOs
 
         public override Order Initialize(Domain.Order domain)
         {
-            Id = domain.Id;
-            StartDate = domain.StartDate;
-            Owner = new DTOs.Customer().Initialize(domain.Owner);
-            PlayersNumber = domain.PlayersNumber;
-            Status = domain.Status.Name;
-            Field = new DTOs.Field().Initialize(domain.Field);
+            Order newOrder = new Order();
+
+            newOrder.Id = domain.Id;
+            newOrder.StartDate = domain.StartDate;
+            newOrder.Owner = new DTOs.Customer().Initialize(domain.Owner);
+            newOrder.PlayersNumber = domain.PlayersNumber;
+            newOrder.Status = domain.Status.Id;
+            newOrder.Field = new DTOs.Field().Initialize(domain.Field);
 
             // TODO add Participants.
-            return this;
+            return newOrder;
         }
     }
 }
