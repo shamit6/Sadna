@@ -35,6 +35,23 @@
         };
     }]);
 
+    myApp.factory("ServerRoutes", function () {
+        var urlBase = "http://localhost:59233/api/";
+
+        return {
+            fields: urlBase + "fields",
+            employees: urlBase + "employees",
+            costumers: urlBase + "costumers",
+            login: urlBase + "login",
+            orders: urlBase + "orders",
+            reports: {
+                fields: urlBase + "reports/fields",
+                customers: urlBase + "reports/customers",
+                complaints: urlBase + "reports/complaints"
+            }
+        }
+    });
+
     myApp.factory("DomainDecodes", function(){
         return {
             orderStatus: [

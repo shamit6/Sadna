@@ -1,8 +1,6 @@
-use localstorage
-
 use service for url!!
 
-logout button
+put all web stuff in one directory
 
 bootstrap
 
@@ -25,6 +23,8 @@ paging
 make sure authorize is set everywhere
 delete all todos if any 
 remove alerts
+make refresh redirect to same page
+
 
 bugs:
 reportFields -> enter value, delete, send to server, bad request
