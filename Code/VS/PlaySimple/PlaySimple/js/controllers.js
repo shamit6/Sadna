@@ -46,36 +46,10 @@
         }
     }]);
 
-    myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-
+    myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', function ($scope, $http, $routeParams, $location, DomainDecodes) {
         var init = function () {
-            $scope.sizes = [
-            {
-                id: 1,
-                name: 'קטן'
-            },
-            {
-                id: 2,
-                name: 'בינוני'
-            },
-            {
-                id: 3,
-                name: 'גדול'
-            }];
-
-            $scope.types = [
-            {
-                id: 1,
-                name: 'כדורגל'
-            },
-            {
-                id: 2,
-                name: 'כדורסל'
-            },
-            {
-                id: 3,
-                name: 'טניס'
-            }];
+            $scope.sizes = DomainDecodes.fieldSize;
+            $scope.types = DomainDecodes.fieldType;
 
             $scope.model = {};
             $scope.originalModel = {};

@@ -35,7 +35,7 @@
         };
     }]);
 
-    myApp.factory("MyDecodes", function(){
+    myApp.factory("DomainDecodes", function(){
         return {
             orderStatus: [
             {
