@@ -205,4 +205,33 @@
 
         }
     }]);
+
+    myApp.controller('ReportComplaintCtrl', ['$scope', '$http', function ($scope, $http) {
+        $scope.model = {};
+        $scope.types = [
+                {
+                    id: 1,
+                    name: 'אי תשלום'
+                },
+                {
+                    id: 2,
+                    name: 'אי הגעה'
+                },
+                {
+                    id: 3,
+                    name: 'חוסר ספורטיביות'
+                }
+        ];
+        $scope.results;
+        $scope.submitSearch = function () {
+            $http({
+                url: 'http://localhost:59233/api/reports/complaints',
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+
+        }
+    }]);
 })();

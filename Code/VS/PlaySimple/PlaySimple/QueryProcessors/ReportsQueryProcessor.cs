@@ -37,7 +37,7 @@ namespace PlaySimple.QueryProcessors
             return _complaintsQueryProcessor.Search(null, fromDate, untilDate, complaintType).GroupBy(x => x.OffendingCustomer).
                 Select(x => new OffendingCustomersReport()
                 {
-                    CoustomerId = x.First().OffendingCustomer.Id ?? 0,
+                    CustomerId = x.First().OffendingCustomer.Id ?? 0,
                     FirstName = x.First().OffendingCustomer.FirstName,
                     LastName = x.First().OffendingCustomer.LastName,
                     NumberOfComplaints = x.Count()

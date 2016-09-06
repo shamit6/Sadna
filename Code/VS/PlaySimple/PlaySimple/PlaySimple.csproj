@@ -214,7 +214,7 @@
     <Content Include="partials\ownedPendingInvitations.html" />
     <Content Include="partials\partial2.html" />
     <Content Include="partials\registrationForm.html" />
-    <Content Include="partials\reportComplaints.html" />
+    <Content Include="partials\reportComplaint.html" />
     <Content Include="partials\reportCustomer.html" />
     <Content Include="partials\reportFields.html" />
     <Content Include="partials\searchAvailableInvitation.html" />

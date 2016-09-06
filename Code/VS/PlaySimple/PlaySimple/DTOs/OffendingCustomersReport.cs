@@ -9,7 +9,7 @@ namespace PlaySimple.DTOs
 {
     public class OffendingCustomersReport
     {
-        public int CoustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         [MaxLength(20)]
         public virtual string FirstName { get; set; }

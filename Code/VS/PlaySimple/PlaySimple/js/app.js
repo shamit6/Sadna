@@ -55,6 +55,10 @@
             templateUrl: 'partials/reportCustomer.html',
             controller: 'ReportCustomerCtrl'
         });
+        $routeProvider.when('/reportComplaint', {
+            templateUrl: 'partials/reportComplaint.html',
+            controller: 'ReportComplaintCtrl'
+        });
 
         $routeProvider.otherwise({
             redirectTo: '/login'

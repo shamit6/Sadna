@@ -20,10 +20,11 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
-        public OffendingCustomersReport GetOffendingCustomersReport(DateTime? fromDate, DateTime? untilDate, int? complaintType)
+        //[Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
+        [Route("api/reports/complaints")]
+        public List<OffendingCustomersReport> GetOffendingCustomersReport(DateTime? fromDate = null, DateTime? untilDate = null, int? complaintType = null)
         {
-            return null;
+            return _reportsQueryProcessor.GetOffendingCustomersReport(fromDate, untilDate, complaintType).ToList();
         }
 
         [HttpGet]

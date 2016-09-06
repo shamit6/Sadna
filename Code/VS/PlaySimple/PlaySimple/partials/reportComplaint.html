@@ -1,0 +1,38 @@
+﻿		<h1 class="pageTitle">דוח תלונות</h1>
+		
+		<div class="page">
+ 			<div class="searchPanel clearfix">
+				<form>
+                    <div class="fieldContainer threePerRow newLine">
+                        <label>מתאריך</label><input ng-model="model.fromDate" type="date">
+                    </div>
+                    <div class="fieldContainer threePerRow">
+                        <label>עד תאריך</label><input ng-model="model.untilDate" type="date">
+                    </div>
+                    <div class="fieldContainer threePerRow">
+                        <label>סוג</label><select ng-model="model.complaintType" ng-options="type.id as type.name for type in types"></select>
+                    </div>	
+                    <div class="fieldContainer threePerRow pullLeft newLine">
+                        <input type="button" value="חפש" class="btn" ng-click="submitSearch()">
+                    </div>						
+				</form>
+			</div>
+			<table class="searchTable">
+				<thead>
+					<th>מזהה</th>
+					<th class="mediumCell">שם פרטי</th>
+                    <th class="mediumCell">שם משפחה</th>
+					<th class="smallCell centeredCell">תלונות</th>
+					<th>פעולות</th>
+				</thead>
+				<tbody>
+                    <tr ng-repeat="row in results">
+                        <td>{{row.CoustomerId}}</td>
+                        <td>{{row.FirstName}}</td>
+                        <td>{{row.LastName}}</td>
+                        <td>{{row.NumberOfComplaints}}</td>
+                        <td><a href="#/editCustomer/{{row.CustomerId}}">צפה בתלונות</a></td>
+                    </tr>
+				</tbody>
+			</table>
+		</div>
