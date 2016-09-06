@@ -17,6 +17,8 @@ namespace PlaySimple.QueryProcessors
         DTOs.Employee Save(DTOs.Employee employee);
 
         DTOs.Employee Update(int id, DTOs.Employee employee);
+
+        void Delete(int id);
     }
 
     public class EmployeesQueryProcessor : DBAccessBase<Employee>, IEmployeesQueryProcessor
@@ -89,6 +91,11 @@ namespace PlaySimple.QueryProcessors
             Update(id, existingEmployee);
 
             return new DTOs.Employee().Initialize(existingEmployee);
+        }
+
+        public void Delete(int id)
+        {
+            base.Delete(new Employee() { Id = id });
         }
     }
 }

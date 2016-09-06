@@ -10,8 +10,9 @@ namespace PlaySimple.DTOs
         [MaxLength(20)]
         public virtual string Username { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z0-9]+$")]
-        [MinLength(8)]
+        // TODO enable
+        //[RegularExpression(@"^[a-zA-Z0-9]+$")]
+        //[MinLength(8)]
         public virtual string Password { get; set; }
 
         [MaxLength(20)]
@@ -23,7 +24,7 @@ namespace PlaySimple.DTOs
         [Above(0)]
         public virtual int Salary { get; set; }
 
-        [EmailAddress]
+        //[EmailAddress]
         public virtual string Email { get; set; }
 
         public override Employee Initialize(Domain.Employee domain)

@@ -27,6 +27,7 @@ namespace PlaySimple.Controllers
         }
 
         [HttpPost]
+        [TransactionFilter]
         public DTOs.Field Save([FromBody]DTOs.Field field)
         {
             return _fieldsQueryProcessor.Save(field);
@@ -40,9 +41,10 @@ namespace PlaySimple.Controllers
         }
 
         [HttpDelete]
+        [TransactionFilter]
         public void Delete([FromUri]int id)
         {
-
+            _fieldsQueryProcessor.Delete(id);
         }
     }
 }

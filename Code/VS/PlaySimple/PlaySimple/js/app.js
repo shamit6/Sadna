@@ -34,9 +34,14 @@
             templateUrl: 'partials/reportFields.html',
             controller: 'SearchFieldsCtrl'
         });
-        $routeProvider.when('/searchEmployee', {
+
+        $routeProvider.when('/editEmployee/:Id?', {
+            templateUrl: 'partials/editEmployee.html',
+            controller: 'EmployeesCtrl'
+        });
+        $routeProvider.when('/searchEmployees', {
             templateUrl: 'partials/searchEmployee.html',
-            controller: 'SearchEmployeeCtrl'
+            controller: 'SearchEmployeesCtrl'
         });
         
         $routeProvider.otherwise({

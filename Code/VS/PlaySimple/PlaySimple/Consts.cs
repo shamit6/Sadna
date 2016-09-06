@@ -2,7 +2,7 @@
 {
     public static class Consts
     {
-        public const string DB_PATH = "~/App_Data/db.sqlite";
+        public const string DB_PATH = "~/App_Data/dbAmit.sqlite";
 
         public static class Roles
         {

@@ -127,7 +127,7 @@
         init();
     }]);
 
-    myApp.controller('SearchEmployeeCtrl', ['$scope', '$http', function ($scope, $http) {
+    myApp.controller('SearchEmployeesCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.model = {};
         $scope.results;
 
@@ -139,6 +139,70 @@
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
             });
+
         }
+    }]);
+
+    myApp.controller('EmployeesCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+
+        var init = function () {
+            $scope.model = {};
+            $scope.originalModel = {};
+
+            if ($routeParams.Id) {
+                $scope.isNew = false;
+
+                $http({
+                    url: 'http://localhost:59233/api/employees',
+                    method: "GET",
+                    params: { id: $routeParams.Id },
+                }).then(function searchCompleted(response) {
+                    $scope.model = angular.copy(response.data)
+                    $scope.originalModel = angular.copy($scope.model);
+                });
+            }
+            else {
+                $scope.isNew = true;
+            }
+        }
+
+        $scope.submitField = function () {
+            if ($scope.isNew) {
+                $http({
+                    url: 'http://localhost:59233/api/employees',
+                    method: "POST",
+                    data: $scope.model,
+                }).then(function searchCompleted(response) {
+                    $location.path('/editEmployee/' + response.data.Id);
+                });
+            }
+            else {
+                $http({
+                    url: 'http://localhost:59233/api/employees',
+                    method: "PUT",
+                    params: { id: $scope.model.Id },
+                    data: $scope.model,
+                }).then(function searchCompleted(response) {
+                    $scope.originalModel = angular.copy($scope.model);
+                    alert("data saved successfully");
+                });
+            }
+        };
+
+        $scope.cancelChanges = function () {
+            $scope.model = angular.copy($scope.originalModel);
+        };
+
+        $scope.delete = function () {
+            $http({
+                url: 'http://localhost:59233/api/employees',
+                method: "DELETE",
+                params: { id: $scope.model.Id }
+            }).then(function searchCompleted(response) {
+                $location.path('/editEmployee');
+            });
+        };
+
+        init();
     }]);
 })();

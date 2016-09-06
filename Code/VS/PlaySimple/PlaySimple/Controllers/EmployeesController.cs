@@ -1,4 +1,5 @@
 ﻿using PlaySimple.Common;
+using PlaySimple.Filters;
 using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
@@ -26,24 +27,30 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        public string Get(int id)
+        public DTOs.Employee Get(int id)
         {
-            return "value";
+            return _employessQueryProcessor.GetEmployee(id);
         }
 
         [HttpPost]
-        public void Save([FromBody]string value)
+        [TransactionFilter]
+        public void Save([FromBody]DTOs.Employee employee)
         {
+            _employessQueryProcessor.Save(employee);
         }
 
         [HttpPut]
-        public void Update(int id, [FromBody]string value)
+        [TransactionFilter]
+        public void Update(int id, [FromBody]DTOs.Employee employee)
         {
+            _employessQueryProcessor.Update(id, employee);
         }
 
         [HttpDelete]
+        [TransactionFilter]
         public void Delete(int id)
         {
+            _employessQueryProcessor.Delete(id);
         }
     }
 }
