@@ -1,5 +1,3 @@
-authorization + contextual menus
-
 service for url
 
 bootstrap
@@ -18,6 +16,10 @@ client side error handling!
 
 paging
 
+
+
+make sure authorize is set everywhere
+delete all todos if any 
 
 
 bugs:
