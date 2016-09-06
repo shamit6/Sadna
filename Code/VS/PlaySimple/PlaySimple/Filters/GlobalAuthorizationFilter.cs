@@ -24,7 +24,9 @@ namespace PlaySimple.Filters
         /// <param name="filterContext"></param>
         public override void OnAuthorization(HttpActionContext filterContext)
         {
-            return;
+            // don't enforce authorization for login controller.
+            if (filterContext.ControllerContext.Controller is LoginController)
+                return;
 
             var identity = FetchAuthHeader(filterContext);
 

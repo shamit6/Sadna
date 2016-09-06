@@ -1,9 +1,19 @@
 ﻿!(function () {
     var myApp = angular.module('myApp');
-    myApp.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
+    myApp.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$location', function ($rootScope, $scope, $http, $location) {
         $scope.model = {};
 
-        $http.defaults.headers.common['Authorization'] = "Basic abcdes"
+        var navigateToHomepage = function navigateToHomepage(role) {
+            if (role == "Admin") { // searchCustomers
+                $location.path('/searchCustomers');
+            }
+            else if (role == "Employee") { // 
+                $location.path('/ownedPendingInvitations');
+            }
+            else {
+                $location.path('/ownedInvitations');
+            }
+        };
 
         $scope.submitUser = function () {
             $http({
@@ -11,9 +21,14 @@
                 url: 'http://localhost:59233/api/login',
                 data: $scope.model
             }).then(function(response) {
-
-            },
-            function(response) {
+                if (response.data.Role == "None") {
+                    window.alert("No permissions!");
+                }
+                else {
+                    $http.defaults.headers.common['Authorization'] = response.data.AuthorizationKey;
+                    $rootScope.sharedVariables.role = response.data.Role;
+                    navigateToHomepage($rootScope.sharedVariables.role);
+                }
             });
         };
     }]);

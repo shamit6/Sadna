@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
+
 <body>
     <div class="pageContainer">
-        <nav class="appLinks">
+        <nav class="appLinks" ng-class="{'appLinks-after-login': !sharedVariables.isLogin}">
             <a href="">הזמן</a>
             <a href="">צפה בהזמנות</a>
             <a href="">הצטרף למגרש</a>
@@ -18,7 +19,7 @@
             <a href="#/searchFields">חיפוש מגרשים</a>
             <a href="#/editField">עריכת מגרשים</a>
             <a href="#/searchEmployees">חיפוש עובדים</a>
-            <a href="#/editEmployee">צור עובד</a>
+            <a href="#/editEmployee" ng-show="sharedVariables.role == 'Admin'">צור עובד</a>
         </nav>
         <div ng-view>
         </div>

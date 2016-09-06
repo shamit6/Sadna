@@ -3,8 +3,6 @@
     var playSimpleApp = angular.module('myApp', ['ngRoute']);
 
     playSimpleApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
-        //$httpProvider.defaults.headers.common.Authorization = 'Basic Z2lsYWQ6Z2lsYWQ=';
-
         $routeProvider.when('/', {
             templateUrl: 'partials/loginForm.html',
             controller: 'LoginCtrl'
@@ -12,6 +10,16 @@
 
         $routeProvider.when('/login', {
             templateUrl: 'partials/loginForm.html',
+            controller: 'LoginCtrl'
+        });
+
+        $routeProvider.when('/searchCustomers', {
+            templateUrl: 'partials/searchCustomers.html',
+            controller: 'LoginCtrl'
+        });
+
+        $routeProvider.when('/ownedPendingInvitations', {
+            templateUrl: 'partials/ownedPendingInvitations.html',
             controller: 'LoginCtrl'
         });
 
@@ -48,6 +56,23 @@
             redirectTo: '/login'
         });
     }]);
+
+    playSimpleApp.run(function ($rootScope, $route, $location) {
+        $rootScope.sharedVariables = {
+            isLogin: true
+        };
+
+        $rootScope.$on("$routeChangeSuccess", function (event, current, previous, rejection) {
+            var currPath = $location.path();
+
+            if (currPath == "/" || currPath == "/login") {
+                $rootScope.sharedVariables.isLogin = true;
+            }
+            else {
+                $rootScope.sharedVariables.isLogin = false;
+            }
+        });
+    });
 })();
 
  

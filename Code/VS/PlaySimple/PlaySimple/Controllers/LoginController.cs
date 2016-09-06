@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 
 namespace PlaySimple.Controllers
@@ -21,30 +22,40 @@ namespace PlaySimple.Controllers
         }
 
         [HttpPost]
-        public string Login(UserCredentials credentials)
+        public LoginResponse Login(UserCredentials credentials)
         {
+            byte[] toEncodeAsBytes = ASCIIEncoding.ASCII.GetBytes(credentials.Username + ":" + credentials.Password);
+            string authenticationKey = "Basic " + Convert.ToBase64String(toEncodeAsBytes);
+            string role = null;
+
             var user = _session.QueryOver<Domain.Customer>().Where(x => x.Username == credentials.Username && x.Password == credentials.Password).SingleOrDefault();
 
             if (user != null)
             {
-                return Consts.Roles.Customer;
+                role = Consts.Roles.Customer;
             }
 
             var employee = _session.QueryOver<Domain.Employee>().Where(x => x.Username == credentials.Username && x.Password == credentials.Password).SingleOrDefault();
 
             if (employee != null)
             {
-                return Consts.Roles.Employee;
+                role = Consts.Roles.Employee;
             }
 
             var admin = _session.QueryOver<Admin>().Where(x => x.Username == credentials.Username && x.Password == credentials.Password).SingleOrDefault();
 
             if (admin != null)
             {
-                return Consts.Roles.Admin;
+                role = Consts.Roles.Admin;
             }
 
-            return Consts.Roles.None;
+            role = role ?? Consts.Roles.None;
+
+            return new LoginResponse
+            {
+                AuthorizationKey = authenticationKey,
+                Role = role
+            };
         }
     }
 }

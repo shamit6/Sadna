@@ -259,6 +259,11 @@ h1.pageTitle {
 
 .appLinks {
 	margin-top: 10px;
+    display: none;
+}
+
+.appLinks-after-login {
+    display: block;
 }
 
 .appLinks a {

@@ -20,3 +20,8 @@ paging
 
 
 
+bugs:
+reportFields -> enter value, delete, send to server, bad request
+when already logged in and going to login page, redirect to homepage
+
+
