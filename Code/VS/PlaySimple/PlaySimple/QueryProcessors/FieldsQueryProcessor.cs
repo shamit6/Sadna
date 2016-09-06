@@ -17,6 +17,8 @@ namespace PlaySimple.QueryProcessors
         DTOs.Field Save(DTOs.Field field);
 
         DTOs.Field Update(int id, DTOs.Field field);
+
+        void Delete(int id);
     }
     
     public class FieldsQueryProcessor : DBAccessBase<Field>, IFieldsQueryProcessor
@@ -83,15 +85,20 @@ namespace PlaySimple.QueryProcessors
 
             existingField.Name = field.Name ?? existingField.Name;
 
-            if (field.Size != null)
+            if (field.Size != 0)
                 existingField.Size =  _decodesQueryProcessor.Get<FieldSizeDecode>(field.Size);
 
-            if (field.Type != null)
+            if (field.Type != 0)
                 existingField.Type = _decodesQueryProcessor.Get<FieldTypeDecode>(field.Type);
 
-            Update(existingField);
+            Update(id, existingField);
 
             return new DTOs.Field().Initialize(existingField);
+        }
+
+        public void Delete(int id)
+        {
+            Delete(new Field() { Id = id });
         }
     }
 }

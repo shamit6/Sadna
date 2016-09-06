@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
-    [Authorize(Roles = Consts.Roles.Admin)]
+    //[Authorize(Roles = Consts.Roles.Admin)]
     public class EmployeesController : ApiController
     {
         private readonly IEmployeesQueryProcessor _employessQueryProcessor;
@@ -20,9 +20,9 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<DTOs.Employee> Search(string firstName, string lastName, int eMail, int id)
+        public IEnumerable<DTOs.Employee> Search(string firstName = null, string lastName = null, string eMail = null, int? id = null)
         {
-            return null;
+            return _employessQueryProcessor.Search(firstName, lastName, eMail, id);
         }
 
         [HttpGet]

@@ -86,7 +86,7 @@ namespace PlaySimple.QueryProcessors
             if (employee.Salary != 0)
                 existingEmployee.Salary = employee.Salary;
 
-            Update(existingEmployee);
+            Update(id, existingEmployee);
 
             return new DTOs.Employee().Initialize(existingEmployee);
         }

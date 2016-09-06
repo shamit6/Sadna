@@ -27,7 +27,7 @@ namespace PlaySimple.QueryProcessors
             return _session.Query<T>();
         }
 
-        public void Update(T entity)
+        public void Update(int id, T entity)
         {
             _session.Update(entity);
         }
@@ -36,6 +36,11 @@ namespace PlaySimple.QueryProcessors
         {
             entity.Id = (int)_session.Save(entity);
             return entity;
+        }
+
+        public void Delete(T entity)
+        {
+            _session.Delete(entity);
         }
     }
 

@@ -126,4 +126,19 @@
 
         init();
     }]);
+
+    myApp.controller('SearchEmployeeCtrl', ['$scope', '$http', function ($scope, $http) {
+        $scope.model = {};
+        $scope.results;
+
+        $scope.submitSearch = function () {
+            $http({
+                url: 'http://localhost:59233/api/employees',
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
+    }]);
 })();

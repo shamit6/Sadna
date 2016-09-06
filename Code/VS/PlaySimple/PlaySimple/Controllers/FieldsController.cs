@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using PlaySimple.QueryProcessors;
+using PlaySimple.Filters;
 
 namespace PlaySimple.Controllers
 {
@@ -32,6 +33,7 @@ namespace PlaySimple.Controllers
         }
 
         [HttpPut]
+        [TransactionFilter]
         public DTOs.Field Update([FromUri]int id, [FromBody]DTOs.Field field)
         {
             return _fieldsQueryProcessor.Update(id, field);

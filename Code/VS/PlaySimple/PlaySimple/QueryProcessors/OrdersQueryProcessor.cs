@@ -122,7 +122,7 @@ namespace PlaySimple.QueryProcessors
             if (order.StartDate != null)
                 existingOrder.StartDate = order.StartDate;
 
-            Update(existingOrder);
+            Update(id, existingOrder);
 
             return new DTOs.Order().Initialize(existingOrder);
         }

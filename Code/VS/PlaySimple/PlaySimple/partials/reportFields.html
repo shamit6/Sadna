@@ -32,7 +32,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="row in results">
-				<td>{{row.FieldId}}</td>
+				<td><a href="#/editField/{{row.FieldId}}">{{row.FieldId}}</a></td>
                 <td>{{row.FieldName}}</td>
                 <td>{{row.WeekDayOrders}}</td>
                 <td>{{row.WeekEndOrders}}</td>

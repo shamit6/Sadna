@@ -20,13 +20,15 @@ namespace PlaySimple.QueryProcessors
         private readonly IComplaintsQueryProcessor _complaintsQueryProcessor;
         private readonly IOrdersQueryProcessor _ordersQueryProcessor;
         private readonly IParticipantsQueryProcessor _participantsQueryProcessor;
+        private readonly IFieldsQueryProcessor _fieldsQueryProcessor;
 
-        public ReportsQueryProcessor(ICustomersQueryProcessor customersQueryProcessor, IOrdersQueryProcessor ordersQueryProcessor, IComplaintsQueryProcessor complaintsQueryProcessor, IParticipantsQueryProcessor participantsQueryProcessor)
+        public ReportsQueryProcessor(ICustomersQueryProcessor customersQueryProcessor, IOrdersQueryProcessor ordersQueryProcessor, IComplaintsQueryProcessor complaintsQueryProcessor, IParticipantsQueryProcessor participantsQueryProcessor, IFieldsQueryProcessor fieldsQueryProcessor)
         {
             _customersQueryProcessor = customersQueryProcessor;
             _ordersQueryProcessor = ordersQueryProcessor;
             _complaintsQueryProcessor = complaintsQueryProcessor;
             _participantsQueryProcessor = participantsQueryProcessor;
+            _fieldsQueryProcessor = fieldsQueryProcessor;
         }
 
         public IEnumerable<OffendingCustomersReport> GetOffendingCustomersReport(DateTime? fromDate, DateTime? untilDate, int? complaintType)
@@ -58,18 +60,21 @@ namespace PlaySimple.QueryProcessors
         }
         public IEnumerable<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
-            // 1 = oshar
-            return _ordersQueryProcessor.Search(null, null, null, fieldId, fieldName, fromDate, untilDate).GroupBy(f => f.Field).
-                Select(x => new UsingFieldsReport()
-                {
-                    FieldId = x.Key.Id ?? 0,
-                    FieldName = x.Key.Name,
-                    hours16_18Orders = x.Where(f => f.StartDate.Hour == 16).Count(),
-                    hours18_20Orders = x.Where(f => f.StartDate.Hour == 18).Count(),
-                    hours20_22Orders = x.Where(f => f.StartDate.Hour == 20).Count(),
-                    WeekDayOrders = x.Where(f => f.StartDate.DayOfWeek == DayOfWeek.Friday || f.StartDate.DayOfWeek == DayOfWeek.Saturday).Count(),
-                    WeekEndOrders = x.Where(f => !(f.StartDate.DayOfWeek == DayOfWeek.Friday || f.StartDate.DayOfWeek == DayOfWeek.Saturday)).Count()
-                });
+            var orders = _ordersQueryProcessor.Search(null, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate);
+            var report = _fieldsQueryProcessor.Search(null, null, null).Select(x => 
+             new UsingFieldsReport()
+               {
+                   FieldId = x.Id ?? 0,
+                   FieldName = x.Name,
+                   hours16_18Orders = orders.Where(f => x.Id == f.Field.Id && f.StartDate.Hour == 16).Count(),
+                   hours18_20Orders = orders.Where(f => x.Id == f.Field.Id && f.StartDate.Hour == 18).Count(),
+                   hours20_22Orders = orders.Where(f => x.Id == f.Field.Id && f.StartDate.Hour == 20).Count(),
+                   WeekDayOrders = orders.Where(f => x.Id == f.Field.Id && (f.StartDate.DayOfWeek == DayOfWeek.Friday || f.StartDate.DayOfWeek == DayOfWeek.Saturday)).Count(),
+                   WeekEndOrders = orders.Where(f => x.Id == f.Field.Id && !(f.StartDate.DayOfWeek == DayOfWeek.Friday || f.StartDate.DayOfWeek == DayOfWeek.Saturday)).Count()
+               });
+
+
+            return report;
         }
     }
 }

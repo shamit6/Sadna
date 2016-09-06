@@ -111,7 +111,7 @@ namespace PlaySimple.QueryProcessors
             if (customer.FreezeDate != null)
                 existingCustomer.FreezeDate = customer.FreezeDate;
 
-            Update(existingCustomer);
+            Update(id, existingCustomer);
 
             return new DTOs.Customer().Initialize(existingCustomer);
         }

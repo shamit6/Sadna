@@ -12,12 +12,12 @@
 
         $routeProvider.when('/login', {
             templateUrl: 'partials/loginForm.html',
-            controller: 'MyCtrl1'
+            controller: 'LoginCtrl'
         });
 
         $routeProvider.when('/ownedInvitations', {
             templateUrl: 'partials/ownedInvitations.html',
-            controller: 'MyCtrl1'
+            controller: 'LoginCtrl'
         });
 
         $routeProvider.when('/registration', {
@@ -34,7 +34,11 @@
             templateUrl: 'partials/reportFields.html',
             controller: 'SearchFieldsCtrl'
         });
-
+        $routeProvider.when('/searchEmployee', {
+            templateUrl: 'partials/searchEmployee.html',
+            controller: 'SearchEmployeeCtrl'
+        });
+        
         $routeProvider.otherwise({
             redirectTo: '/login'
         });

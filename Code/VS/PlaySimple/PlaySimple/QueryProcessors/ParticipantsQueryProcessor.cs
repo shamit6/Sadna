@@ -82,7 +82,7 @@ namespace PlaySimple.QueryProcessors
 
             existingParticipant.Status = _decodesQueryProcessor.Get<InvitationStatusDecode>(participant.Status);
 
-            Update(existingParticipant);
+            Update(id, existingParticipant);
 
             return new DTOs.Participant().Initialize(existingParticipant);
         }
