@@ -1,6 +1,6 @@
 ﻿!(function () {
     var myApp = angular.module('myApp');
-    myApp.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$location', 'LoginService', function ($rootScope, $scope, $http, $location, LoginService) {
+    myApp.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$location', 'LoginService', 'ServerRoutes', function ($rootScope, $scope, $http, $location, LoginService, ServerRoutes) {
         var init = function () {
             $scope.model = {};
 
@@ -12,7 +12,7 @@
         $scope.submitUser = function () {
             $http({
                 method: 'POST',
-                url: 'http://localhost:59233/api/login',
+                url: ServerRoutes.login,
                 data: $scope.model
             }).then(function(response) {
                 if (response.data.Role == "None") {
@@ -31,13 +31,13 @@
     myApp.controller('MyCtrl2', ['$scope', function ($scope) {
     }]);
 
-    myApp.controller('SearchFieldsCtrl', ['$scope', '$http', function ($scope, $http) {
+    myApp.controller('SearchFieldsCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
         $scope.results;
 
         $scope.submitSearch = function () {
             $http({
-                url: 'http://localhost:59233/api/reports/fields',
+                url: ServerRoutes.reports.fields,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
@@ -46,7 +46,7 @@
         }
     }]);
 
-    myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', function ($scope, $http, $routeParams, $location, DomainDecodes) {
+    myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
         var init = function () {
             $scope.sizes = DomainDecodes.fieldSize;
             $scope.types = DomainDecodes.fieldType;
@@ -58,7 +58,7 @@
                 $scope.isNew = false;
 
                 $http({
-                    url: 'http://localhost:59233/api/fields',
+                    url: ServerRoutes.fields,
                     method: "GET",
                     params: { id: $routeParams.Id },
                 }).then(function searchCompleted(response) {
@@ -74,7 +74,7 @@
         $scope.submitField = function () {
             if ($scope.isNew) {
                 $http({
-                    url: 'http://localhost:59233/api/fields',
+                    url: ServerRoutes.fields,
                     method: "POST",
                     data: $scope.model,
                 }).then(function searchCompleted(response) {
@@ -83,7 +83,7 @@
             }
             else {
                 $http({
-                    url: 'http://localhost:59233/api/fields',
+                    url: ServerRoutes.fields,
                     method: "PUT",
                     params: { id: $scope.model.Id },
                     data: $scope.model,
@@ -100,7 +100,7 @@
 
         $scope.delete = function () {
             $http({
-                url: 'http://localhost:59233/api/fields',
+                url: ServerRoutes.fields,
                 method: "DELETE",
                 params: { id: $scope.model.Id }
             }).then(function searchCompleted(response) {
@@ -111,13 +111,13 @@
         init();
     }]);
 
-    myApp.controller('SearchEmployeesCtrl', ['$scope', '$http', function ($scope, $http) {
+    myApp.controller('SearchEmployeesCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
         $scope.results;
 
         $scope.submitSearch = function () {
             $http({
-                url: 'http://localhost:59233/api/employees',
+                url: ServerRoutes.employees,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
@@ -127,7 +127,7 @@
         }
     }]);
 
-    myApp.controller('EmployeesCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+    myApp.controller('EmployeesCtrl', ['$scope', '$http', '$routeParams', '$location', 'ServerRoutes', function ($scope, $http, $routeParams, $location, ServerRoutes) {
 
         var init = function () {
             $scope.model = {};
@@ -137,7 +137,7 @@
                 $scope.isNew = false;
 
                 $http({
-                    url: 'http://localhost:59233/api/employees',
+                    url: ServerRoutes.employees,
                     method: "GET",
                     params: { id: $routeParams.Id },
                 }).then(function searchCompleted(response) {
@@ -153,7 +153,7 @@
         $scope.submitField = function () {
             if ($scope.isNew) {
                 $http({
-                    url: 'http://localhost:59233/api/employees',
+                    url: ServerRoutes.employees,
                     method: "POST",
                     data: $scope.model,
                 }).then(function searchCompleted(response) {
@@ -162,7 +162,7 @@
             }
             else {
                 $http({
-                    url: 'http://localhost:59233/api/employees',
+                    url: ServerRoutes.employees,
                     method: "PUT",
                     params: { id: $scope.model.Id },
                     data: $scope.model,
@@ -179,7 +179,7 @@
 
         $scope.delete = function () {
             $http({
-                url: 'http://localhost:59233/api/employees',
+                url: ServerRoutes.employees,
                 method: "DELETE",
                 params: { id: $scope.model.Id }
             }).then(function searchCompleted(response) {
@@ -190,13 +190,13 @@
         init();
     }]);
 
-    myApp.controller('ReportCustomerCtrl', ['$scope', '$http', function ($scope, $http) {
+    myApp.controller('ReportCustomerCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
         $scope.results;
 
         $scope.submitSearch = function () {
             $http({
-                url: 'http://localhost:59233/api/reports/customers',
+                url: ServerRoutes.reports.customers,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
@@ -206,7 +206,7 @@
         }
     }]);
 
-    myApp.controller('ReportComplaintCtrl', ['$scope', '$http', function ($scope, $http) {
+    myApp.controller('ReportComplaintCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
         $scope.types = [
                 {
@@ -225,7 +225,7 @@
         $scope.results;
         $scope.submitSearch = function () {
             $http({
-                url: 'http://localhost:59233/api/reports/complaints',
+                url: ServerRoutes.reports.complaints,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
