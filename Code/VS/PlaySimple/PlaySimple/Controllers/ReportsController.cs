@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
+    //[RoutePrefix("api/reports")]
     public class ReportsController : ApiController
     {
         private readonly IReportsQueryProcessor _reportsQueryProcessor;
@@ -26,13 +27,15 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
-        public CustomersActivityReport GetCustomersActivityReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
+        //[Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
+        [Route("api/reports/customers")]
+        public List<CustomersActivityReport> GetCustomersActivityReport(string firstName = null, string lastName = null, int? minAge = null, int? maxAge = null, DateTime? fromDate = null, DateTime? untilDate = null)
         {
-            return null;
+            return _reportsQueryProcessor.GetCustomersActivityReport(firstName, lastName, minAge, maxAge, fromDate, untilDate).ToList();
         }
 
         [HttpGet]
+        [Route("api/reports/fields")]
         public List<UsingFieldsReport> GetUsingFieldsReport(string fieldName = null, int? fieldId = null, DateTime? fromDate = null, DateTime? untilDate = null)
         {
             return _reportsQueryProcessor.GetUsingFieldsReport(fieldId, fieldName, fromDate, untilDate).ToList();

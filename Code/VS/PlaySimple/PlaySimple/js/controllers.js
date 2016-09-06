@@ -42,7 +42,7 @@
 
         $scope.submitSearch = function () {
             $http({
-                url: 'http://localhost:59233/api/reports',
+                url: 'http://localhost:59233/api/reports/fields',
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
@@ -219,5 +219,21 @@
         };
 
         init();
+    }]);
+
+    myApp.controller('ReportCustomerCtrl', ['$scope', '$http', function ($scope, $http) {
+        $scope.model = {};
+        $scope.results;
+
+        $scope.submitSearch = function () {
+            $http({
+                url: 'http://localhost:59233/api/reports/customers',
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+
+        }
     }]);
 })();

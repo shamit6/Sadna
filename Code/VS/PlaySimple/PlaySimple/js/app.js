@@ -51,7 +51,11 @@
             templateUrl: 'partials/searchEmployee.html',
             controller: 'SearchEmployeesCtrl'
         });
-        
+        $routeProvider.when('/reportCustomer', {
+            templateUrl: 'partials/reportCustomer.html',
+            controller: 'ReportCustomerCtrl'
+        });
+
         $routeProvider.otherwise({
             redirectTo: '/login'
         });

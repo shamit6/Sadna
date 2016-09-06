@@ -17,6 +17,10 @@ namespace PlaySimple.DTOs
         [MaxLength(20)]
         public virtual string LastName { get; set; }
 
+        public virtual int Age { get; set; }
+
+        public virtual DateTime LastGameDate { get; set; }
+
         public virtual int NumberOfOrders { get; set; }
 
         public virtual int NumberOfCanceledOrders { get; set; }

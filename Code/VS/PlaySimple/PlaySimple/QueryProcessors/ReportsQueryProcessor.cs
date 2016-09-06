@@ -1,4 +1,5 @@
 ﻿using Domain;
+using PlaySimple.Common;
 using PlaySimple.DTOs;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace PlaySimple.QueryProcessors
     public interface IReportsQueryProcessor
     {
         IEnumerable<OffendingCustomersReport> GetOffendingCustomersReport(DateTime? fromDate, DateTime? untilDate, int? complaintType);
-        IEnumerable<CustomersActivityReport> GetCustomersActivityReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate);
+        IEnumerable<CustomersActivityReport> GetCustomersActivityReport(string firstName, string lastName, int? minAge, int? maxAge, DateTime? fromDate, DateTime? untilDate);
         IEnumerable<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate);
     }
 
@@ -43,14 +44,16 @@ namespace PlaySimple.QueryProcessors
                 });
         }
 
-        public IEnumerable<CustomersActivityReport> GetCustomersActivityReport(string firstName, string lastName, DateTime? fromDate, DateTime? untilDate)
+        public IEnumerable<CustomersActivityReport> GetCustomersActivityReport(string firstName, string lastName, int? minAge, int? maxAge, DateTime? fromDate, DateTime? untilDate)
         {
-            var customers = _customersQueryProcessor.Search(firstName, lastName, null, null, null, null);
+            var customers = _customersQueryProcessor.Search(firstName, lastName, minAge, maxAge, null, null);
             var report = customers.Select(x => new CustomersActivityReport
                 {
                     CoustomerId = x.Id ?? 0,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
+                    Age = DateUtils.GetAge(x.BirthDate),
+                    //LastGameDate = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Max(t => t.StartDate),
                     NumberOfOrders = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Count(),
                     NumberOfCanceledOrders = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Canceled }, null, null, fromDate, untilDate).Count(),
                     NumberOfJoiningAsGuest = _participantsQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.InvitationStatus.Accepted }).Count()
@@ -61,7 +64,7 @@ namespace PlaySimple.QueryProcessors
         public IEnumerable<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
             var orders = _ordersQueryProcessor.Search(null, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate);
-            var report = _fieldsQueryProcessor.Search(null, null, null).Select(x => 
+            var report = _fieldsQueryProcessor.Search(null, fieldId, fieldName).Select(x => 
              new UsingFieldsReport()
                {
                    FieldId = x.Id ?? 0,
