@@ -61,9 +61,13 @@
         });
     }]);
 
-    playSimpleApp.run(function ($rootScope, $route, $location) {
+    playSimpleApp.run(function ($rootScope, $route, $location, LoginService) {
         $rootScope.sharedVariables = {
             isLogin: true
+        };
+
+        $rootScope.logout = function () {
+            LoginService.deleteLogin();
         };
 
         $rootScope.$on("$routeChangeSuccess", function (event, current, previous, rejection) {
@@ -76,6 +80,10 @@
                 $rootScope.sharedVariables.isLogin = false;
             }
         });
+
+        if (LoginService.hasPreviousLogin()) {
+            LoginService.navigateToHomepage();
+        }
     });
 })();
 

@@ -1,4 +1,8 @@
-service for url
+use localstorage
+
+use service for url!!
+
+logout button
 
 bootstrap
 
@@ -20,7 +24,7 @@ paging
 
 make sure authorize is set everywhere
 delete all todos if any 
-
+remove alerts
 
 bugs:
 reportFields -> enter value, delete, send to server, bad request

@@ -1,17 +1,11 @@
 ﻿!(function () {
     var myApp = angular.module('myApp');
-    myApp.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$location', function ($rootScope, $scope, $http, $location) {
-        $scope.model = {};
+    myApp.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$location', 'LoginService', function ($rootScope, $scope, $http, $location, LoginService) {
+        var init = function () {
+            $scope.model = {};
 
-        var navigateToHomepage = function navigateToHomepage(role) {
-            if (role == "Admin") { // searchCustomers
-                $location.path('/searchCustomers');
-            }
-            else if (role == "Employee") { // 
-                $location.path('/ownedPendingInvitations');
-            }
-            else {
-                $location.path('/ownedInvitations');
+            if (LoginService.hasPreviousLogin()) {
+                LoginService.navigateToHomepage();
             }
         };
 
@@ -25,12 +19,13 @@
                     window.alert("No permissions!");
                 }
                 else {
-                    $http.defaults.headers.common['Authorization'] = response.data.AuthorizationKey;
-                    $rootScope.sharedVariables.role = response.data.Role;
-                    navigateToHomepage($rootScope.sharedVariables.role);
+                    LoginService.saveLogin(response.data);
+                    LoginService.navigateToHomepage();
                 }
             });
         };
+
+        init();
     }]);
 
     myApp.controller('MyCtrl2', ['$scope', function ($scope) {

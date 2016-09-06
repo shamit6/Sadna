@@ -1,5 +1,40 @@
 ﻿!(function () {
     myApp = angular.module('myApp');
+
+    myApp.factory("LoginService", ['$rootScope', '$location', '$http', function ($rootScope, $location, $http) {
+        return {
+            hasPreviousLogin: function hasPreviousLogin() {
+                return localStorage.getItem("currLogin") != null;
+            },
+
+            saveLogin: function saveLogin(login) {
+                localStorage.setItem("currLogin", JSON.stringify(login))
+            },
+
+            deleteLogin: function deleteLogin() {
+                localStorage.removeItem("currLogin");
+                $location.path('/login');
+            },
+
+            navigateToHomepage: function navigateToHomepage() {
+                var loginData = JSON.parse(localStorage.getItem("currLogin"));
+
+                $http.defaults.headers.common['Authorization'] = loginData.AuthorizationKey;
+                $rootScope.sharedVariables.role = loginData.Role;
+
+                if (loginData.Role == "Admin") { // searchCustomers
+                    $location.path('/searchCustomers');
+                }
+                else if (loginData.Role == "Employee") { // 
+                    $location.path('/ownedPendingInvitations');
+                }
+                else {
+                    $location.path('/ownedInvitations');
+                }
+            }
+        };
+    }]);
+
     myApp.factory("MyDecodes", function(){
         return {
             orderStatus: [
