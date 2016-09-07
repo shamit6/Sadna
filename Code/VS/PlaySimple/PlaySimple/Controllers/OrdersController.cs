@@ -1,6 +1,9 @@
-﻿using PlaySimple.QueryProcessors;
+﻿using PlaySimple.Filters;
+using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Http;
 
 namespace PlaySimple.Controllers
@@ -15,31 +18,42 @@ namespace PlaySimple.Controllers
             _ordersQueryProcessor = ordersQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Order> Search(int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        [Route("api/orders/search")]
+        [HttpGet]
+        public List<DTOs.Order> Search(int? orderId = null, int? orderStatusId = null, int? fieldId = null, string fieldName = null, DateTime? fromDate = null, DateTime? untilDate = null)
         {
-            // TODO how to get the id of the current user
-            return _ordersQueryProcessor.Search(orderId, 4, new int?[] { orderStatusId }, fieldId, fieldName, startDate, endDate);
+            var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
+            int usrId = currIdentity.UserId;
+            int?[] statuses = null;
+            if (orderStatusId.HasValue)
+                statuses = new int?[] { orderStatusId };
+            return _ordersQueryProcessor.Search(orderId, usrId, statuses, fieldId, fieldName, fromDate, untilDate);
         }
 
         // GET: api/Orders/5
         [HttpGet]
         public DTOs.Order Get(int id)
         {
-            return null;
+            return _ordersQueryProcessor.GetOrder(id);
         }
 
         // POST: api/Orders
+        //[Authorize(Roles = Consts.Roles.Customer)]
         [HttpPost]
-        [Authorize(Roles = Consts.Roles.Customer)]
-        public void Save(DTOs.Order order)
+        [TransactionFilter]
+        public DTOs.Order Save(DTOs.Order order)
         {
+            return _ordersQueryProcessor.Save(order);
         }
 
+
+        //[Authorize(Roles = Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         [HttpPut]
-        [Authorize(Roles = Consts.Roles.Employee + "," + Consts.Roles.Customer)]
-        public void Update(int id, DTOs.Order statusId)
+        [TransactionFilter]
+        public DTOs.Order Update(int id, DTOs.Order statusId)
         {
-            // user can cancel employee can reject/accept
+            return _ordersQueryProcessor.Save(statusId);
         }
 
         [HttpGet]
@@ -49,6 +63,7 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
+        [Route("api/orders/availables")]
         public List<DTOs.Order> SearchAvailableOrders(int? fieldId = null, string fieldName = null, int? fieldType = null, DateTime? date = null)
         {
             return _ordersQueryProcessor.GetAvailbleOrders(fieldId, fieldName, fieldType, date??DateTime.Today);

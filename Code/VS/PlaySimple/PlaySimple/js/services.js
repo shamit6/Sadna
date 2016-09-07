@@ -43,7 +43,10 @@
             employees: urlBase + "employees",
             costumers: urlBase + "costumers",
             login: urlBase + "login",
-            orders: urlBase + "orders",
+            orders: {
+                availables: urlBase + "orders/availables",
+                search: urlBase + "orders/search",
+            },
             reports: {
                 fields: urlBase + "reports/fields",
                 customers: urlBase + "reports/customers",

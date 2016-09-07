@@ -10,7 +10,7 @@ namespace PlaySimple.QueryProcessors
 {
     public interface IOrdersQueryProcessor
     {
-        IEnumerable<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
+        List<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
 
         DTOs.Order GetOrder(int id);
 
@@ -36,7 +36,7 @@ namespace PlaySimple.QueryProcessors
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        public List<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
         {
             var filter = PredicateBuilder.New<Order>(x => true);
 
@@ -79,7 +79,7 @@ namespace PlaySimple.QueryProcessors
 
             var result = Query().Where(filter).Select(x => new DTOs.Order().Initialize(x));
 
-            return result;
+            return result.ToList();
         }
 
         public DTOs.Order GetOrder(int id)
