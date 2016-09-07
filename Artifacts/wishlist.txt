@@ -1,5 +1,6 @@
 TODO:
 
+refresh redirect to same url
 
 bootstrap
 
@@ -37,14 +38,23 @@ when already logged in and going to login page, redirect to homepage
 set fixed min width for the site so it won't break when minimized
 
 
-
-
+bootstrap:
+editCustomer
+editEmployee
+editField - V
+editInvitation
+guestPendingInvitations
+ownedOrders - V
+ownedPendingInvitations
+registrationForm
 reportComplaint - V
 reportFields - V
 reportCustomer - V
-editField
+searchAvailableOrders - V
 searchCustomer - V
 searchEmployee - V
-searchAvailableOrders - V
+searchGuestInvitations
+searchInvitations
+
 --------------
-ownedOrders
+editingInvitation
