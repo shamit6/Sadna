@@ -1,0 +1,41 @@
+﻿		<h1 class="pageTitle">חיפוש מגרשים פנויים</h1>
+		
+		<div class="page">
+			<div class="searchPanel clearfix">
+				<form>
+					<div class="fieldContainer threePerRow newLine">
+						<label>מספר מגרש</label><input ng-model="model.fieldId">		
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>שם מגרש</label><input ng-model="model.fieldName">					
+					</div>					
+					<div class="fieldContainer threePerRow newLine">
+						<label>תאריך</label><input ng-model="model.date" type="date">
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>משחק</label><select ng-model="model.fieldType" ng-options="type.id as type.name for type in types">
+                            <option value=""></option>
+                        </select>
+					</div>
+					<div class="fieldContainer threePerRow pullLeft newLine">
+						<input type="button" value="חפש" class="btn" ng-click="submitSearch()">
+					</div>					
+				</form>
+			</div>
+			<table class="searchTable">
+				<thead>
+					<th>מזהה</th>
+					<th>מגרש</th>
+					<th>תאריך</th>
+					<th>פעולות</th>
+				</thead>
+                <tbody>
+                    <tr ng-repeat="row in results">
+                        <td>{{row.Field.Id}}</td>
+                        <td>{{row.Field.Name}}</td>
+                        <td>{{row.StartDate}}</td>
+                        <td><a href="#/editCustomer/{{row.CustomerId}}">הזמן</a></td>
+                    </tr>
+                </tbody>
+			</table>
+		</div>

@@ -10,7 +10,7 @@ namespace PlaySimple.QueryProcessors
 {
     public interface IFieldsQueryProcessor
     {
-        IEnumerable<DTOs.Field> Search(int? pageNum, int? fieldId, string fieldName);
+        IEnumerable<DTOs.Field> Search(int? pageNum, int? fieldId, string fieldName, int? typeId);
 
         DTOs.Field GetField(int id);
 
@@ -30,7 +30,7 @@ namespace PlaySimple.QueryProcessors
             _decodesQueryProcessor = decodesQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Field> Search(int? pageNum, int? fieldId, string fieldName)
+        public IEnumerable<DTOs.Field> Search(int? pageNum, int? fieldId, string fieldName, int? typeId)
         {
             var filter = PredicateBuilder.New<Field>(x => true);
 
@@ -44,6 +44,10 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => x.Name.Contains(fieldName));
             }
 
+            if (typeId.HasValue)
+            {
+                filter.And(x => x.Type.Id == typeId);
+            }
 
             var queryResult = Query().Where(filter);
 

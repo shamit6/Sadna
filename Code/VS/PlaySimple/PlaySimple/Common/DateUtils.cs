@@ -19,6 +19,13 @@ namespace PlaySimple.Common
             return age;
         }
 
+        public static DateTime GetXYearsEarly(int age)
+        {
+            DateTime today = DateTime.Today;
+            DateTime past = today.AddYears(-age);
+            return past;
+        }
+
         public static IList<DateTime> PossibleDateOrders(DateTime dateTime)
         {
             IList<DateTime> possibleHour = new List<DateTime>()

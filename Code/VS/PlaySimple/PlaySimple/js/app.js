@@ -13,20 +13,20 @@
             controller: 'LoginCtrl'
         });
 
-        $routeProvider.when('/searchCustomers', {
-            templateUrl: 'partials/searchCustomers.html',
-            controller: 'LoginCtrl'
-        });
+        //$routeProvider.when('/searchCustomers', {
+        //    templateUrl: 'partials/searchCustomers.html',
+        //    controller: 'LoginCtrl'
+        //});
 
         $routeProvider.when('/ownedPendingInvitations', {
             templateUrl: 'partials/ownedPendingInvitations.html',
             controller: 'LoginCtrl'
         });
 
-        $routeProvider.when('/ownedInvitations', {
-            templateUrl: 'partials/ownedInvitations.html',
-            controller: 'LoginCtrl'
-        });
+        //$routeProvider.when('/ownedOrders', {
+        //    templateUrl: 'partials/ownedOrders.html',
+        //    controller: 'LoginCtrl'
+        //});
 
         $routeProvider.when('/registration', {
             templateUrl: 'partials/registrationForm.html',
@@ -58,8 +58,19 @@
         $routeProvider.when('/reportComplaint', {
             templateUrl: 'partials/reportComplaint.html',
             controller: 'ReportComplaintCtrl'
+        }); 
+        $routeProvider.when('/searchCustomers', {
+            templateUrl: 'partials/searchCustomers.html',
+            controller: 'SearchCustomersCtrl'
+        }); 
+        $routeProvider.when('/searchAvailableOrders', {
+            templateUrl: 'partials/searchAvailableOrders.html',
+            controller: 'SearchAvailableOrdersCtrl'
         });
-
+        $routeProvider.when('/ownedOrders', {
+            templateUrl: 'partials/ownedOrders.html',
+            controller: 'ownedOrdersCrtl'
+        });
         $routeProvider.otherwise({
             redirectTo: '/login'
         });

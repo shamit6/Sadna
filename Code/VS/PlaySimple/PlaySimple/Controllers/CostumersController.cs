@@ -25,9 +25,9 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int minAge, int maxAge, int regionId, int customerId)
+        public IEnumerable<DTOs.Customer> Search(string firstName = null, string lastName = null, int? minAge = null, int? maxAge = null, int? regionId = null, int? customerId = null)
         {
-            return null;
+            return _customersQueryProcessor.Search(firstName, lastName, minAge, maxAge, regionId, customerId);
         }
 
         [HttpGet]

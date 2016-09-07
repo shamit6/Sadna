@@ -29,7 +29,7 @@
                     $location.path('/ownedPendingInvitations');
                 }
                 else {
-                    $location.path('/ownedInvitations');
+                    $location.path('/ownedOrders');
                 }
             }
         };

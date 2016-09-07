@@ -64,7 +64,7 @@ namespace PlaySimple.QueryProcessors
         public IEnumerable<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
             var orders = _ordersQueryProcessor.Search(null, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate);
-            var report = _fieldsQueryProcessor.Search(null, fieldId, fieldName).Select(x => 
+            var report = _fieldsQueryProcessor.Search(null, fieldId, fieldName, null).Select(x => 
              new UsingFieldsReport()
                {
                    FieldId = x.Id ?? 0,

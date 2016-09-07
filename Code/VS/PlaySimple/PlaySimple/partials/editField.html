@@ -10,11 +10,13 @@
 		</div>	
 		<div class="fieldContainer threePerRow">
 			<label>גודל</label><select ng-model="model.Size" ng-options="size.id as size.name for size in sizes">
+                <option value=""></option>
             </select>
 		</div>					
 		<div class="fieldContainer newLine threePerRow">
             <label>סוג</label><select ng-model="model.Type" ng-options="type.id as type.name for type in types">
-        </select>
+                <option value=""></option>
+            </select>
 		</div>				
 	</fieldset>
 	<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">

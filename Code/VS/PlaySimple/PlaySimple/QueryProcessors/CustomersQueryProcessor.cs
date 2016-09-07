@@ -45,12 +45,12 @@ namespace PlaySimple.QueryProcessors
 
             if (minAge.HasValue)
             {
-                filter.And(x => DateUtils.GetAge(x.BirthDate) >= minAge);
+                filter.And(x => x.BirthDate <= DateUtils.GetXYearsEarly(minAge??0));
             }
 
             if (maxAge.HasValue)
             {
-                filter.And(x => DateUtils.GetAge(x.BirthDate) <= minAge);
+                filter.And(x => x.BirthDate >= DateUtils.GetXYearsEarly(maxAge??0));
             }
 
             if (region.HasValue)

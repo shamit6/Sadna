@@ -10,7 +10,9 @@
                         <label>עד תאריך</label><input ng-model="model.untilDate" type="date">
                     </div>
                     <div class="fieldContainer threePerRow">
-                        <label>סוג</label><select ng-model="model.complaintType" ng-options="type.id as type.name for type in types"></select>
+                        <label>סוג</label><select ng-model="model.complaintType" ng-options="type.id as type.name for type in types">
+                            <option value=""></option>
+                        </select>
                     </div>	
                     <div class="fieldContainer threePerRow pullLeft newLine">
                         <input type="button" value="חפש" class="btn" ng-click="submitSearch()">

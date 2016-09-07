@@ -233,5 +233,95 @@
             });
 
         }
+    }]); 
+    myApp.controller('SearchCustomersCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+        $scope.model = {};
+        $scope.types = [
+                {
+                    id: 1,
+                    name: 'דן'
+                },
+                {
+                    id: 2,
+                    name: 'נגב'
+                },
+                {
+                    id: 3,
+                    name: 'חיפה'
+                },
+                {
+                    id: 4,
+                    name: 'ירושלים'
+                }
+        ];
+        $scope.results;
+        $scope.submitSearch = function () {
+            $http({
+                url: ServerRoutes.costumers,
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
+    }]); 
+    myApp.controller('SearchAvailableOrdersCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+        $scope.model = {};
+        $scope.types = [
+                {
+                    id: 1,
+                    name: 'כדורגל'
+                },
+                {
+                    id: 2,
+                    name: 'כדורסל'
+                },
+                {
+                    id: 3,
+                    name: 'טניס'
+                }
+        ],
+        $scope.results;
+        $scope.submitSearch = function () {
+            $http({
+                url: ServerRoutes.orders,
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
+    }]); 
+
+    myApp.controller('ownedOrdersCrtl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+        $scope.model = {};
+        $scope.types = [
+            {
+                id: 1,
+                name: 'נשלח'
+            },
+            {
+                id: 2,
+                name: 'התקבל'
+            },
+            {
+                id: 3,
+                name: 'נדחה'
+            },
+            {
+                id: 4,
+                name: 'בוטל'
+            }
+        ],
+        $scope.results;
+        $scope.submitSearch = function () {
+            $http({
+                url: ServerRoutes.orders,
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
     }]);
 })();

@@ -5,8 +5,6 @@ using PlaySimple.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 
 namespace PlaySimple.QueryProcessors
 {
@@ -19,6 +17,8 @@ namespace PlaySimple.QueryProcessors
         DTOs.Order Save(DTOs.Order order);
 
         DTOs.Order Update(int id, DTOs.Order order);
+
+        List<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date);
     }
 
 
@@ -128,12 +128,12 @@ namespace PlaySimple.QueryProcessors
         }
 
         // TODO add to doc date is mandator
-        public IEnumerable<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date)
+        public List<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date)
         {
-            IList<DTOs.Field> fields = _fieldsQueryProcessor.Search(null, fieldId, fieldName).ToList();
+            IList<DTOs.Field> fields = _fieldsQueryProcessor.Search(null, fieldId, fieldName, fieldTypeId).ToList();
             IList<DateTime> possibleDate = DateUtils.PossibleDateOrders(date);
 
-            var possibleEvent = from field in _fieldsQueryProcessor.Search(null, fieldId, fieldName).ToList()
+            var possibleEvent = from field in _fieldsQueryProcessor.Search(null, fieldId, fieldName, fieldTypeId).ToList()
                                 from dateStart in DateUtils.PossibleDateOrders(date)
                                 select new { field, dateStart };
 
@@ -146,7 +146,7 @@ namespace PlaySimple.QueryProcessors
                     StartDate = possibleOrder.dateStart
                 });
 
-            return possibleOrders;
+            return possibleOrders.ToList();
         }
     }
 }
