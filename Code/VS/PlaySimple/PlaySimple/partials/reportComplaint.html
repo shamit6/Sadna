@@ -1,40 +1,72 @@
-﻿		<h1 class="pageTitle">דוח תלונות</h1>
+﻿<div class="row">
+    <div class="col-sm-12">
+        <h1 class="pageTitle">דוח תלונות</h1>
+    </div>
+</div>
 		
-		<div class="page">
- 			<div class="searchPanel clearfix">
-				<form>
-                    <div class="fieldContainer threePerRow newLine">
-                        <label>מתאריך</label><input ng-model="model.fromDate" type="date">
+<div class="row page">
+ 	<div class="col-sm-12 searchPanel">
+		<form class="form-horizontal">
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>מתאריך</label>
+                        <input class="form-control" type="date" ng-model="model.fromDate" />
                     </div>
-                    <div class="fieldContainer threePerRow">
-                        <label>עד תאריך</label><input ng-model="model.untilDate" type="date">
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>עד תאריך</label>
+                        <input class="form-control" type="date" ng-model="model.untilDate" />
                     </div>
-                    <div class="fieldContainer threePerRow">
-                        <label>סוג</label><select ng-model="model.complaintType" ng-options="type.id as type.name for type in types">
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>סוג</label>
+                        <select class="form-control" ng-model="model.complaintType" ng-options="type.id as type.name for type in types">
                             <option value=""></option>
                         </select>
-                    </div>	
-                    <div class="fieldContainer threePerRow pullLeft newLine">
-                        <input type="button" value="חפש" class="btn" ng-click="submitSearch()">
-                    </div>						
-				</form>
-			</div>
-			<table class="searchTable">
-				<thead>
-					<th>מזהה</th>
-					<th class="mediumCell">שם פרטי</th>
-                    <th class="mediumCell">שם משפחה</th>
-					<th class="smallCell centeredCell">תלונות</th>
-					<th>פעולות</th>
-				</thead>
-				<tbody>
-                    <tr ng-repeat="row in results">
-                        <td>{{row.CoustomerId}}</td>
-                        <td>{{row.FirstName}}</td>
-                        <td>{{row.LastName}}</td>
-                        <td>{{row.NumberOfComplaints}}</td>
-                        <td><a href="#/editCustomer/{{row.CustomerId}}">צפה בתלונות</a></td>
-                    </tr>
-				</tbody>
-			</table>
-		</div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitSearch()">חפש</button>
+                </div>
+            </div>
+
+            <!--<div class="fieldContainer threePerRow newLine">
+                <label>מתאריך</label><input ng-model="model.fromDate" type="date">
+            </div>
+            <div class="fieldContainer threePerRow">
+                <label>עד תאריך</label><input ng-model="model.untilDate" type="date">
+            </div>
+            <div class="fieldContainer threePerRow">
+                <label>סוג</label><select ng-model="model.complaintType" ng-options="type.id as type.name for type in types">
+                    <option value=""></option>
+                </select>
+            </div>	
+            <div class="fieldContainer threePerRow pullLeft newLine">
+                <input type="button" value="חפש" class="btn" ng-click="submitSearch()">
+            </div>-->						
+		</form>
+	</div>
+    <div class="searchResults">
+        <table class="table table-hover searchTable">
+            <thead>
+            <th>מזהה</th>
+            <th class="mediumCell">שם פרטי</th>
+            <th class="mediumCell">שם משפחה</th>
+            <th class="smallCell centeredCell">תלונות</th>
+            <th>פעולות</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in results">
+                    <td>{{row.CoustomerId}}</td>
+                    <td>{{row.FirstName}}</td>
+                    <td>{{row.LastName}}</td>
+                    <td>{{row.NumberOfComplaints}}</td>
+                    <td><a href="#/editCustomer/{{row.CustomerId}}">צפה בתלונות</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

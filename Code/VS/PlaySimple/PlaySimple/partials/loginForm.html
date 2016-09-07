@@ -1,4 +1,4 @@
-﻿<form class="loginForm">
+﻿<!--<form class="loginForm">
 	<fieldset>
 		<div class="fieldContainer">
 			<label>שם</label><input type="text" ng-model="model.username">
@@ -9,4 +9,28 @@
         <a href="" ng-click="submitUser()">כנס</a>
 		<span class="fullLine">משתמש חדש? לחץ <a href="#/registration">כאן</a> כדאי להירשם</span>				
 	</fieldset>			
-</form>
+</form>-->
+
+
+<div class="loginForm">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">שם</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" placeholder="הזן שם..." ng-model="model.username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">סיסמה</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" placeholder="הזן סיסמה..." ng-model="model.password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" ng-click="submitUser()">כנס</button>
+                <span style="margin-right:10px">משתמש חדש? לחץ <a href="#/registration">כאן</a> כדאי להירשם</span>
+            </div>
+        </div>
+    </form>
+</div>

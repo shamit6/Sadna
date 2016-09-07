@@ -1,6 +1,5 @@
-use service for url!!
+TODO:
 
-put all web stuff in one directory
 
 bootstrap
 
@@ -16,10 +15,16 @@ loader + interceptor
 
 client side error handling!
 
+put all web stuff in one directory
+
+sort tables
+
+add icons to search buttons
+
 paging
 
 
-
+dont forget:
 make sure authorize is set everywhere
 delete all todos if any 
 remove alerts
@@ -29,5 +34,17 @@ make refresh redirect to same page
 bugs:
 reportFields -> enter value, delete, send to server, bad request
 when already logged in and going to login page, redirect to homepage
+set fixed min width for the site so it won't break when minimized
 
 
+
+
+reportComplaint - V
+reportFields - V
+reportCustomer - V
+editField
+searchCustomer - V
+searchEmployee - V
+searchAvailableOrders - V
+--------------
+ownedOrders

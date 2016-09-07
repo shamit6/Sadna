@@ -1,57 +1,89 @@
-﻿<h1 class="pageTitle">חיפוש לקוחות</h1>
-		
-<div class="page">
-	<div class="searchPanel clearfix">
-		<form>
-			<div class="fieldContainer threePerRow">
-				<label>שם פרטי</label><input ng-model="model.firstName">
-			</div>
-			<div class="fieldContainer threePerRow">
-				<label>שם משפחה</label><input ng-model="model.lastName">
-			</div>
-			<div class="fieldContainer threePerRow newLine">
-				<label>מגיל</label><input ng-model="model.minAge">
-			</div>
-			<div class="fieldContainer threePerRow">
-				<label>עד גיל</label><input ng-model="model.maxAge">
-			</div>
-			<div class="fieldContainer threePerRow newLine">
-				<label>מגורים</label><select ng-model="model.regionId" ng-options="type.id as type.name for type in types">
-                    <option value=""></option>
-                </select>
-			</div>
-			<div class="fieldContainer threePerRow">
-				<label>מזהה</label><input ng-model="model.customerId">
-			</div>	
-			<div class="fieldContainer threePerRow pullLeft newLine">
-				<input type="button" value="חפש" class="btn" ng-click="submitSearch()">
-			</div>					
+﻿<div class="row">
+    <div class="col-sm-12">
+        <h1 class="pageTitle">חיפוש לקוחות</h1>
+    </div>
+</div>
+	
+<div class="row page">
+	<div class="col-sm-12 searchPanel">
+		<form class="form-horizontal">
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label for="user_title">שם פרטי</label>
+                        <input class="form-control"  type="text" ng-model="model.firstName" />
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם משפחה</label>
+                        <input class="form-control"  type="text" ng-model="model.lastName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label for="user_title">מגיל</label>
+                        <input class="form-control"  type="text" ng-model="model.minAge" />
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>עד גיל</label>
+                        <input class="form-control" type="text" ng-model="model.maxAge" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>מגורים</label>
+                        <select class="form-control" ng-model="model.regionId" ng-options="type.id as type.name for type in types">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>מזהה</label>
+                        <input class="form-control"  type="text" ng-model="model.customerId" />
+                    </div>
+                </div>
+                <div class="col-sm-push-5 col-sm-1">
+                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitSearch()">חפש</button>
+                </div>
+            </div>			
 		</form>
 	</div>
-	<table class="searchTable">
-		<thead>
-			<th>מזהה</th>
-			<th>שם פרטי</th>
-			<th>שם משפחה</th>
-			<th>גיל</th>
-			<th>מגורים</th>
-			<th>פעולות</th>
-		</thead>
-		<tbody>
-            <tr ng-repeat="row in results">
-                <td>{{row.Id}}</td>
-                <td>{{row.FirstName}}</td>
-                <td>{{row.LastName}}</td>
-                <td >{{row.BirthDate | ageFilter}}</td>
-                <td>
-                    <div ng-repeat="regionType in types">
-                        <div ng-if="regionType.id == row.Region">
-                            {{regionType.name}}
+    <div class="searchResults">
+        <table class="table table-hover searchTable">
+            <thead>
+                <th>מזהה</th>
+                <th>שם פרטי</th>
+                <th>שם משפחה</th>
+                <th>גיל</th>
+                <th>מגורים</th>
+                <th>פעולות</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in results">
+                    <td>{{row.Id}}</td>
+                    <td>{{row.FirstName}}</td>
+                    <td>{{row.LastName}}</td>
+                    <td>{{row.BirthDate | ageFilter}}</td>
+                    <td>
+                        <div ng-repeat="regionType in types">
+                            <div ng-if="regionType.id == row.Region">
+                                {{regionType.name}}
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td><a href="#/editCotumer/{{row.CoustomerId}}">עבור לדף לקוח</a></td>
-            </tr>
-		</tbody>
-	</table>
+                    </td>
+                    <td><a href="#/editCotumer/{{row.CoustomerId}}">עבור לדף לקוח</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

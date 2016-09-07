@@ -1,30 +1,62 @@
-﻿<h1 class="pageTitle">פרטי מגרש</h1>
-		
-<form class="page clearfix">
-	<fieldset>
-		<div class="fieldContainer threePerRow">
-			<label>מזהה</label><input disabled ng-model="model.Id">
-		</div>			
-		<div class="fieldContainer threePerRow">
-			<label>שם</label><input ng-model="model.Name">
-		</div>	
-		<div class="fieldContainer threePerRow">
-			<label>גודל</label><select ng-model="model.Size" ng-options="size.id as size.name for size in sizes">
-                <option value=""></option>
-            </select>
-		</div>					
-		<div class="fieldContainer newLine threePerRow">
-            <label>סוג</label><select ng-model="model.Type" ng-options="type.id as type.name for type in types">
-                <option value=""></option>
-            </select>
-		</div>				
-	</fieldset>
-	<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
-		<input type="button" value="שמור" class="btn pullLeft" ng-click="submitField()">
-		<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft" ng-click="cancelChanges()">
-		<input type="button" value="מחק" class="btn btn-danger pullLeft" ng-click="delete()" ng-hide="isNew">
-	</div>
-</form>
+﻿<div class="row">
+    <div class="col-sm-12">
+        <h1 class="pageTitle">פרטי מגרש</h1>
+    </div>
+</div>
+
+<div class="row page">
+    <div class="col-sm-12 editPanel">
+        <form class="form-horizontal">
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>מזהה</label>
+                        <input disabled class="form-control" type="text" ng-model="model.Id" />
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם</label>
+                        <input class="form-control" type="text" ng-model="model.Name" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>גודל</label>
+                        <select class="form-control" ng-model="model.Size" ng-options="size.id as size.name for size in sizes">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>סוג</label>
+                        <select class="form-control" ng-model="model.Type" ng-options="type.id as type.name for type in types">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class="col-sm-1 col-sm-offset-9" ng-hide="isNew">
+                    <button type="submit" class="btn btn-danger btn-block" ng-click="delete()">מחק</button>
+                </div>
+                <div class="col-sm-1" ng-class="{'col-sm-offset-10': isNew}">
+                    <button type="submit" class="btn btn-default btn-block" ng-click="cancelChanges()">בטל</button>
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="submitField()">שמור</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <pre style="float:left; direction:ltr">
 {{model | json}}
 </pre>
