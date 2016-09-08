@@ -28,7 +28,7 @@ namespace PlaySimple.DTOs
         [EmailAddress]
         public virtual string Email { get; set; }
 
-        [IsEnumOfType(typeof(RegionDecode))]
+        //[IsEnumOfType(typeof(RegionDecode))]
         public virtual int? Region { get; set; }
 
         public virtual DateTime? FreezeDate { get; set; }

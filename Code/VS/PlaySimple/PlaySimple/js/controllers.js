@@ -340,7 +340,6 @@
                 params: optinalOrdersParams,
             }).then(function searchCompleted(response) {
                 $scope.optinalOrders = angular.copy(response.data);
-                $scope.getOptionalField();
             });
         }
 
@@ -360,6 +359,40 @@
             });
         }
         
+        $scope.fieldTypeChanged = function () {
+            var optinalFieldsParams = {};
+            optinalFieldsParams.fieldId = null;
+            optinalFieldsParams.fieldName = null;
+            optinalFieldsParams.type = $scope.model.Field.Type;
+
+            $http({
+                url: ServerRoutes.fields,
+                method: "GET",
+                params: optinalFieldsParams,
+            }).then(function searchCompleted(response) {
+                $scope.optinalFields = angular.copy(response.data);
+
+                $scope.model.Field.Id = $scope.optinalFields[0].Id;
+                $scope.getOptionals();
+            });
+
+        }
+
+        $scope.acceptRejectParticipant = function (participant, status) {
+            participant.Status = status;
+
+            $http({
+                url: ServerRoutes.orders.updatepraticipant,
+                method: "PUT",
+                params: { id: participant.Id },
+                data: participant,
+            }).then(function searchCompleted(response) {
+                $location.path('/editOrder/' + response.data.Id);
+                $scope.model.Participants = angular.copy(response.data.Participants)
+                $scope.originalModel.Participants = angular.copy($scope.model.Participants);
+            });
+        }
+
         var init = function () {
             $scope.model = {};
             $scope.originalModel = {};
@@ -379,6 +412,7 @@
                     $scope.originalModel = angular.copy($scope.model);
 
                     $scope.getOptionals();
+                    $scope.getOptionalField();
                 });  
             }
             else {
@@ -386,10 +420,12 @@
             }          
         }
 
-        $scope.submitOrder = function () {
+        $scope.submitOrder = function (status) {
+            //$scope.model.Participants = null;
+            $scope.model.Status = status;
             if ($scope.isNew) {
                 $http({
-                    url: ServerRoutes.orders,
+                    url: ServerRoutes.orders.base,
                     method: "POST",
                     data: $scope.model,
                 }).then(function searchCompleted(response) {
@@ -398,7 +434,7 @@
             }
             else {
                 $http({
-                    url: ServerRoutes.employees,
+                    url: ServerRoutes.orders.base,
                     method: "PUT",
                     params: { id: $scope.model.Id },
                     data: $scope.model,
@@ -409,8 +445,9 @@
             }
         };
 
-        $scope.cancelChanges = function () {
+        $scope.cancelChanges = function () {           
             $scope.model = angular.copy($scope.originalModel);
+            $scope.fieldTypeChanged();
         };
 
         init();

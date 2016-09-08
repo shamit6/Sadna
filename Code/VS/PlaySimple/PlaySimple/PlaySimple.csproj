@@ -147,6 +147,7 @@
     <Compile Include="Common\NinjectConfigurator.cs" />
     <Compile Include="Common\NinjectDependencyResolver.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ParticipantsController.cs" />
     <Compile Include="DTOs\LoginResponse.cs" />
     <Compile Include="DTOs\UserCredentials.cs" />
     <Compile Include="DTOs\UsingFieldsReport.cs" />

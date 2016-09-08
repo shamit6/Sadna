@@ -47,7 +47,7 @@ namespace PlaySimple.Controllers
         //[Authorize(Roles = Consts.Roles.Customer)]
         [HttpPost]
         [TransactionFilter]
-        public DTOs.Order Save(DTOs.Order order)
+        public DTOs.Order Save([FromBody]DTOs.Order order)
         {
             return _ordersQueryProcessor.Save(order);
         }
@@ -56,7 +56,7 @@ namespace PlaySimple.Controllers
         //[Authorize(Roles = Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         [HttpPut]
         [TransactionFilter]
-        public DTOs.Order Update(int id, DTOs.Order statusId)
+        public DTOs.Order Update([FromUri]int id, [FromBody]DTOs.Order statusId)
         {
             return _ordersQueryProcessor.Save(statusId);
         }
@@ -93,6 +93,15 @@ namespace PlaySimple.Controllers
             }
 
             return optionals;
+        }
+
+        [HttpPut]
+        [TransactionFilter]
+        [Route("api/orders/updatepraticipant")]
+        public DTOs.Order UpdatePraticipant([FromUri]int id, [FromBody]DTOs.Participant participant)
+        {
+            _participantsQueryProcessor.Update(id, participant);
+            return Get(participant.Order.Id??0);
         }
 
     }

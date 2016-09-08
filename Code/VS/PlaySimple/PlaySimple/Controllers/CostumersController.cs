@@ -33,7 +33,7 @@ namespace PlaySimple.Controllers
         [HttpGet]
         public DTOs.Customer Get(int id)
         {
-            return null;
+            return _customersQueryProcessor.GetCustomer(id);
         }
 
         [HttpPost]

@@ -47,7 +47,8 @@
                 base: urlBase + "orders",
                 availables: urlBase + "orders/availables",
                 search: urlBase + "orders/search",
-                optionals: urlBase + "orders/optionals"
+                optionals: urlBase + "orders/optionals",
+                updatepraticipant: urlBase + "orders/updatepraticipant"
             },
             reports: {
                 fields: urlBase + "reports/fields",

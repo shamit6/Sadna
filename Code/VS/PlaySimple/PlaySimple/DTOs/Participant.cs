@@ -14,7 +14,7 @@ namespace PlaySimple.DTOs
         [ExistsInDB(typeof(Domain.Order))]
         public virtual Order Order { get; set; }
 
-        [IsEnumOfType(typeof(InvitationStatusDecode))]
+        //[IsEnumOfType(typeof(InvitationStatusDecode))]
         public virtual int? Status { get; set; }
 
         public override Participant Initialize(Domain.Participant domain)

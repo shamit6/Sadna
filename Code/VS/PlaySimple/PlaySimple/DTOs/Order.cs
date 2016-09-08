@@ -10,19 +10,18 @@ namespace PlaySimple.DTOs
         [NotInPast]
         public virtual DateTime StartDate { get; set; }
 
-        [ExistsInDB(typeof(Domain.Customer))]
+        //[ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer Owner { get; set; }
 
         [Above(0)]
         public virtual int PlayersNumber { get; set; }
 
-        [IsEnumOfType(typeof(OrderStatusDecode))]
+        //[IsEnumOfType(typeof(OrderStatusDecode))]
         public virtual int? Status { get; set; }
 
-        [IsEnumOfType(typeof(OrderStatusDecode))]
         public virtual Field Field { get; set; }
 
-        [ListExistsInDb(typeof(Domain.Participant))]
+        //[ListExistsInDb(typeof(Domain.Participant))]
         public virtual IList<DTOs.Participant> Participants { get; set; }
 
         public override Order Initialize(Domain.Order domain)

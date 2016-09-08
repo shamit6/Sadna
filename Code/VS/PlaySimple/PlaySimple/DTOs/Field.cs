@@ -10,10 +10,10 @@ namespace PlaySimple.DTOs
         [MaxLength(20)]
         public virtual string Name { get; set; }
 
-        [IsEnumOfType(typeof(Consts.Decodes.FieldType))]
+        //[IsEnumOfType(typeof(Consts.Decodes.FieldType))]
         public virtual int Type { get; set; }
 
-        [IsEnumOfType(typeof(Consts.Decodes.FieldSize))]
+        //[IsEnumOfType(typeof(Consts.Decodes.FieldSize))]
         public virtual int Size { get; set; }
 
         public override Field Initialize(Domain.Field domain)

@@ -22,6 +22,7 @@ namespace PlaySimple.Controllers
             return _fieldsQueryProcessor.Search(null, fieldId, fieldName, type);
         }
 
+        [HttpGet]
         public DTOs.Field Get(int id)
         {
             return _fieldsQueryProcessor.GetField(id);

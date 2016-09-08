@@ -6,7 +6,7 @@
 					<label>מזהה</label><input disabled ng-model="model.Id">
 				</div>
                 <div class="fieldContainer newLine threePerRow">
-                    <label>סוג</label><select ng-model="model.Field.Type" ng-options="type.id as type.name for type in fieldType" ng-change="getOptionals()">
+                    <label>סוג</label><select ng-model="model.Field.Type" ng-options="type.id as type.name for type in fieldType" ng-change="fieldTypeChanged()">
                     </select>
                 </div>		
 				<div class="fieldContainer threePerRow">
@@ -70,7 +70,7 @@
                                     {{row.Date | date}}
                                 </td>
                                 <td ng-if="row.Status == 1">
-                                    <a>אשר</a> <a>דחה</a>
+                                    <a href="" ng-click="acceptRejectParticipant(row, 2)">אשר</a> <a href="" ng-click="acceptRejectParticipant(row, 3)">דחה</a>
                                 </td>
                             </tr>					
 						</tbody>
@@ -78,12 +78,16 @@
 				</div>
 			</fieldset>		
 			<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
-				<input type="button" value="שמור" class="btn pullLeft">
-				<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft">
-				<input type="button" value="בטל הזמנה" class="btn btn-danger pullLeft">
+				<input type="button" value="שמור" class="btn pullLeft" ng-click="submitOrder(1)">
+				<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft" ng-click="cancelChanges()">
+				<input type="button" value="בטל הזמנה" class="btn btn-danger pullLeft" ng-click="submitOrder(4)">
 			</div>
 		</form>
 <pre style="float:left; direction:ltr">
 {{model | json}}
+  
+</pre>
+<pre style="float:left; direction:ltr">
+{{optinalOrders | json}}
   
 </pre>
