@@ -44,8 +44,10 @@
             costumers: urlBase + "costumers",
             login: urlBase + "login",
             orders: {
+                base: urlBase + "orders",
                 availables: urlBase + "orders/availables",
                 search: urlBase + "orders/search",
+                optionals: urlBase + "orders/optionals"
             },
             reports: {
                 fields: urlBase + "reports/fields",

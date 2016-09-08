@@ -1,0 +1,89 @@
+﻿		<h1 class="pageTitle">פרטי הזמנה</h1>
+		
+		<form class="page clearfix">
+			<fieldset>
+				<div class="fieldContainer threePerRow">
+					<label>מזהה</label><input disabled ng-model="model.Id">
+				</div>
+                <div class="fieldContainer newLine threePerRow">
+                    <label>סוג</label><select ng-model="model.Field.Type" ng-options="type.id as type.name for type in fieldType" ng-change="getOptionals()">
+                    </select>
+                </div>		
+				<div class="fieldContainer threePerRow">
+					<label>מגרש</label><select ng-model="model.Field.Id" 
+                                               ng-options="field.Id as field.Name for field in optinalFields" ng-change="getOptionals()">
+                    </select>
+				</div>	
+				<!--<div class="fieldContainer threePerRow">
+					<label>מזמין</label><input>
+				</div>-->					
+				<div class="fieldContainer threePerRow">
+					<label>תאריך</label><input ng-model="model.StartDate" ng-change="getOptionals()">
+				</div>			
+				<div class="fieldContainer threePerRow">
+					<label>שעה</label><select ng-model="model.StartDate" 
+                                              ng-init="model.StartDate = model.StartDate || optinalOrders[0].StartDate"
+                                              ng-options="optinalOrder.StartDate as optinalOrder.StartDate for optinalOrder in optinalOrders" ng-change="getOptionals()">
+				</div>				
+				<div class="fieldContainer newLine threePerRow">
+					<label>מספר שחקנים</label><input ng-model="model.PlayersNumber" type="number">
+				</div>		
+			</fieldset>
+			<fieldset style="position: relative">
+				<div style="display: inline-block; width:18%">
+					<div class="fieldContainer fullLine">משתתפים</div>
+					<table class="searchTable">
+						<thead>
+							<th>מזהה</th>
+							<th>שם</th>
+						</thead>
+						<tbody>
+                            <tr ng-repeat="row in model.Participants">
+                                <td ng-if="row.Status == 2">
+                                   {{row.Customer.Id}}  
+                                </td>
+                                <td ng-if="row.Status == 2">
+                                    {{row.Customer.FirstName}} {{row.LastName}}
+                                </td>
+                            </tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="display: inline-block; width: 78%; margin-right:2%; position:absolute; top: 10px">
+					<div class="fieldContainer fullLine">בקשות הצטרפות לאישור</div>
+					<table class="searchTable" style="display: inline-block;">
+						<thead>
+							<th>מזהה</th>
+							<th>שם</th>
+							<th>תאריך בקשה</th>
+							<th>פעולות</th>
+						</thead>
+						<tbody>
+                            <tr ng-repeat="row in model.Participants">
+                                <td ng-if="row.Status == 1">
+                                    {{row.Customer.Id}}
+                                </td>
+                                <td ng-if="row.Status == 1">
+                                    {{row.Customer.FirstName}} {{row.LastName}}
+                                </td>
+                                <td ng-if="row.Status == 1">
+                                    {{row.Date | date}}
+                                </td>
+                                <td ng-if="row.Status == 1">
+                                    <a>אשר</a> <a>דחה</a>
+                                </td>
+                            </tr>					
+						</tbody>
+					</table>	
+				</div>
+			</fieldset>		
+			<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
+				<input type="button" value="שמור" class="btn pullLeft">
+				<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft">
+				<input type="button" value="בטל הזמנה" class="btn btn-danger pullLeft">
+			</div>
+		</form>
+<pre style="float:left; direction:ltr">
+{{model | json}}
+  
+</pre>

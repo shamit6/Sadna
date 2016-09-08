@@ -16,9 +16,10 @@ namespace PlaySimple.Controllers
             _fieldsQueryProcessor = fieldsQueryProcessor;
         }
 
-        public IEnumerable<DTOs.Field> Search(int? pageNum, int? fieldId, string fieldName, int? type)
+        [HttpGet]
+        public IEnumerable<DTOs.Field> Search(int? fieldId = null, string fieldName = null, int? type = null)
         {
-            return _fieldsQueryProcessor.Search(pageNum, fieldId, fieldName, type);
+            return _fieldsQueryProcessor.Search(null, fieldId, fieldName, type);
         }
 
         public DTOs.Field Get(int id)

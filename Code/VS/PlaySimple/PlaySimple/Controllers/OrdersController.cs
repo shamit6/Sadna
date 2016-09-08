@@ -1,4 +1,5 @@
 ﻿using PlaySimple.Filters;
+using System.Linq;
 using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,12 @@ namespace PlaySimple.Controllers
     public class OrdersController : ApiController
     {
         private readonly IOrdersQueryProcessor _ordersQueryProcessor;
-        // participant
+        private readonly IParticipantsQueryProcessor _participantsQueryProcessor;
 
-        public OrdersController(IOrdersQueryProcessor ordersQueryProcessor)
+        public OrdersController(IOrdersQueryProcessor ordersQueryProcessor, IParticipantsQueryProcessor participantsQueryProcessor)
         {
             _ordersQueryProcessor = ordersQueryProcessor;
+            _participantsQueryProcessor = participantsQueryProcessor;
         }
 
         [Route("api/orders/search")]
@@ -35,7 +37,10 @@ namespace PlaySimple.Controllers
         [HttpGet]
         public DTOs.Order Get(int id)
         {
-            return _ordersQueryProcessor.GetOrder(id);
+            DTOs.Order order = _ordersQueryProcessor.GetOrder(id);
+            order.Participants = _participantsQueryProcessor.Search(order.Id, null,
+                new int?[] { (int)Consts.Decodes.InvitationStatus.Sent, (int)Consts.Decodes.InvitationStatus.Accepted }).ToList();
+            return order;
         }
 
         // POST: api/Orders
@@ -68,5 +73,27 @@ namespace PlaySimple.Controllers
         {
             return _ordersQueryProcessor.GetAvailbleOrders(fieldId, fieldName, fieldType, date??DateTime.Today);
         }
+
+        
+        [Route("api/orders/optionals")]
+        [HttpGet]
+        public List<DTOs.Order> SearchOptionalsOrders(int? orderId = null, int? fieldId = null, int? fieldType = null, DateTime? date = null)
+        {
+            List<DTOs.Order> optionals = _ordersQueryProcessor.GetAvailbleOrders(fieldId, null, fieldType, date??DateTime.Today);
+
+            if (orderId.HasValue)
+            {
+                DTOs.Order current = _ordersQueryProcessor.GetOrder(orderId ?? 0);
+
+                if (current.Field.Id == fieldId && current.StartDate.Date == date.Value.Date)
+                {
+                    optionals.Add(current);
+                }
+                
+            }
+
+            return optionals;
+        }
+
     }
 }

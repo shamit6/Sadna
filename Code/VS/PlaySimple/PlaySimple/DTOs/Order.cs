@@ -23,7 +23,7 @@ namespace PlaySimple.DTOs
         public virtual Field Field { get; set; }
 
         [ListExistsInDb(typeof(Domain.Participant))]
-        public virtual IList<int> Participants { get; set; }
+        public virtual IList<DTOs.Participant> Participants { get; set; }
 
         public override Order Initialize(Domain.Order domain)
         {

@@ -214,7 +214,7 @@
     <Content Include="partials\editCustomer.html" />
     <Content Include="partials\editEmployee.html" />
     <Content Include="partials\editField.html" />
-    <Content Include="partials\editInvitation.html" />
+    <Content Include="partials\editOrder.html" />
     <Content Include="partials\guestPendingInvitations.html" />
     <Content Include="partials\loginForm.html" />
     <Content Include="partials\ownedOrders.html" />

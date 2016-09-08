@@ -70,6 +70,10 @@
         $routeProvider.when('/ownedOrders', {
             templateUrl: 'partials/ownedOrders.html',
             controller: 'ownedOrdersCrtl'
+        }); 
+        $routeProvider.when('/editOrder/:Id?', {
+            templateUrl: 'partials/editOrder.html',
+            controller: 'OrdersCtrl'
         });
         $routeProvider.otherwise({
             redirectTo: '/login'
