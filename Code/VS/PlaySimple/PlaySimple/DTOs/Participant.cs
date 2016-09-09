@@ -6,12 +6,12 @@ namespace PlaySimple.DTOs
 {
     public class Participant : Entity<DTOs.Participant , Domain.Participant>
     {
-        [ExistsInDB(typeof(Domain.Customer))]
+        //[ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer Customer { get; set; }
 
         public virtual DateTime Date { get; set; }
 
-        [ExistsInDB(typeof(Domain.Order))]
+        //[ExistsInDB(typeof(Domain.Order))]
         public virtual Order Order { get; set; }
 
         //[IsEnumOfType(typeof(InvitationStatusDecode))]

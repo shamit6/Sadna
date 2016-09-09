@@ -7,7 +7,7 @@ namespace PlaySimple.DTOs
 {
     public class Order : Entity<DTOs.Order, Domain.Order>
     {
-        [NotInPast]
+        //[NotInPast]
         public virtual DateTime StartDate { get; set; }
 
         //[ExistsInDB(typeof(Domain.Customer))]

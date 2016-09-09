@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
-    public class CostumersController : ApiController
+    public class CustomersController : ApiController
     {
         private readonly ICustomersQueryProcessor _customersQueryProcessor;
 
@@ -16,7 +16,7 @@ namespace PlaySimple.Controllers
 
         private readonly IComplaintsQueryProcessor _complaintsQueryProcessor;
 
-        public CostumersController(ICustomersQueryProcessor customerQueryProcessor, IReviewsQueryProcessor reviewsQueryProcessor, 
+        public CustomersController(ICustomersQueryProcessor customerQueryProcessor, IReviewsQueryProcessor reviewsQueryProcessor, 
             IComplaintsQueryProcessor complaintsQueryProcessor)
         {
             _customersQueryProcessor = customerQueryProcessor;

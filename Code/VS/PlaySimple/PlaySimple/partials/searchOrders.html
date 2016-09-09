@@ -1,0 +1,70 @@
+﻿<h1 class="pageTitle">צפייה בהזמנות</h1>
+		<div class="page">
+			<div class="searchPanel clearfix">
+				<form>
+				<div class="fieldContainer threePerRow newLine">
+						<label>מספר הזמנה</label><input ng-model="model.orderId" type="number">
+					</div>
+					<div class="fieldContainer threePerRow">
+                        <label>סטטוס הזמנה</label><select ng-model="model.orderStatusId" ng-init="model.orderStatusId = 1"
+                                                          ng-options="orderStatus.id as orderStatus.name for orderStatus in orderStatuses"></select>
+					</div>
+					<div class="fieldContainer threePerRow newLine">
+						<label>מספר מגרש</label><input ng-model="model.fieldId" type="number">
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>שם מגרש</label><input ng-model="model.fieldName">
+					</div>					
+					<div class="fieldContainer threePerRow newLine">
+						<label>מתאריך</label><input ng-model="model.fromDate"  type="date">
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>עד תאריך</label><input ng-model="model.untilDate" type="date">
+					</div>
+					<div class="fieldContainer threePerRow newLine">
+						<label>מזהה לקוח</label><input ng-model="model.ownerId" type="number">
+					</div>
+                    <div class="fieldContainer threePerRow newLine">
+                        <label>שם לקוח</label><input ng-model="model.ownerName">
+                    </div>
+					<div class="fieldContainer threePerRow pullLeft newLine">
+						<input type="button" value="חפש" class="btn" ng-click="submitSearch()">
+					</div>					
+				</form>
+			</div>
+			<table class="searchTable">
+				<thead>
+					<th>הזמנה</th>
+					<th>מגרש</th>
+					<th>לקוח</th>
+					<th>תאריך</th>
+					<th>סטטוס</th>
+					<th>פעולות</th>
+				</thead>
+				<tbody>
+                    <tr ng-repeat="row in results">
+                        <td>{{row.Id}}</td>
+                        <td>{{row.Field.Id}} - {{row.Field.Name}}</td>
+                        <td>{{row.StartDate}}</td>
+                        <td>{{row.Owner.Id}} - {{row.Owner.FirstName}} {{row.Owner.LastName}}</td>
+                        <td>
+                            <div ng-repeat="orderStatus in orderStatuses">
+                                <div ng-if="orderStatus.id == row.Status">
+                                    {{orderStatus.name}}
+                                </div>
+                            </div>
+                        </td>
+                        <td ng-if="row.Status == 1">
+                            <a href="" ng-click="acceptRejectOrder(row, 2)">אשר</a> <a href="" ng-click="acceptRejectOrder(row, 3)">דחה</a>
+                        </td>
+                        <td ng-if="row.Status == 2">
+                            <a href="">צפה</a>
+                        </td>
+                    </tr>
+				</tbody>
+			</table>
+		</div>
+<pre style="float:left; direction:ltr">
+{{results | json}}
+  
+</pre>

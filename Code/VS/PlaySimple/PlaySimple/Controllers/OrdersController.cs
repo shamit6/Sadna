@@ -20,17 +20,35 @@ namespace PlaySimple.Controllers
             _participantsQueryProcessor = participantsQueryProcessor;
         }
 
-        [Route("api/orders/search")]
+        [Route("api/orders/searchownedorders")]
         [HttpGet]
-        public List<DTOs.Order> Search(int? orderId = null, int? orderStatusId = null, int? fieldId = null, string fieldName = null, DateTime? fromDate = null, DateTime? untilDate = null)
+        public List<DTOs.Order> SearchMyOrders(int? orderId = null, int? orderStatusId = null, int? fieldId = null, string fieldName = null, DateTime? fromDate = null, DateTime? untilDate = null)
         {
             var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
             var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
-            int usrId = currIdentity.UserId;
+            int userId = currIdentity.UserId;
             int?[] statuses = null;
             if (orderStatusId.HasValue)
                 statuses = new int?[] { orderStatusId };
-            return _ordersQueryProcessor.Search(orderId, usrId, statuses, fieldId, fieldName, fromDate, untilDate);
+            return _ordersQueryProcessor.Search(orderId, userId, null, statuses, fieldId, fieldName, fromDate, untilDate);
+        }
+
+        [Route("api/orders/search")]
+        [HttpGet]
+        public List<DTOs.Order> Search(int? orderId = null, int? ownerId = null, string ownerName = null, int? orderStatusId = null, int? fieldId = null, string fieldName = null, DateTime? fromDate = null, DateTime? untilDate = null)
+        {
+            int?[] statuses = null;
+            if (orderStatusId.HasValue)
+                statuses = new int?[] { orderStatusId };
+            return _ordersQueryProcessor.Search(orderId, ownerId, ownerName, statuses, fieldId, fieldName, fromDate, untilDate);
+        }
+
+
+        [Route("api/orders/availablestojoin")]
+        [HttpGet]
+        public List<DTOs.Order> SearchAvailableOrdersToJoin(int? ownerId = null, string ownerName = null, int? orderId = null, int? orderStatusId = null, int? fieldId = null, string fieldName = null, DateTime? fromDate = null, DateTime? untilDate = null)
+        {
+            return _ordersQueryProcessor.SearchAvailableOrdersToJoin(ownerId, ownerName, orderId, orderStatusId, fieldId, fieldName, fromDate, untilDate).ToList();
         }
 
         // GET: api/Orders/5
@@ -38,8 +56,8 @@ namespace PlaySimple.Controllers
         public DTOs.Order Get(int id)
         {
             DTOs.Order order = _ordersQueryProcessor.GetOrder(id);
-            order.Participants = _participantsQueryProcessor.Search(order.Id, null,
-                new int?[] { (int)Consts.Decodes.InvitationStatus.Sent, (int)Consts.Decodes.InvitationStatus.Accepted }).ToList();
+            order.Participants = _participantsQueryProcessor.Search(null, null, new int?[] { (int)Consts.Decodes.InvitationStatus.Sent, (int)Consts.Decodes.InvitationStatus.Accepted }, 
+                null, order.Id, null, null, null, null).ToList();
             return order;
         }
 
@@ -56,9 +74,17 @@ namespace PlaySimple.Controllers
         //[Authorize(Roles = Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         [HttpPut]
         [TransactionFilter]
-        public DTOs.Order Update([FromUri]int id, [FromBody]DTOs.Order statusId)
+        public DTOs.Order Update([FromUri]int id, [FromBody]DTOs.Order order)
         {
-            return _ordersQueryProcessor.Save(statusId);
+            if(order.Status == (int)Consts.Decodes.OrderStatus.Canceled)
+            {
+                foreach (var participant in order.Participants)
+                {
+                    participant.Status = (int)Consts.Decodes.InvitationStatus.Rejected;
+                    _participantsQueryProcessor.Update(participant.Id??0, participant);
+                }
+            }
+            return _ordersQueryProcessor.Update(id, order);
         }
 
         [HttpGet]
@@ -71,7 +97,7 @@ namespace PlaySimple.Controllers
         [Route("api/orders/availables")]
         public List<DTOs.Order> SearchAvailableOrders(int? fieldId = null, string fieldName = null, int? fieldType = null, DateTime? date = null)
         {
-            return _ordersQueryProcessor.GetAvailbleOrders(fieldId, fieldName, fieldType, date??DateTime.Today);
+            return _ordersQueryProcessor.SearchOptionalOrders(fieldId, fieldName, fieldType, date??DateTime.Today);
         }
 
         
@@ -79,7 +105,7 @@ namespace PlaySimple.Controllers
         [HttpGet]
         public List<DTOs.Order> SearchOptionalsOrders(int? orderId = null, int? fieldId = null, int? fieldType = null, DateTime? date = null)
         {
-            List<DTOs.Order> optionals = _ordersQueryProcessor.GetAvailbleOrders(fieldId, null, fieldType, date??DateTime.Today);
+            List<DTOs.Order> optionals = _ordersQueryProcessor.SearchOptionalOrders(fieldId, null, fieldType, date??DateTime.Today);
 
             if (orderId.HasValue)
             {
@@ -104,5 +130,29 @@ namespace PlaySimple.Controllers
             return Get(participant.Order.Id??0);
         }
 
+        [HttpGet]
+        [TransactionFilter]
+        [Route("api/orders/jointoorder")]
+        public DTOs.Participant JoinToOrder(int? orderId = null)
+        {
+            var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
+            int userId = currIdentity.UserId;
+
+            DTOs.Participant newParticipant = new DTOs.Participant()
+            {
+                Status = (int)Consts.Decodes.InvitationStatus.Sent,
+                Date = DateTime.Now,
+                Customer = new DTOs.Customer()
+                {
+                    Id = userId
+                },
+                Order = new DTOs.Order()
+                {
+                    Id = orderId
+                }
+            };
+            return _participantsQueryProcessor.Save(newParticipant);
+        }
     }
 }

@@ -41,14 +41,18 @@
         return {
             fields: urlBase + "fields",
             employees: urlBase + "employees",
-            costumers: urlBase + "costumers",
+            customers: urlBase + "customers",
+            participants: urlBase + "participants",
             login: urlBase + "login",
             orders: {
                 base: urlBase + "orders",
                 availables: urlBase + "orders/availables",
+                searchmyorders: urlBase + "orders/searchownedorders",
                 search: urlBase + "orders/search",
                 optionals: urlBase + "orders/optionals",
-                updatepraticipant: urlBase + "orders/updatepraticipant"
+                updatepraticipant: urlBase + "orders/updatepraticipant",
+                availablestojoin: urlBase + "orders/availablestojoin",
+                jointoorder: urlBase + "orders/jointoorder"
             },
             reports: {
                 fields: urlBase + "reports/fields",
@@ -63,7 +67,7 @@
             orderStatus: [
             {
                 id: 1,
-                name: 'נשלח'
+                name: 'ממתין לאישור'
             },
             {
                 id: 2,

@@ -1,0 +1,64 @@
+﻿		<h1 class="pageTitle">הזמנות פנויות להצטרפות</h1>
+		
+		<div class="page">
+			<div class="searchPanel clearfix">
+				<form>
+					<div class="fieldContainer threePerRow newLine">
+						<label>מספר מזמין</label><input ng-model="model.ownerId">
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>שם מזמין</label><input ng-model="model.ownerName">	
+					</div>
+				<div class="fieldContainer threePerRow newLine">
+						<label>מספר הזמנה</label><input ng-model="model.orderId">
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>סטטוס הזמנה</label><select ng-model="model.orderStatusId" 
+                                               ng-options="orderStatus.id as orderStatus.name for orderStatus in orderStatuses">
+						</select>
+					</div>
+					<div class="fieldContainer threePerRow newLine">
+						<label>מספר מגרש</label><input ng-model="model.fieldId">			
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>שם מגרש</label><input ng-model="model.fieldName">
+					</div>		
+					<div class="fieldContainer threePerRow newLine">
+						<label>מתאריך</label><input ng-model="model.fromDate" type="date">
+					</div>
+					<div class="fieldContainer threePerRow">
+						<label>עד תאריך</label><input ng-model="model.untilDate" type="date">
+					</div>
+					
+					<div class="fieldContainer threePerRow pullLeft newLine">
+						<input type="button" value="חפש" class="btn"   ng-click="submitSearch()">
+					</div>					
+				</form>
+			</div>
+			<table class="searchTable">
+				<thead>
+					<th>הזמנה</th>
+					<th>מגרש</th>
+					<th>תאריך</th>
+					<th>לקוח מזמין</th>
+					<th>סטטוס הזמנה</th>
+					<th>פעולות</th>
+				</thead>
+                <tbody>
+                    <tr ng-repeat="row in results">
+                        <td>{{row.Id}}</td>
+                        <td>{{row.Field.Id}} - {{row.Field.Name}}</td>
+                        <td>{{row.StartDate}}</td>
+                        <td>{{row.Owner.Id}} - {{row.Owner.FirstName}} {{row.Owner.LastName}}</td>
+                        <td>
+                            <div ng-repeat="orderStatus in orderStatuses">
+                                <div ng-if="orderStatus.id == row.Status">
+                                    {{orderStatus.name}}
+                                </div>
+                            </div>
+                        </td>
+                        <td><a href="" ng-click="joinToOrder(row, $index)">הזמן</a></td>
+                    </tr>
+                </tbody>
+			</table>
+		</div>

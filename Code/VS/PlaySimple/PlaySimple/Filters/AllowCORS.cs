@@ -8,7 +8,7 @@ namespace PlaySimple.Filters
     {
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type");
             //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
         }

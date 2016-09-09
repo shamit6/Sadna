@@ -2,15 +2,18 @@
 using LinqKit;
 using NHibernate;
 using PlaySimple.Common;
+using PlaySimple.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Web;
 
 namespace PlaySimple.QueryProcessors
 {
     public interface IOrdersQueryProcessor
     {
-        List<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
+        List<DTOs.Order> Search(int? orderId, int? ownerId, string ownerName, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
 
         DTOs.Order GetOrder(int id);
 
@@ -18,7 +21,9 @@ namespace PlaySimple.QueryProcessors
 
         DTOs.Order Update(int id, DTOs.Order order);
 
-        List<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date);
+        List<DTOs.Order> SearchOptionalOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date);
+
+        IEnumerable<DTOs.Order> SearchAvailableOrdersToJoin(int? ownerId, string ownerName, int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate);
     }
 
 
@@ -27,6 +32,7 @@ namespace PlaySimple.QueryProcessors
         private CustomersQueryProcessor _customersQueryProcessor;
         private FieldsQueryProcessor _fieldsQueryProcessor;
         private IDecodesQueryProcessor _decodesQueryProcessor;
+        private IParticipantsQueryProcessor _participantsQueryProcessor;
 
         public OrdersQueryProcessor(ISession session, CustomersQueryProcessor customersQueryProcessor, FieldsQueryProcessor fieldsQueryProcessor,
             IDecodesQueryProcessor decodesQueryProcessor) : base(session)
@@ -34,9 +40,10 @@ namespace PlaySimple.QueryProcessors
             _customersQueryProcessor = customersQueryProcessor;
             _fieldsQueryProcessor = fieldsQueryProcessor;
             _decodesQueryProcessor = decodesQueryProcessor;
+            _participantsQueryProcessor = new ParticipantsQueryProcessor(session, customersQueryProcessor, this, decodesQueryProcessor);
         }
 
-        public List<DTOs.Order> Search(int? orderId, int? ownerId, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        public List<DTOs.Order> Search(int? orderId, int? ownerId, string ownerName, int?[] orderStatusIds, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
         {
             var filter = PredicateBuilder.New<Order>(x => true);
 
@@ -128,7 +135,7 @@ namespace PlaySimple.QueryProcessors
         }
 
         // TODO add to doc date is mandator
-        public List<DTOs.Order> GetAvailbleOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date)
+        public List<DTOs.Order> SearchOptionalOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date)
         {
             IList<DTOs.Field> fields = _fieldsQueryProcessor.Search(null, fieldId, fieldName, fieldTypeId).ToList();
             IList<DateTime> possibleDate = DateUtils.PossibleDateOrders(date);
@@ -137,7 +144,7 @@ namespace PlaySimple.QueryProcessors
                                 from dateStart in DateUtils.PossibleDateOrders(date)
                                 select new { field, dateStart };
 
-            var order = Search(null, null, null, null, null, date, date);
+            var order = Search(null, null, null, null, null, null, date, date);
 
             var possibleOrders = possibleEvent.Where(a => !order.Any(r => r.StartDate == a.dateStart & r.Field.Id == a.field.Id)).
                 Select(possibleOrder => new DTOs.Order()
@@ -147,6 +154,77 @@ namespace PlaySimple.QueryProcessors
                 });
 
             return possibleOrders.ToList();
+        }
+
+        public IEnumerable<DTOs.Order> SearchAvailableOrdersToJoin(int? ownerId, string ownerName, int? orderId, int? orderStatusId, int? fieldId, string fieldName, DateTime? startDate, DateTime? endDate)
+        {
+            var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
+            int userId = currIdentity.UserId;
+
+            var filter = PredicateBuilder.New<Order>(x => x.Owner.Id != userId);
+
+            //PredicateBuilder.New<Order>(x => x.PlayersNumber > _participantsQueryProcessor.Search(x.Id, null, new int?[] { (int)Consts.Decodes.InvitationStatus.Accepted}).Count());
+
+            if (orderId.HasValue)
+            {
+                filter.And(x => x.Id == orderId);
+            }
+
+            // TODO not work
+            if (!string.IsNullOrEmpty(ownerName))
+            {
+                filter.And(x => string.Format("{0} {1}", x.Owner.FirstName + " " + x.Owner.LastName).Contains(ownerName));
+            }
+
+            if (ownerId.HasValue)
+            {
+                filter.And(x => x.Owner.Id == ownerId);
+            }
+
+            if (orderStatusId.HasValue)
+            {
+                filter.And(x => orderStatusId == x.Status.Id);
+            }
+
+            if (fieldId.HasValue)
+            {
+                filter.And(x => x.Field.Id == fieldId);
+            }
+
+            if (!string.IsNullOrEmpty(fieldName))
+            {
+                filter.And(x => x.Field.Name.Contains(fieldName));
+            }
+
+            if (startDate.HasValue)
+            {
+                filter.And(x => x.StartDate >= startDate);
+            }
+
+            if (endDate.HasValue)
+            {
+                DateTime? calcEndDate = endDate.Value.AddDays(1);
+                filter.And(x => x.StartDate <= calcEndDate);
+            }
+
+            var allResult = Query().Where(filter).Select(x => new DTOs.Order().Initialize(x));
+
+            List<DTOs.Order> finalResult = new List<DTOs.Order>();
+
+
+
+            foreach (var item in allResult)
+            {
+                var participants = _participantsQueryProcessor.Search(null, null, null, null, item.Id, null, null, null, null);
+                
+                if (!participants.Any(x => x.Customer.Id == userId) &&
+                    item.PlayersNumber > participants.Where(x => x.Status == (int)Consts.Decodes.InvitationStatus.Accepted).Count())
+                {
+                    finalResult.Add(item);
+                }
+            }
+            return finalResult;
         }
     }
 }

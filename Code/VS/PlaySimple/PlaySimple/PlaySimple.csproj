@@ -179,7 +179,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Compile Include="DTOs\Complaint.cs" />
-    <Compile Include="DTOs\Employee.cs" />
+    <Compile Include="Filters\Employee.cs" />
     <Compile Include="DTOs\Entity.cs" />
     <Compile Include="DTOs\Field.cs" />
     <Compile Include="DTOs\OffendingCustomersReport.cs" />
@@ -216,10 +216,9 @@
     <Content Include="partials\editEmployee.html" />
     <Content Include="partials\editField.html" />
     <Content Include="partials\editOrder.html" />
-    <Content Include="partials\guestPendingInvitations.html" />
+    <Content Include="partials\pendingOrdersToJoin.html" />
     <Content Include="partials\loginForm.html" />
     <Content Include="partials\ownedOrders.html" />
-    <Content Include="partials\ownedPendingInvitations.html" />
     <Content Include="partials\partial2.html" />
     <Content Include="partials\registrationForm.html" />
     <Content Include="partials\reportComplaint.html" />
@@ -228,8 +227,8 @@
     <Content Include="partials\searchAvailableOrders.html" />
     <Content Include="partials\searchCustomers.html" />
     <Content Include="partials\searchEmployee.html" />
-    <Content Include="partials\searchGuestInvitations.html" />
-    <Content Include="partials\searchInvitations.html" />
+    <Content Include="partials\searchAvailableOrdersToJoin.html" />
+    <Content Include="partials\searchOrders.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -243,7 +242,7 @@
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
-    <Compile Include="Controllers\CostumersController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Filters\BasicAuthenticationIdentity.cs" />
     <Compile Include="Filters\GlobalAuthorizationFilter.cs" />
     <Compile Include="Global.asax.cs">

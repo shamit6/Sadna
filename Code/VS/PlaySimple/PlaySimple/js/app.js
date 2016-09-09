@@ -37,7 +37,10 @@
             templateUrl: 'partials/editField.html',
             controller: 'FieldsCtrl'
         });
-
+        $routeProvider.when('/editCustomer/:Id?', {
+            templateUrl: 'partials/editCustomer.html',
+            controller: 'CustomersCtrl'
+        });
         $routeProvider.when('/searchFields', {
             templateUrl: 'partials/reportFields.html',
             controller: 'SearchFieldsCtrl'
@@ -74,6 +77,18 @@
         $routeProvider.when('/editOrder/:Id?', {
             templateUrl: 'partials/editOrder.html',
             controller: 'OrdersCtrl'
+        }); 
+        $routeProvider.when('/searchAvailableOrdersToJoin', {
+            templateUrl: 'partials/searchAvailableOrdersToJoin.html',
+            controller: 'SearchAvailableOrdersToJoinCrtl'
+        });
+        $routeProvider.when('/searchOrders', {
+            templateUrl: 'partials/searchOrders.html',
+            controller: 'SearchOrdersCrtl'
+        });
+        $routeProvider.when('/pendingOrdersToJoin', {
+            templateUrl: 'partials/pendingOrdersToJoin.html',
+            controller: 'PendingOrdersToJoinCrtl'
         });
         $routeProvider.otherwise({
             redirectTo: '/login'

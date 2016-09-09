@@ -54,16 +54,17 @@ namespace PlaySimple.QueryProcessors
                     LastName = x.LastName,
                     Age = DateUtils.GetAge(x.BirthDate),
                     //LastGameDate = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Max(t => t.StartDate),
-                    NumberOfOrders = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Count(),
-                    NumberOfCanceledOrders = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Canceled }, null, null, fromDate, untilDate).Count(),
-                    NumberOfJoiningAsGuest = _participantsQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.InvitationStatus.Accepted }).Count()
+                    NumberOfOrders = _ordersQueryProcessor.Search(null, x.Id, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Count(),
+                    NumberOfCanceledOrders = _ordersQueryProcessor.Search(null, x.Id, null, new int?[] { (int)Consts.Decodes.OrderStatus.Canceled }, null, null, fromDate, untilDate).Count(),
+                    NumberOfJoiningAsGuest = _participantsQueryProcessor.Search(x.Id, null, new int?[] { (int)Consts.Decodes.InvitationStatus.Accepted },
+                    null, null, null, null, null, null).Count()
                 });
 
             return report;
         }
         public IEnumerable<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
-            var orders = _ordersQueryProcessor.Search(null, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate);
+            var orders = _ordersQueryProcessor.Search(null, null, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate);
             var report = _fieldsQueryProcessor.Search(null, fieldId, fieldName, null).Select(x => 
              new UsingFieldsReport()
                {

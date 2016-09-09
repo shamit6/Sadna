@@ -12,8 +12,8 @@ namespace PlaySimple.DTOs
         [Key]
         public virtual string Username { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z0-9]+$")]
-        [MinLength(8)]
+        //[RegularExpression(@"^[a-zA-Z0-9]+$")]
+        //[MinLength(8)]
         public virtual string Password { get; set; }
 
         [MaxLength(20)]
@@ -22,10 +22,10 @@ namespace PlaySimple.DTOs
         [MaxLength(20)]
         public virtual string LastName { get; set; }
 
-        [NotInFuture]
+        //[NotInFuture]
         public virtual DateTime BirthDate { get; set; }
         
-        [EmailAddress]
+        //[EmailAddress]
         public virtual string Email { get; set; }
 
         //[IsEnumOfType(typeof(RegionDecode))]

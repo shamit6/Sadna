@@ -316,7 +316,7 @@
         $scope.results;
         $scope.submitSearch = function () {
             $http({
-                url: ServerRoutes.orders.search,
+                url: ServerRoutes.orders.searchownedorders,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
@@ -452,4 +452,155 @@
 
         init();
     }]);
+
+    myApp.controller('SearchAvailableOrdersToJoinCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
+        $scope.model = {};
+        $scope.orderStatuses = DomainDecodes.orderStatus;
+        $scope.results;
+        $scope.submitSearch = function () {
+            $http({
+                url: ServerRoutes.orders.availablestojoin,
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
+
+        $scope.joinToOrder = function (order, index) {
+            $http({
+                url: ServerRoutes.orders.jointoorder,
+                method: "GET",
+                params: { orderId: order.Id },
+            }).then(function searchCompleted(response) {
+                //$location.path('/searchAvailableOrdersToJoin');
+                // $route.reload();
+
+                $scope.results.splice(index, 1);
+            });
+        }
+    }]); 
+
+    myApp.controller('SearchOrdersCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
+        $scope.model = {};
+        $scope.orderStatuses = DomainDecodes.orderStatus;
+        $scope.results;
+        $scope.submitSearch = function () {
+            $http({
+                url: ServerRoutes.orders.search,
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
+
+        $scope.submitSearch();
+
+        $scope.acceptRejectOrder = function (order, newStatus) {
+            order.Status = newStatus;
+
+            $http({
+                url: ServerRoutes.orders.base,
+                method: "PUT",
+                params: { id: order.Id },
+                data: order,
+            }).then(function searchCompleted(response) {
+                order = response.data;
+            });
+        }
+    }]); 
+    myApp.controller('PendingOrdersToJoinCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
+        $scope.model = {};
+        $scope.orderStatuses = DomainDecodes.orderStatus;
+        $scope.invitationStatuses = DomainDecodes.invitationStatus;
+        $scope.results;
+        $scope.submitSearch = function () {
+            $http({
+                url: ServerRoutes.participants,
+                method: "GET",
+                params: $scope.model,
+            }).then(function searchCompleted(response) {
+                $scope.results = response.data;
+            });
+        }
+
+        $scope.submitSearch();
+
+        $scope.cancelJoining = function (participantId, index) {
+
+            $http({
+                url: ServerRoutes.participants,
+                method: "DELETE",
+                params: { id: participantId }
+            }).then(function searchCompleted(response) {
+                $scope.results.splice(index, 1);
+            });
+        }
+    }]);
+
+    myApp.controller('CustomersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
+        var init = function () {
+            $scope.regionTypes = DomainDecodes.regionDecode;
+
+            $scope.model = {};
+            $scope.originalModel = {};
+
+            if ($routeParams.Id) {
+                $scope.isNew = false;
+
+                $http({
+                    url: ServerRoutes.customers,
+                    method: "GET",
+                    params: { id: $routeParams.Id },
+                }).then(function searchCompleted(response) {
+                    $scope.model = angular.copy(response.data)
+                    $scope.originalModel = angular.copy($scope.model);
+                });
+            }
+            else {
+                $scope.isNew = true;
+            }
+        }
+
+        $scope.submitCustomer = function () {
+            if ($scope.isNew) {
+                $http({
+                    url: ServerRoutes.customers,
+                    method: "POST",
+                    data: $scope.model,
+                }).then(function searchCompleted(response) {
+                    $location.path('/editCustomer/' + response.data.Id);
+                });
+            }
+            else {
+                $http({
+                    url: ServerRoutes.customers,
+                    method: "PUT",
+                    params: { id: $scope.model.Id },
+                    data: $scope.model,
+                }).then(function searchCompleted(response) {
+                    $scope.originalModel = angular.copy($scope.model);
+                    alert("data saved successfully");
+                });
+            }
+        };
+
+        $scope.cancelChanges = function () {
+            $scope.model = angular.copy($scope.originalModel);
+        };
+
+        $scope.delete = function () {
+            $http({
+                url: ServerRoutes.customers,
+                method: "DELETE",
+                params: { id: $scope.model.Id }
+            }).then(function searchCompleted(response) {
+                $location.path('/editCustomer');
+            });
+        };
+
+        init();
+    }]);
+
 })();
