@@ -11,8 +11,11 @@
         $routeProvider.when('/login', {
             templateUrl: 'partials/loginForm.html',
             controller: 'LoginCtrl'
+        }); 
+        $routeProvider.when('/registrationForm', {
+            templateUrl: 'partials/registrationForm.html',
+            controller: 'RegistrationFormCtrl'
         });
-
         //$routeProvider.when('/searchCustomers', {
         //    templateUrl: 'partials/searchCustomers.html',
         //    controller: 'LoginCtrl'
@@ -27,12 +30,6 @@
         //    templateUrl: 'partials/ownedOrders.html',
         //    controller: 'LoginCtrl'
         //});
-
-        $routeProvider.when('/registration', {
-            templateUrl: 'partials/registrationForm.html',
-            controller: 'MyCtrl2'
-        });
-
         $routeProvider.when('/editField/:Id?', {
             templateUrl: 'partials/editField.html',
             controller: 'FieldsCtrl'
@@ -114,8 +111,6 @@
                 $rootScope.sharedVariables.isLogin = false;
             }
         });
-
-        //var currUrl = window.location.href.substring(window.location.href.indexOf("#") + 1);
 
         if (LoginService.hasPreviousLogin()) {
             LoginService.navigateToHomepage($location.path());
