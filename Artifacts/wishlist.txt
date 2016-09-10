@@ -1,9 +1,5 @@
 TODO:
 
-refresh redirect to same url
-
-bootstrap
-
 date picker
 
 modal windows
@@ -26,9 +22,11 @@ paging
 
 
 dont forget:
+make fields visible according to roles
 make sure authorize is set everywhere
 delete all todos if any 
 remove alerts
+remove <pre>
 make refresh redirect to same page
 
 
@@ -36,25 +34,5 @@ bugs:
 reportFields -> enter value, delete, send to server, bad request
 when already logged in and going to login page, redirect to homepage
 set fixed min width for the site so it won't break when minimized
-
-
-bootstrap:
-editCustomer
-editEmployee
-editField - V
-editInvitation
-guestPendingInvitations
-ownedOrders - V
-ownedPendingInvitations
-registrationForm
-reportComplaint - V
-reportFields - V
-reportCustomer - V
-searchAvailableOrders - V
-searchCustomer - V
-searchEmployee - V
-searchGuestInvitations
-searchInvitations
-
---------------
-editingInvitation
+add isNew to to editEmployee (so delete button will be hidden)
+format dates normally DD/MM/YYYY
