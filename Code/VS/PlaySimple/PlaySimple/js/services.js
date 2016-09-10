@@ -44,6 +44,14 @@
             customers: urlBase + "customers",
             participants: urlBase + "participants",
             login: urlBase + "login",
+            complaints: {
+                base: urlBase + "complaints",
+                search: urlBase + "complaints/search"
+            },
+            reviews:{
+                base: urlBase + "reviews",
+                search: urlBase + "complaints/search"
+            },
             orders: {
                 base: urlBase + "orders",
                 availables: urlBase + "orders/availables",

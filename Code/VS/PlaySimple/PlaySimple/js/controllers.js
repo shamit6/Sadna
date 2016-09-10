@@ -603,4 +603,35 @@
         init();
     }]);
 
+    myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
+        $scope.regionTypes = DomainDecodes.regionDecode;
+        $scope.verifiedPassword = {};
+        $scope.submitCustomer = function () {
+
+            if ($scope.verifiedPassword != $scope.model.Password) {
+                alert("סיסמא לא תואמת");
+            } else {
+                $http({
+                    url: ServerRoutes.customers,
+                    method: "POST",
+                    data: $scope.model,
+                }).success(function searchCompleted(response) {
+                    
+                    $http({
+                        method: 'POST',
+                        url: ServerRoutes.login,
+                        data: {Username:$scope.model.Username, Password:$scope.model.Password}
+                    }).then(function(response) {
+                        if (response.data.Role == "None") {
+                            window.alert("No permissions!");
+                        }
+                        else {
+                            LoginService.saveLogin(response.data);
+                            LoginService.navigateToHomepage();
+                        }
+                    });
+                });
+            }
+        };
+    }]);
 })();

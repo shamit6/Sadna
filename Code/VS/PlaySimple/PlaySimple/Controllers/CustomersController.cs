@@ -1,4 +1,5 @@
-﻿using PlaySimple.QueryProcessors;
+﻿using PlaySimple.Filters;
+using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,15 +38,22 @@ namespace PlaySimple.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Consts.Roles.Customer)]
-        public void Save(DTOs.Customer customer)
+        [TransactionFilter]
+        //[Authorize(Roles = Consts.Roles.Customer)]
+        public void Save([FromBody]DTOs.Customer customer)
         {
+            _customersQueryProcessor.Save(customer);
         }
 
         [HttpPut]
         [Authorize(Roles = Consts.Roles.Customer)]
         public void Update(int id, [FromBody]string value)
         {
+        }
+
+        public void Registration()
+        {
+            
         }
     }
 }
