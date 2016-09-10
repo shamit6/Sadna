@@ -542,65 +542,135 @@
     myApp.controller('CustomersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
         var init = function () {
             $scope.regionTypes = DomainDecodes.regionDecode;
+            $scope.complaintTypes = DomainDecodes.complaintType;
 
             $scope.model = {};
-            $scope.originalModel = {};
+            $scope.model.customer = {};
+            $scope.model.review = {};
+            $scope.model.complaint = {};
+            $scope.model.passwordChanging = {};
+            $scope.originalCustomer = {};
 
-            if ($routeParams.Id) {
-                $scope.isNew = false;
-
-                $http({
-                    url: ServerRoutes.customers,
-                    method: "GET",
-                    params: { id: $routeParams.Id },
-                }).then(function searchCompleted(response) {
-                    $scope.model = angular.copy(response.data)
-                    $scope.originalModel = angular.copy($scope.model);
-                });
-            }
-            else {
-                $scope.isNew = true;
-            }
+            $http({
+                url: ServerRoutes.customers,
+                method: "GET",
+                params: { id: $routeParams.Id },
+            }).then(function searchCompleted(response) {
+                $scope.model.customer = angular.copy(response.data)
+                $scope.originalCustomer = angular.copy($scope.model.customer);
+            });
         }
+        $scope.passwordVerify = function () {
+            if ($scope.model.passwordChanging.current != null || $scope.model.passwordChanging.new != null || $scope.model.passwordChanging.newVerify != null) {
+                if ($scope.model.passwordChanging.new == null) {
+                    alert("no new password");
+                    return false;
+                }
+
+                if ($scope.model.passwordChanging.new != $scope.model.passwordChanging.newVerify) {
+                    alert("new password is not the same");
+                    return false;
+                }
+
+                if ($scope.model.passwordChanging.current != $scope.model.customer.Password) {
+                    alert("current password is not matched");
+                    return false;
+                }
+            };
+
+            return true;
+        };
 
         $scope.submitCustomer = function () {
-            if ($scope.isNew) {
-                $http({
-                    url: ServerRoutes.customers,
-                    method: "POST",
-                    data: $scope.model,
-                }).then(function searchCompleted(response) {
-                    $location.path('/editCustomer/' + response.data.Id);
-                });
-            }
-            else {
+
+            if ($scope.passwordVerify()) {
+
+                $scope.model.customer.Password = $scope.model.passwordChanging.new;
                 $http({
                     url: ServerRoutes.customers,
                     method: "PUT",
-                    params: { id: $scope.model.Id },
-                    data: $scope.model,
+                    params: { id: $scope.model.customer.Id },
+                    data: $scope.model.customer,
                 }).then(function searchCompleted(response) {
-                    $scope.originalModel = angular.copy($scope.model);
+                    $scope.originalCustomer = angular.copy($scope.model.customer);
                     alert("data saved successfully");
                 });
             }
         };
 
-        $scope.cancelChanges = function () {
-            $scope.model = angular.copy($scope.originalModel);
+        $scope.saveReview = function () {
+
+            $scope.model.review.Date = new Date();
+            $scope.model.review.ReviewedCustomer = {};
+            $scope.model.review.ReviewedCustomer.Id = $scope.model.customer.Id;
+            $http({
+                url: ServerRoutes.reviews.base,
+                method: "POST",
+                data: $scope.model.review,
+            }).then(function searchCompleted(response) {
+                alert("data saved successfully");
+                $scope.model.review = {};
+            });
         };
 
-        $scope.delete = function () {
+        $scope.saveComplaint = function () {
+
+            $scope.model.complaint.Date = new Date();
+            $scope.model.complaint.OffendingCustomer = {};
+            $scope.model.complaint.OffendingCustomer.Id = $scope.model.customer.Id;
             $http({
-                url: ServerRoutes.customers,
-                method: "DELETE",
-                params: { id: $scope.model.Id }
+                url: ServerRoutes.reviews.base,
+                method: "POST",
+                data: $scope.model.review,
             }).then(function searchCompleted(response) {
-                $location.path('/editCustomer');
+                alert("data saved successfully");
+                $scope.model.complaint = {};
             });
+        };
+
+        $scope.freezeCustomer = function () {
+            var freezeDate = new Date();
+            freezeDate.setDate(freezeDate.getDate() + 30);
+            $scope.model.customer.FreezeDate = freezeDate;
+            $scope.submitCustomer();
+        }
+
+        $scope.cancelChanges = function () {
+            $scope.model.customer = angular.copy($scope.originalCustomer);
         };
 
         init();
     }]);
 
+    myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
+        $scope.regionTypes = DomainDecodes.regionDecode;
+        $scope.verifiedPassword = {};
+        $scope.submitCustomer = function () {
+
+            if ($scope.verifiedPassword != $scope.model.Password) {
+                alert("סיסמא לא תואמת");
+            } else {
+                $http({
+                    url: ServerRoutes.customers,
+                    method: "POST",
+                    data: $scope.model,
+                }).success(function searchCompleted(response) {
+                    
+                    $http({
+                        method: 'POST',
+                        url: ServerRoutes.login,
+                        data: {Username:$scope.model.Username, Password:$scope.model.Password}
+                    }).then(function(response) {
+                        if (response.data.Role == "None") {
+                            window.alert("No permissions!");
+                        }
+                        else {
+                            LoginService.saveLogin(response.data);
+                            LoginService.navigateToHomepage();
+                        }
+                    });
+                });
+            }
+        };
+    }]);
 })();

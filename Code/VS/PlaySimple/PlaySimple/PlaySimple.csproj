@@ -146,8 +146,10 @@
     <Compile Include="Common\DateUtils.cs" />
     <Compile Include="Common\NinjectConfigurator.cs" />
     <Compile Include="Common\NinjectDependencyResolver.cs" />
+    <Compile Include="Controllers\ComplaintsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ParticipantsController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="DTOs\LoginResponse.cs" />
     <Compile Include="DTOs\UserCredentials.cs" />
     <Compile Include="DTOs\UsingFieldsReport.cs" />
