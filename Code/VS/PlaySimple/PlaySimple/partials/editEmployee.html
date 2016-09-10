@@ -1,35 +1,75 @@
-﻿<h1 class="pageTitle">פרטי עובד</h1>
-		
-<form class="page clearfix">
-	<fieldset>
-		<div class="fieldContainer threePerRow">
-			<label>מזהה</label><input disabled ng-model="model.Id">
-		</div>			
-		<div class="fieldContainer threePerRow">
-			<label>שם פרטי</label><input ng-model="model.FirstName">
-		</div>			
-        <div class="fieldContainer threePerRow">
-            <label>שם משפחה</label><input ng-model="model.Username">
-        </div>	
-        <div class="fieldContainer threePerRow">
-            <label>שם משתמש</label><input ng-model="model.Password">
-        </div>	
-		<div class="fieldContainer threePerRow">
-			<label>סיסמא</label><input ng-model="model.LastName">
-		</div>				
-		<div class="fieldContainer threePerRow">
-			<label>משכורת</label><input ng-model="model.Salary">
-		</div>		
-		<div class="fieldContainer threePerRow">
-			<label>אימייל</label><input ng-model="model.Email">
-		</div>		
-	</fieldset>
-    <div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
-        <input type="button" value="שמור" class="btn pullLeft" ng-click="submitField()">
-        <input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft" ng-click="cancelChanges()">
-        <input type="button" value="מחק" class="btn btn-danger pullLeft" ng-click="delete()" ng-hide="isNew">
+﻿<div class="row">
+    <div class="col-sm-12">
+        <h1 class="pageTitle">פרטי עובד</h1>
     </div>
-</form>
-<pre style="float:left; direction:ltr">
-{{model | json}}
-</pre>
+</div>
+
+<div class="row page">
+    <div class="col-sm-12 editPanel">
+        <form class="form-horizontal">
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>מזהה</label>
+                        <input disabled class="form-control" type="number" ng-model="model.Id" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם פרטי</label>
+                        <input class="form-control" type="text" ng-model="model.FirstName" />
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם משפחה</label>
+                        <input class="form-control" type="text" ng-model="model.LastName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם משתמש</label>
+                        <input class="form-control" type="text" ng-model="model.Username" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>סיסמה</label>
+                        <input class="form-control" type="password" ng-model="model.Password" />
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>משכורת</label>
+                        <input class="form-control" type="number" ng-model="model.Salary" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>אימייל</label>
+                        <input class="form-control" type="email" ng-model="model.Email" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class="col-sm-1 col-sm-offset-9" ng-hide="isNew">
+                    <button type="submit" class="btn btn-danger btn-block" ng-click="delete()">מחק</button>
+                </div>
+                <div class="col-sm-1" ng-class="{'col-sm-offset-10': isNew}">
+                    <button type="submit" class="btn btn-default btn-block" ng-click="cancelChanges()">בטל</button>
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="submitField()">שמור</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

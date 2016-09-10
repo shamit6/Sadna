@@ -16,21 +16,26 @@
                 $location.path('/login');
             },
 
-            navigateToHomepage: function navigateToHomepage() {
+            navigateToHomepage: function navigateToHomepage(path) {
+
                 var loginData = JSON.parse(localStorage.getItem("currLogin"));
 
                 $http.defaults.headers.common['Authorization'] = loginData.AuthorizationKey;
                 $rootScope.sharedVariables.role = loginData.Role;
 
-                if (loginData.Role == "Admin") { // searchCustomers
-                    $location.path('/searchCustomers');
+                if (!path) {
+                    if (loginData.Role == "Admin") {
+                        path = '/searchCustomers';
+                    }
+                    else if (loginData.Role == "Employee") { // 
+                        path = '/ownedPendingInvitations';
+                    }
+                    else {
+                        path = '/ownedOrders';
+                    }
                 }
-                else if (loginData.Role == "Employee") { // 
-                    $location.path('/ownedPendingInvitations');
-                }
-                else {
-                    $location.path('/ownedOrders');
-                }
+
+                $location.path(path);
             }
         };
     }]);

@@ -257,7 +257,7 @@
         $scope.results;
         $scope.submitSearch = function () {
             $http({
-                url: ServerRoutes.costumers,
+                url: ServerRoutes.customers,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
@@ -316,7 +316,7 @@
         $scope.results;
         $scope.submitSearch = function () {
             $http({
-                url: ServerRoutes.orders.searchownedorders,
+                url: ServerRoutes.orders.searchmyorders,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {

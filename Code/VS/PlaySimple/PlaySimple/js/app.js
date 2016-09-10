@@ -107,7 +107,7 @@
         $rootScope.$on("$routeChangeSuccess", function (event, current, previous, rejection) {
             var currPath = $location.path();
 
-            if (currPath == "/" || currPath == "/login") {
+            if (currPath == "/" || currPath == "/login" || currPath == "/registration") {
                 $rootScope.sharedVariables.isLogin = true;
             }
             else {
@@ -115,8 +115,10 @@
             }
         });
 
+        //var currUrl = window.location.href.substring(window.location.href.indexOf("#") + 1);
+
         if (LoginService.hasPreviousLogin()) {
-            LoginService.navigateToHomepage();
+            LoginService.navigateToHomepage($location.path());
         }
     });
 })();

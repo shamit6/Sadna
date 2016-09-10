@@ -219,7 +219,6 @@
     <Content Include="partials\pendingOrdersToJoin.html" />
     <Content Include="partials\loginForm.html" />
     <Content Include="partials\ownedOrders.html" />
-    <Content Include="partials\partial2.html" />
     <Content Include="partials\registrationForm.html" />
     <Content Include="partials\reportComplaint.html" />
     <Content Include="partials\reportCustomer.html" />

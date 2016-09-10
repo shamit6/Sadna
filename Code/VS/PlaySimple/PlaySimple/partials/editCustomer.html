@@ -1,74 +1,156 @@
-﻿		<h1 class="pageTitle">פרטי לקוח</h1>
-				
-		<form class="page clearfix">
-			<fieldset>
-				<div class="fieldContainer threePerRow">
-					<label>שם משתמש</label><input  ng-model="model.Username"  disabled>
-				</div>			
-				<div class="fieldContainer threePerRow">
-					<label>שם פרטי</label><input ng-model="model.FirstName">
-				</div>		
-				<div class="fieldContainer threePerRow">
-					<label>שם משפחה</label><input ng-model="model.LastName">
-				</div>			
-				<div class="fieldContainer threePerRow">
-					<label>סיסמה נוכחית</label><input ng-model="model.LastName">
-				</div>			
-				<div class="fieldContainer threePerRow">
-					<label>סיסמה חדשה</label><input  ng-model="model.Password" type="password">
-				</div>				
-				<div class="fieldContainer threePerRow">
-					<label>אימות סיסמה</label><input ng-model="model.Username" type="password">
-				</div>
-				<div class="fieldContainer threePerRow">
-					<label>תאריך לידה</label><input ng-model="model.BirthDate">
-				</div>
-                <div class="fieldContainer threePerRow">
-                    <label>אימייל</label><input ng-model="model.Email">
-                </div>				
-				<div class="fieldContainer threePerRow">
-					<label>מגורים</label><select ng-model="model.Region"
-                            ng-options="type.id as type.name for type in regionTypes">
+﻿<div class="row">
+    <div class="col-sm-12">
+        <h1 class="pageTitle">פרטי לקוח</h1>
+    </div>
+</div>
+
+<div class="row page">
+    <div class="col-sm-12 editPanel">
+        <form class="form-horizontal">
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם משתמש</label>
+                        <input disabled class="form-control" type="text" ng-model="model.Username" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם פרטי</label>
+                        <input class="form-control" type="text" ng-model="model.FirstName" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם משפחה</label>
+                        <input class="form-control" type="text" ng-model="model.LastName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>סיסמה נוכחית</label>
+                        <input class="form-control" type="password" ng-model="model.LastName" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>סיסמה חדשה</label>
+                        <input class="form-control" type="password" ng-model="model.Password" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>אימות סיסמה</label>
+                        <input class="form-control" type="password" ng-model="model.Username" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>תאריך לידה</label>
+                        <input class="form-control" type="text" ng-model="model.BirthDate" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>אימייל</label>
+                        <input class="form-control" type="password" ng-model="model.Email" />
+                    </div>
+                </div>
+                <div class='col-sm-offset-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>מגורים</label>
+                        <select class="form-control" ng-model="model.Region"
+                                ng-options="type.id as type.name for type in regionTypes">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-8">
+                    <button type="submit" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary btn-block btn-search">שמור</button>
+                </div>
+                <div class="col-sm-offset-6 col-sm-2">
+                    <button type="submit" class="btn btn-danger btn-block btn-search">הקפא חשבון</button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-default btn-block btn-search">צפה בתלונות</button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-default btn-block btn-search">צפה בחוות דעות</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row page">
+    <div class="col-sm-12 editPanel">
+        <form class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-12" style="padding-right: 0; font-weight: bold" >
+                    על משתמש זה נכתבו <a href="">4 חוות דעת</a>. <span>השאר חוות דעת (0/1000)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"  style="margin: 10px 0;   padding-right: 0">
+                    <label style="margin-left: 5px;">כותרת</label>
+                    <input class="form-control" type="text" style="width: auto; display: inline-block" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-11">
+                    <div class='form-group'>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-10 col-sm-2">
+                    <button type="submit" class="btn btn-default btn-block btn-search">שלח</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row page">
+    <div class="col-sm-12 editPanel">
+        <form class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-12" style="padding-right: 0; font-weight: bold">
+                    המשתמש פגע בך? ספר לנו! <span>(0/1000)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="margin: 10px 0;   padding-right: 0">
+                    <label style="margin-left: 5px;">סוג</label>
+                    <select class="form-control" style="width: auto; display: inline-block; min-width: 200px">
+                        <option value=""></option>
                     </select>
-				</div>	
-			</fieldset>
-			<fieldset>
-				<div class="fieldContainer fullLine newLine">
-					על משתמש זה נכתבו <a href="">4 חוות דעת</a>. <span>השאר חוות דעת (0/1000)</span>
-				</div>				
-				<div class="fieldContainer newLine">
-					<label class="padLeft">כותרת</label><input>
-				</div>
-				<div class="fieldContainer fullLine newLine">
-					<textarea class="fullLine"></textarea>
-				</div>				
-				<div class="fieldContainer fullLine newLine">
-					<input type="button" value="שלח" class="btn pullLeft">			
-				</div>
-			</fieldset>	
-			<fieldset>
-				<div class="fieldContainer fullLine newLine">
-					המשתמש פגע בך? ספר לנו! <span>(0/1000)</span>
-				</div>				
-				<div class="fieldContainer newLine">
-					<label class="padLeft">סוג</label><select>
-						<option></option>
-						<option>אי תשלום</option>							
-						<option>אי הגעה למשחק</option>
-						<option>חוסר ספורטיביות</option>				
-					</select>
-				</div>
-				<div class="fieldContainer fullLine newLine">
-					<textarea class="fullLine"></textarea>
-				</div>				
-				<div class="fieldContainer fullLine newLine">
-					<input type="button" value="שלח" class="btn pullLeft">			
-				</div>
-			</fieldset>				
-			<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
-				<input type="button" value="שמור" class="btn pullLeft">
-				<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft">
-				<input type="button" value="צפה בחוות דעת" class="btn btn-secondary pullLeft">
-				<input type="button" value="הקפא חשבון" class="btn btn-danger pullLeft">				
-			</div>
-		</form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-11">
+                    <div class='form-group'>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-10 col-sm-2">
+                    <button type="submit" class="btn btn-default btn-block btn-search">שלח</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
