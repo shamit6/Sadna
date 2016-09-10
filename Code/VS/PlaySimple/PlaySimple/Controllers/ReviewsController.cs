@@ -3,6 +3,7 @@ using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
@@ -34,6 +35,15 @@ namespace PlaySimple.Controllers
         [TransactionFilter]
         public DTOs.Review Save([FromBody]DTOs.Review Review)
         {
+            var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
+            int userId = currIdentity.UserId;
+
+            Review.Reviewer = new DTOs.Customer()
+            {
+                Id = userId
+            };
+
             return _reviewsQueryProcessor.Save(Review);
         }
 

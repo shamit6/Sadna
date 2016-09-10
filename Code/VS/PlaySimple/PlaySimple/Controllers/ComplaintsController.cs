@@ -3,6 +3,7 @@ using PlaySimple.QueryProcessors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
@@ -32,9 +33,18 @@ namespace PlaySimple.Controllers
 
         [HttpPost]
         [TransactionFilter]
-        public DTOs.Complaint Save([FromBody]DTOs.Complaint Complaint)
+        public DTOs.Complaint Save([FromBody]DTOs.Complaint complaint)
         {
-            return _complaintsQueryProcessor.Save(Complaint);
+            var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
+            int userId = currIdentity.UserId;
+
+            complaint.OffendedCustomer = new DTOs.Customer()
+            {
+                Id = userId
+            };
+
+            return _complaintsQueryProcessor.Save(complaint);
         }
 
         //[HttpPut]

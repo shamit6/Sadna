@@ -3,31 +3,31 @@
 		<form class="page clearfix">
 			<fieldset>
 				<div class="fieldContainer threePerRow">
-					<label>שם משתמש</label><input  ng-model="model.Username"  disabled>
+					<label>שם משתמש</label><input  ng-model="model.customer.Username"  disabled>
 				</div>			
 				<div class="fieldContainer threePerRow">
-					<label>שם פרטי</label><input ng-model="model.FirstName">
+					<label>שם פרטי</label><input ng-model="model.customer.FirstName">
 				</div>		
 				<div class="fieldContainer threePerRow">
-					<label>שם משפחה</label><input ng-model="model.LastName">
+					<label>שם משפחה</label><input ng-model="model.customer.LastName">
 				</div>			
 				<div class="fieldContainer threePerRow">
-					<label>סיסמה נוכחית</label><input ng-model="model.LastName">
+					<label>סיסמה נוכחית</label><input ng-model="model.passwordChanging.current">
 				</div>			
 				<div class="fieldContainer threePerRow">
-					<label>סיסמה חדשה</label><input  ng-model="model.Password" type="password">
+					<label>סיסמה חדשה</label><input  ng-model="model.passwordChanging.new" type="password">
 				</div>				
 				<div class="fieldContainer threePerRow">
-					<label>אימות סיסמה</label><input ng-model="model.Username" type="password">
+					<label>אימות סיסמה</label><input ng-model="model.passwordChanging.newVerify" type="password">
 				</div>
 				<div class="fieldContainer threePerRow">
-					<label>תאריך לידה</label><input ng-model="model.BirthDate">
+					<label>תאריך לידה</label><input ng-model="model.customer.BirthDate">
 				</div>
                 <div class="fieldContainer threePerRow">
-                    <label>אימייל</label><input ng-model="model.Email">
+                    <label>אימייל</label><input ng-model="model.customer.Email">
                 </div>				
 				<div class="fieldContainer threePerRow">
-					<label>מגורים</label><select ng-model="model.Region"
+					<label>מגורים</label><select ng-model="model.customer.Region"
                             ng-options="type.id as type.name for type in regionTypes">
                     </select>
 				</div>	
@@ -37,13 +37,13 @@
 					על משתמש זה נכתבו <a href="">4 חוות דעת</a>. <span>השאר חוות דעת (0/1000)</span>
 				</div>				
 				<div class="fieldContainer newLine">
-					<label class="padLeft">כותרת</label><input>
+					<label class="padLeft">כותרת</label><input ng-model="model.review.Title">
 				</div>
 				<div class="fieldContainer fullLine newLine">
-					<textarea class="fullLine"></textarea>
+					<textarea class="fullLine" ng-model="model.review.Description"></textarea>
 				</div>				
 				<div class="fieldContainer fullLine newLine">
-					<input type="button" value="שלח" class="btn pullLeft">			
+					<input type="button" value="שלח" class="btn pullLeft" ng-click="saveReview()">			
 				</div>
 			</fieldset>	
 			<fieldset>
@@ -51,24 +51,21 @@
 					המשתמש פגע בך? ספר לנו! <span>(0/1000)</span>
 				</div>				
 				<div class="fieldContainer newLine">
-					<label class="padLeft">סוג</label><select>
-						<option></option>
-						<option>אי תשלום</option>							
-						<option>אי הגעה למשחק</option>
-						<option>חוסר ספורטיביות</option>				
-					</select>
+					<label class="padLeft">סוג</label><select ng-model="model.complaint.Type"
+                            ng-options="type.id as type.name for type in complaintTypes"></select>
 				</div>
 				<div class="fieldContainer fullLine newLine">
-					<textarea class="fullLine"></textarea>
+					<textarea class="fullLine" ng-model="model.complaint.Description"></textarea>
 				</div>				
 				<div class="fieldContainer fullLine newLine">
-					<input type="button" value="שלח" class="btn pullLeft">			
+					<input type="button" value="שלח" class="btn pullLeft" ng-click="saveComplaint()">			
 				</div>
 			</fieldset>				
 			<div class="fieldContainer fullLine newLine horizontalFieldsetPadding">
-				<input type="button" value="שמור" class="btn pullLeft">
+				<input type="button" value="שמור" class="btn pullLeft" ng-click="submitCustomer()">
 				<input type="button" value="בטל שינויים" class="btn btn-secondary pullLeft">
 				<input type="button" value="צפה בחוות דעת" class="btn btn-secondary pullLeft">
-				<input type="button" value="הקפא חשבון" class="btn btn-danger pullLeft">				
+                <input type="button" value="צפה בתלונות" class="btn btn-secondary pullLeft">
+				<input type="button" value="הקפא חשבון" class="btn btn-danger pullLeft" ng-click="freezeCustomer()">				
 			</div>
 		</form>

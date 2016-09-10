@@ -40,20 +40,16 @@ namespace PlaySimple.Controllers
         [HttpPost]
         [TransactionFilter]
         //[Authorize(Roles = Consts.Roles.Customer)]
-        public void Save([FromBody]DTOs.Customer customer)
+        public DTOs.Customer Save([FromBody]DTOs.Customer customer)
         {
-            _customersQueryProcessor.Save(customer);
+            return _customersQueryProcessor.Save(customer);
         }
 
         [HttpPut]
-        [Authorize(Roles = Consts.Roles.Customer)]
-        public void Update(int id, [FromBody]string value)
+        //[Authorize(Roles = Consts.Roles.Customer)]
+        public DTOs.Customer Update(int id, [FromBody]DTOs.Customer customer)
         {
-        }
-
-        public void Registration()
-        {
-            
+            return _customersQueryProcessor.Update(id, customer);
         }
     }
 }
