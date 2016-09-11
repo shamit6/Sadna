@@ -177,8 +177,8 @@
     <Content Include="css\app - old.css" />
     <Content Include="css\bootstrap-rtl.css" />
     <Content Include="css\bootstrap-theme.min.css" />
+    <Content Include="css\toaster.css" />
     <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\normalize.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Compile Include="DTOs\Complaint.cs" />
@@ -193,9 +193,10 @@
     <Compile Include="DTOs\CustomersActivityReport.cs" />
     <Compile Include="Validators\ExistsInDBAttribute.cs" />
     <Content Include="index.html" />
+    <Content Include="js\angular-moment-picker.min.js" />
     <Content Include="js\moment-with-locales.js" />
     <Content Include="js\app.js" />
-    <Content Include="js\angular-moment-picker.min.js" />
+    <Content Include="js\toaster.js" />
     <Content Include="js\controllers.js" />
     <Content Include="js\directives.js" />
     <Content Include="js\filters.js" />

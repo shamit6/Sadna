@@ -34,7 +34,7 @@ set fixed min width for the site so it won't break when minimized
 
 add isNew to to editEmployee (so delete button will be hidden)
 format dates normally DD/MM/YYYY
-
+move external scripts to lib folder
 
 
 עמית:

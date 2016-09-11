@@ -1,28 +1,32 @@
 ﻿!(function () {
     myApp = angular.module('myApp');
 
-    myApp.factory('httpErrorHandler', ['usSpinnerService', function (usSpinnerService) {
+    myApp.factory('httpErrorHandler', ['usSpinnerService', 'toaster', '$location', function (usSpinnerService, toaster, $location) {
         var errorHandler = {
             request: function (config) {
-                usSpinnerService.spin('spinner');
+                if (!config.url.endsWith(".html"))
+                    usSpinnerService.spin('spinner');
 
                 return config;
             },
             response: function (response) {
-                usSpinnerService.stop('spinner');
+                if (!response.config.url.endsWith(".html"))
+                    usSpinnerService.stop('spinner');
 
                 return response;
             },
             responseError: function (response) {
-                usSpinnerService.stop('spinner');
+                if (!response.config.url.endsWith(".html"))
+                    usSpinnerService.stop('spinner');
 
                 // unauthorized
                 if (response.status == 401) {
+                    $location.path("/login");
                 }
 
                 // unexpected error
-                else if (response.status == 500) {
-
+                else if (response.status == 500 || response.status == 400) {
+                    toaster.error("אופס!", "אירעה שגיאה בשרת...", 5000);
                 }
 
                 return response;

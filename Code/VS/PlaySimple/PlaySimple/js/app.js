@@ -1,6 +1,6 @@
 ﻿!(function () {
     // Declare app level module which depends on filters, and services
-    var playSimpleApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'moment-picker', 'angularSpinner']);
+    var playSimpleApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'moment-picker', 'angularSpinner', 'ngAnimate', 'toaster']);
 
     playSimpleApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $httpProvider.interceptors.push('httpErrorHandler');
