@@ -17,55 +17,55 @@
     <div class="container">
         <nav class="appLinks" ng-class="{'show': !sharedVariables.isLogin}">
             <ul class="nav nav-pills">
-                <li role="presentation" class="active">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'searchAvailableOrders'}">
                     <a href="#/searchAvailableOrders">הזמן</a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'ownedOrders'}">
                     <a href="#/ownedOrders">צפה בהזמנות</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'pendingOrdersToJoin'}">
                     <a href="#/pendingOrdersToJoin">בקשות ההצטרפות שלי</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'searchAvailableOrdersToJoin'}">
                     <a href="#/searchAvailableOrdersToJoin">הצטרף למגרש</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'searchOrders'}">
                     <a href="#/searchOrders">צפייה בהזמנות - עובד</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'searchCustomers'}">
                     <a href="#/searchCustomers">חפש לקוחות</a>
                 </li>
 
-                <li role="presentation" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> הפקת דוחות <span class="caret"></span> </a>
-                    <ul class="dropdown-menu">
+                <li uib-dropdown role="presentation" ng-class="{active: $route.current.activetab == 'reports'}" class="dropdown">
+                    <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> הפקת דוחות <span class="caret"></span> </a>
+                    <ul uib-dropdown-menu class="dropdown-menu">
                         <li><a href="#/reportCustomer">פעילות לקוח</a></li>
                         <li><a href="#/reportComplaint">תלונות</a></li>
                         <li><a href="#/reportFields">שימוש במגרשים</a></li>
                     </ul>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'searchFields'}">
                     <a href="#/searchFields">חיפוש מגרשים</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'editField'}">
                     <a href="#/editField">עריכת מגרשים</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'searchEmployees'}">
                     <a href="#/searchEmployees">חיפוש עובדים</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'editEmployee'}">
                     <a href="#/editEmployee" ng-show="sharedVariables.role == 'Admin'">צור עובד</a>
                 </li>
 
-                <li role="presentation">
+                <li role="presentation" ng-class="{active: $route.current.activetab == ''}">
                     <a href="" ng-click="logout()">התנתק</a>
                 </li>
             </ul>

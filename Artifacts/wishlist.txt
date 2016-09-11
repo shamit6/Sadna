@@ -2,11 +2,9 @@
 
 modal windows
 
-sub menus
-
 validation
 
-loader + interceptor
+interceptor
 
 client side error handling!
 
@@ -27,6 +25,7 @@ remove alerts
 remove <pre>
 make refresh redirect to same page
 remove unused css
+rearrange the code in app.run block
 
 bugs:
 reportFields -> enter value, delete, send to server, bad request
