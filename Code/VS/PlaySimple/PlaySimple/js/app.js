@@ -1,6 +1,6 @@
 ﻿!(function () {
     // Declare app level module which depends on filters, and services
-    var playSimpleApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'moment-picker']);
+    var playSimpleApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'moment-picker', 'angularSpinner']);
 
     playSimpleApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/', {
@@ -92,7 +92,7 @@
         });
     }]);
 
-    playSimpleApp.run(function ($rootScope, $route, $location, LoginService) {
+    playSimpleApp.run(function ($rootScope, $location, LoginService) {
         $rootScope.sharedVariables = {
             isLogin: true
         };
@@ -115,6 +115,16 @@
         if (LoginService.hasPreviousLogin()) {
             LoginService.navigateToHomepage($location.path());
         }
+
+        $rootScope.spinnerActive = false;
+
+        $rootScope.$on('us-spinner:spin', function (event, key) {
+            $rootScope.spinnerActive = true;
+        });
+
+        $rootScope.$on('us-spinner:stop', function (event, key) {
+            $rootScope.spinnerActive = false;
+        });
     });
 })();
 

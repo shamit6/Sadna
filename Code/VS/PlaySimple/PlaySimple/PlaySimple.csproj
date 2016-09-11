@@ -199,6 +199,8 @@
     <Content Include="js\controllers.js" />
     <Content Include="js\directives.js" />
     <Content Include="js\filters.js" />
+    <Content Include="js\angular-spinner.js" />
+    <Content Include="js\spin.min.js" />
     <Content Include="js\services.js" />
     <Content Include="js\ui-bootstrap-2.1.3.js" />
     <Content Include="js\ui-bootstrap-tpls-2.1.3.js" />

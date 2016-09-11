@@ -1,7 +1,5 @@
 ﻿TODO:
 
-date picker
-
 modal windows
 
 sub menus
@@ -28,7 +26,7 @@ delete all todos if any
 remove alerts
 remove <pre>
 make refresh redirect to same page
-
+remove unused css
 
 bugs:
 reportFields -> enter value, delete, send to server, bad request
