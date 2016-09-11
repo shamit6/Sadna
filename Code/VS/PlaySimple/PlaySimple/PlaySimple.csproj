@@ -172,6 +172,7 @@
     <Compile Include="Validators\ListExistsInDbAttribute.cs" />
     <Compile Include="Validators\NotInFutureAttribute.cs" />
     <Compile Include="Validators\NotInPastAttribute.cs" />
+    <Content Include="css\angular-moment-picker.min.css" />
     <Content Include="css\app.css" />
     <Content Include="css\app - old.css" />
     <Content Include="css\bootstrap-rtl.css" />
@@ -192,7 +193,9 @@
     <Compile Include="DTOs\CustomersActivityReport.cs" />
     <Compile Include="Validators\ExistsInDBAttribute.cs" />
     <Content Include="index.html" />
+    <Content Include="js\moment-with-locales.js" />
     <Content Include="js\app.js" />
+    <Content Include="js\angular-moment-picker.min.js" />
     <Content Include="js\controllers.js" />
     <Content Include="js\directives.js" />
     <Content Include="js\filters.js" />

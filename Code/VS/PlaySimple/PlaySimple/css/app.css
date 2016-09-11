@@ -146,3 +146,6 @@ h1.pageTitle {
     margin-bottom: 0;
 }
 
+.moment-picker .header-view th:first-child, .moment-picker .header-view th:last-child {
+    transform:rotate(180deg);
+}

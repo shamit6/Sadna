@@ -45,13 +45,17 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>מתאריך</label>
-                        <input class="form-control" type="date" ng-model="model.fromDate" />
+                        <input class="form-control" ng-model="model.fromDate" moment-picker="model.fromDate"
+                               locale="he" format="DD/MM/YYYY" min-view="month" max-view="month" autoclose="true"
+                               today="true">
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>עד תאריך</label>
-                        <input class="form-control" type="date" ng-model="model.untilDate" />
+                        <input class="form-control" ng-model="model.untilDate" moment-picker="model.untilDate"
+                               locale="he" format="DD/MM/YYYY" min-view="month" max-view="month" autoclose="true"
+                               today="true">
                     </div>
                 </div>
             </div>
