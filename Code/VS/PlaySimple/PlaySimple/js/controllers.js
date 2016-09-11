@@ -12,7 +12,7 @@
         $scope.submitUser = function () {
             $http({
                 method: 'POST',
-                url: ServerRoutes.login,
+                url: ServerRoutes.login.login,
                 data: $scope.model
             }).then(function(response) {
                 if (response.data.Role == "None") {
@@ -644,31 +644,31 @@
 
     myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
         $scope.regionTypes = DomainDecodes.regionDecode;
-        $scope.verifiedPassword = {};
+        $scope.verifiedPassword = null;
         $scope.submitCustomer = function () {
 
             if ($scope.verifiedPassword != $scope.model.Password) {
                 alert("סיסמא לא תואמת");
             } else {
                 $http({
-                    url: ServerRoutes.customers,
+                    url: ServerRoutes.login.registration,
                     method: "POST",
                     data: $scope.model,
                 }).success(function searchCompleted(response) {
                     
-                    $http({
-                        method: 'POST',
-                        url: ServerRoutes.login,
-                        data: {Username:$scope.model.Username, Password:$scope.model.Password}
-                    }).then(function(response) {
-                        if (response.data.Role == "None") {
-                            window.alert("No permissions!");
-                        }
-                        else {
+                    //$http({
+                    //    method: 'POST',
+                    //    url: ServerRoutes.login,
+                    //    data: {Username:$scope.model.Username, Password:$scope.model.Password}
+                    //}).then(function(response) {
+                    //    if (response.data.Role == "None") {
+                    //        window.alert("No permissions!");
+                    //    }
+                    //    else {
                             LoginService.saveLogin(response.data);
                             LoginService.navigateToHomepage();
-                        }
-                    });
+                    //    }
+                    //});
                 });
             }
         };

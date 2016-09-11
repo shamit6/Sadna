@@ -6,6 +6,7 @@ using PlaySimple.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Web;
 
@@ -75,6 +76,19 @@ namespace PlaySimple.QueryProcessors
             if (startDate.HasValue)
             {
                 filter.And(x => x.StartDate >= startDate);
+            }
+
+            if (!string.IsNullOrEmpty(ownerName))
+            {
+                string[] names = ownerName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+
+                if (names.Length == 1)
+                {
+                    filter.And(x => x.Owner.FirstName.Contains(ownerName) || x.Owner.LastName.Contains(ownerName));
+                }else if (names.Length == 2)
+                {
+                    filter.And(x => x.Owner.FirstName.Contains(names[0]) || x.Owner.LastName.Contains(names[1]));
+                }
             }
 
             if (endDate.HasValue)
@@ -171,12 +185,19 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => x.Id == orderId);
             }
 
-            // TODO not work
             if (!string.IsNullOrEmpty(ownerName))
             {
-                filter.And(x => string.Format("{0} {1}", x.Owner.FirstName + " " + x.Owner.LastName).Contains(ownerName));
-            }
+                string[] names = ownerName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
 
+                if (names.Length == 1)
+                {
+                    filter.And(x => x.Owner.FirstName.Contains(ownerName) || x.Owner.LastName.Contains(ownerName));
+                }
+                else if (names.Length == 2)
+                {
+                    filter.And(x => x.Owner.FirstName.Contains(names[0]) || x.Owner.LastName.Contains(names[1]));
+                }
+            }
             if (ownerId.HasValue)
             {
                 filter.And(x => x.Owner.Id == ownerId);
@@ -211,8 +232,6 @@ namespace PlaySimple.QueryProcessors
             var allResult = Query().Where(filter).Select(x => new DTOs.Order().Initialize(x));
 
             List<DTOs.Order> finalResult = new List<DTOs.Order>();
-
-
 
             foreach (var item in allResult)
             {

@@ -3,10 +3,6 @@ using NHibernate;
 using PlaySimple.DTOs;
 using PlaySimple.QueryProcessors;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 
@@ -14,14 +10,17 @@ namespace PlaySimple.Controllers
 {
     public class LoginController : ApiController
     {
+        private ICustomersQueryProcessor _customersQueryProcessor;
         ISession _session;
 
-        public LoginController(ISession session)
+        public LoginController(ISession session, ICustomersQueryProcessor customersQueryProcessor)
         {
             _session = session;
+            _customersQueryProcessor = customersQueryProcessor;
         }
 
         [HttpPost]
+        [Route("api/login/login")]
         public LoginResponse Login(UserCredentials credentials)
         {
             byte[] toEncodeAsBytes = ASCIIEncoding.ASCII.GetBytes(credentials.Username + ":" + credentials.Password);
@@ -56,6 +55,21 @@ namespace PlaySimple.Controllers
                 AuthorizationKey = authenticationKey,
                 Role = role
             };
+        }
+
+        [HttpPost]
+        [Route("api/login/registration")]
+        public LoginResponse Registration(DTOs.Customer customer)
+        {
+            _customersQueryProcessor.Save(customer);
+
+            UserCredentials credential = new UserCredentials()
+            {
+                Username = customer.Username,
+                Password = customer.Password
+            };
+
+            return Login(credential);
         }
     }
 }

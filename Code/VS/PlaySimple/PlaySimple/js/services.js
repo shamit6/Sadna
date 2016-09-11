@@ -48,7 +48,11 @@
             employees: urlBase + "employees",
             customers: urlBase + "customers",
             participants: urlBase + "participants",
-            login: urlBase + "login",
+            login: {
+                registration: urlBase + "login/registration",
+                login: urlBase + "login/login"
+            },
+
             complaints: {
                 base: urlBase + "complaints",
                 search: urlBase + "complaints/search"

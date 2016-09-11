@@ -1,4 +1,4 @@
-TODO:
+﻿TODO:
 
 date picker
 
@@ -34,5 +34,23 @@ bugs:
 reportFields -> enter value, delete, send to server, bad request
 when already logged in and going to login page, redirect to homepage
 set fixed min width for the site so it won't break when minimized
+
 add isNew to to editEmployee (so delete button will be hidden)
 format dates normally DD/MM/YYYY
+
+
+
+עמית:
+לטפל בעניין שאם שבשדות החיפוש רושמים ומוחקים אז נזרקת שגיאה.
+להפוך שדות במסכי ה- edit למנדטורים.
+אם אני מנותק מהמערכת ידנית לurl למשל: http://localhost:59233/#/editCustomer/2
+	אז יש שגיאה אבל בכל זאת הולך למסך. צריך ללכת למסך התחברות ועם הודעה מתאימה.
+מסך editCustomer :להעלים חלקים במסך בהתאם ליוזר לראות במדריך למשתמש.
+		מסכים מודלים עבור צפיה בתלונות ותגובות.
+סקרול בר ומיון טבלאות במסכים אוטמטית.
+תאריך בטבלאות: אם התאריך הוא 01.01.2016 18:00:00 צריך לראות:
+		 18:00-20:00  01.01.2016  כאילו לראות שזה שעתיים.
+
+
+
+

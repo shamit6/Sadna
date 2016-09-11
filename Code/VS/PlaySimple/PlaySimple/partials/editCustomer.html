@@ -1,4 +1,4 @@
-﻿<div class="row">
+﻿﻿<div class="row">
     <div class="col-sm-12">
         <h1 class="pageTitle">פרטי לקוח</h1>
     </div>
@@ -11,19 +11,19 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>שם משתמש</label>
-                        <input disabled class="form-control" type="text" ng-model="model.Username" />
+                        <input disabled class="form-control" type="text" ng-model="model.customer.Username" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם פרטי</label>
-                        <input class="form-control" type="text" ng-model="model.FirstName" />
+                        <input class="form-control" type="text" ng-model="model.customer.FirstName" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם משפחה</label>
-                        <input class="form-control" type="text" ng-model="model.LastName" />
+                        <input class="form-control" type="text" ng-model="model.customer.LastName" />
                     </div>
                 </div>
             </div>
@@ -32,19 +32,19 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>סיסמה נוכחית</label>
-                        <input class="form-control" type="password" ng-model="model.LastName" />
+                        <input class="form-control" type="password" ng-model="model.passwordChanging.current" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>סיסמה חדשה</label>
-                        <input class="form-control" type="password" ng-model="model.Password" />
+                        <input class="form-control" type="password" ng-model="model.passwordChanging.new" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>אימות סיסמה</label>
-                        <input class="form-control" type="password" ng-model="model.Username" />
+                        <input class="form-control" type="password" ng-model="model.passwordChanging.newVerify" />
                     </div>
                 </div>
             </div>
@@ -53,19 +53,19 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>תאריך לידה</label>
-                        <input class="form-control" type="text" ng-model="model.BirthDate" />
+                        <input class="form-control" type="text" ng-model="model.customer.BirthDate" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>אימייל</label>
-                        <input class="form-control" type="password" ng-model="model.Email" />
+                        <input class="form-control" type="password" ng-model="model.customer.Email" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>מגורים</label>
-                        <select class="form-control" ng-model="model.Region"
+                        <select class="form-control" ng-model="model.customer.Region"
                                 ng-options="type.id as type.name for type in regionTypes">
                             <option value=""></option>
                         </select>
@@ -77,10 +77,10 @@
                     <button type="submit" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
                 </div>
                 <div class="col-sm-2">
-                    <button type="submit" class="btn btn-primary btn-block btn-search">שמור</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitCustomer()">שמור</button>
                 </div>
                 <div class="col-sm-offset-6 col-sm-2">
-                    <button type="submit" class="btn btn-danger btn-block btn-search">הקפא חשבון</button>
+                    <button type="submit" class="btn btn-danger btn-block btn-search" ng-click="freezeCustomer()">הקפא חשבון</button>
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-default btn-block btn-search">צפה בתלונות</button>
@@ -104,19 +104,19 @@
             <div class="row">
                 <div class="col-sm-12"  style="margin: 10px 0;   padding-right: 0">
                     <label style="margin-left: 5px;">כותרת</label>
-                    <input class="form-control" type="text" style="width: auto; display: inline-block" />
+                    <input class="form-control" type="text" style="width: auto; display: inline-block" ng-model="model.review.Title"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-11">
                     <div class='form-group'>
-                        <textarea class="form-control"></textarea>
+                        <textarea class="form-control" ng-model="model.review.Description"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-offset-10 col-sm-2">
-                    <button type="submit" class="btn btn-default btn-block btn-search">שלח</button>
+                    <button type="submit" class="btn btn-default btn-block btn-search" ng-click="saveReview()">שלח</button>
                 </div>
             </div>
         </form>
@@ -134,21 +134,21 @@
             <div class="row">
                 <div class="col-sm-12" style="margin: 10px 0;   padding-right: 0">
                     <label style="margin-left: 5px;">סוג</label>
-                    <select class="form-control" style="width: auto; display: inline-block; min-width: 200px">
-                        <option value=""></option>
+                    <select class="form-control" style="width: auto; display: inline-block; min-width: 200px" 
+                            ng-model="model.complaint.Type" ng-options="type.id as type.name for type in complaintTypes">
                     </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-11">
                     <div class='form-group'>
-                        <textarea class="form-control"></textarea>
+                        <textarea class="form-control" ng-model="model.complaint.Description"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-offset-10 col-sm-2">
-                    <button type="submit" class="btn btn-default btn-block btn-search">שלח</button>
+                    <button type="submit" class="btn btn-default btn-block btn-search" ng-click="saveComplaint()">שלח</button>
                 </div>
             </div>
         </form>

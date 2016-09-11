@@ -108,10 +108,17 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => statusIds.Contains(x.Status.Id));
             }
 
-            // TODO do it works
-            if (ownerName != null)
+            if (!string.IsNullOrEmpty(ownerName))
             {
-                //filter.And(x => x.Order.Id == ownerId);
+                string[] names = ownerName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+
+                if (names.Length == 1)
+                {
+                    filter.And(x => x.Order.Owner.FirstName.Contains(ownerName) || x.Order.Owner.LastName.Contains(ownerName));
+                }else if (names.Length == 2)
+                {
+                    filter.And(x => x.Order.Owner.FirstName.Contains(names[0]) || x.Order.Owner.LastName.Contains(names[1]));
+                }
             }
 
             if (orderId.HasValue)

@@ -12,19 +12,19 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>שם משתמש</label>
-                        <input class="form-control" type="text" ng-model="model.username" />
+                        <input class="form-control" type="text" ng-model="model.Username"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>סיסמה</label>
-                        <input class="form-control" type="password" />
+                        <input class="form-control" type="password" ng-model="model.Password"/>
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>אימות סיסמה</label>
-                        <input class="form-control" type="password" ng-model="model.Name" />
+                        <input class="form-control" type="password" ng-model="verifiedPassword"/>
                     </div>
                 </div>
             </div>
@@ -33,19 +33,19 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>שם פרטי</label>
-                        <input class="form-control" type="text" ng-model="model.firstName" />
+                        <input class="form-control" type="text" ng-model="model.FirstName"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם משפחה</label>
-                        <input class="form-control" type="text" ng-model="model.lastName" />
+                        <input class="form-control" type="text" ng-model="model.LastName"/>
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>אימייל</label>
-                        <input class="form-control" type="email" />
+                        <input class="form-control" type="email" ng-model="model.Email"/>
                     </div>
                 </div>
             </div>
@@ -54,20 +54,20 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>תאריך לידה</label>
-                        <input class="form-control" type="date" />
+                        <input class="form-control" type="date" ng-model="model.BirthDate"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>מגורים</label>
-                        <select class="form-control">
-                            <option value=""></option>
+                        <select class="form-control" ng-model="model.Region"
+                                         ng-options="type.id as type.name for type in regionTypes">
                         </select>
                     </div>
                 </div>
 
                 <div class="col-sm-push-3 col-sm-1" style="margin-right: 15px">
-                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitUser()">הירשם</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitCustomer()">הירשם</button>
                 </div>
             </div>
         </form>
