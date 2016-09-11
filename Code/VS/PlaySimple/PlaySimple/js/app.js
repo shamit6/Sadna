@@ -3,6 +3,8 @@
     var playSimpleApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'moment-picker', 'angularSpinner']);
 
     playSimpleApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+        $httpProvider.interceptors.push('httpErrorHandler');
+
         $routeProvider.when('/', {
             templateUrl: 'partials/loginForm.html',
             controller: 'LoginCtrl'

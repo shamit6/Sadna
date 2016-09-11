@@ -1,6 +1,37 @@
 ﻿!(function () {
     myApp = angular.module('myApp');
 
+    myApp.factory('httpErrorHandler', ['usSpinnerService', function (usSpinnerService) {
+        var errorHandler = {
+            request: function (config) {
+                usSpinnerService.spin('spinner');
+
+                return config;
+            },
+            response: function (response) {
+                usSpinnerService.stop('spinner');
+
+                return response;
+            },
+            responseError: function (response) {
+                usSpinnerService.stop('spinner');
+
+                // unauthorized
+                if (response.status == 401) {
+                }
+
+                // unexpected error
+                else if (response.status == 500) {
+
+                }
+
+                return response;
+            }
+        };
+
+        return errorHandler;
+    }]);
+
     myApp.factory("LoginService", ['$rootScope', '$location', '$http', function ($rootScope, $location, $http) {
         return {
             hasPreviousLogin: function hasPreviousLogin() {

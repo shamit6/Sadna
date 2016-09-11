@@ -4,7 +4,7 @@ modal windows
 
 validation
 
-interceptor
+toasts
 
 client side error handling!
 

@@ -481,21 +481,19 @@
         }
     }]); 
 
-    myApp.controller('SearchOrdersCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', 'usSpinnerService',
-    function ($scope, $route, $http, DomainDecodes, ServerRoutes, usSpinnerService) {
+    myApp.controller('SearchOrdersCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes',
+    function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
 
         $scope.model = {};
         $scope.orderStatuses = DomainDecodes.orderStatus;
         $scope.results;
         $scope.submitSearch = function () {
-            usSpinnerService.spin('spinner');
 
             $http({
                 url: ServerRoutes.orders.search,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
-                usSpinnerService.stop('spinner');
                 $scope.results = response.data;
             });
         }
