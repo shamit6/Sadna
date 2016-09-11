@@ -1,5 +1,6 @@
 ﻿!(function () {
     // Declare app level module which depends on filters, and services
+    var playSimpleApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'moment-picker']);
 
     playSimpleApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/', {
