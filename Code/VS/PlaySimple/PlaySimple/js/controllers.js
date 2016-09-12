@@ -701,11 +701,21 @@
     myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
         $scope.regionTypes = DomainDecodes.regionDecode;
         $scope.verifiedPassword = null;
-        $scope.submitCustomer = function () {
+        $scope.submitted = false;
+
+        // yesterday
+        $scope.yesterday = (function (d) { d.setDate(d.getDate() - 1); return d })(new Date);
+
+        $scope.submitCustomer = function (isValid) {
+            $scope.submitted = true;
+
+            if (!isValid)
+                return;
 
             if ($scope.verifiedPassword != $scope.model.Password) {
                 alert("סיסמא לא תואמת");
-            } else {
+            }
+            else {
                 $http({
                     url: ServerRoutes.login.registration,
                     method: "POST",
@@ -721,8 +731,8 @@
                     //        window.alert("No permissions!");
                     //    }
                     //    else {
-                            LoginService.saveLogin(response.data);
-                            LoginService.navigateToHomepage();
+                    LoginService.saveLogin(response.data);
+                    LoginService.navigateToHomepage();
                     //    }
                     //});
                 });

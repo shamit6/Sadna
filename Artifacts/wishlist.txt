@@ -1,12 +1,6 @@
 ﻿TODO:
 
-modal windows
-
 validation
-
-toasts
-
-client side error handling!
 
 put all web stuff in one directory
 
@@ -23,9 +17,8 @@ make sure authorize is set everywhere
 delete all todos if any 
 remove alerts
 remove <pre>
-make refresh redirect to same page
 remove unused css
-rearrange the code in app.run block
+rearrange the code in app.run block (Create default controller)
 
 bugs:
 reportFields -> enter value, delete, send to server, bad request
@@ -49,5 +42,16 @@ move external scripts to lib folder
 		 18:00-20:00  01.01.2016  כאילו לראות שזה שעתיים.
 
 
+
+registration validation:
+all fields are required - V
+max-len 20: first + last name + username - V
+email is regex - V
+
+megurim selected
+
+date is not future
+password = new password
+date popup is weird
 
 
