@@ -94,7 +94,7 @@
             },
             reviews:{
                 base: urlBase + "reviews",
-                search: urlBase + "complaints/search"
+                search: urlBase + "reviews/search"
             },
             orders: {
                 base: urlBase + "orders",

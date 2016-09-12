@@ -46,7 +46,7 @@
                     <div class='form-group'>
                         <label>מתאריך</label>
                         <input class="form-control" ng-model="model.fromDate" moment-picker="model.fromDate"
-                               locale="he" format="DD/MM/YYYY" min-view="month" max-view="month" autoclose="true"
+                               locale="he" format="MM/DD/YYYY" min-view="month" max-view="month" autoclose="true"
                                today="true">
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div class='form-group'>
                         <label>עד תאריך</label>
                         <input class="form-control" ng-model="model.untilDate" moment-picker="model.untilDate"
-                               locale="he" format="DD/MM/YYYY" min-view="month" max-view="month" autoclose="true"
+                               locale="he" format="MM/DD/YYYY" min-view="month" max-view="month" autoclose="true"
                                today="true">
                     </div>
                 </div>
@@ -84,8 +84,8 @@
             <thead>
             <th>הזמנה</th>
             <th>מגרש</th>
-            <th>לקוח</th>
             <th>תאריך</th>
+            <th>לקוח</th>
             <th>סטטוס</th>
             <th>פעולות</th>
             </thead>
@@ -93,7 +93,7 @@
                 <tr ng-repeat="row in results">
                     <td>{{row.Id}}</td>
                     <td>{{row.Field.Id}} - {{row.Field.Name}}</td>
-                    <td>{{row.StartDate}}</td>
+                    <td>{{row.StartDate | date:'HH:mm dd/MM/yyyy'}}</td>
                     <td>{{row.Owner.Id}} - {{row.Owner.FirstName}} {{row.Owner.LastName}}</td>
                     <td>
                         <div ng-repeat="orderStatus in orderStatuses">

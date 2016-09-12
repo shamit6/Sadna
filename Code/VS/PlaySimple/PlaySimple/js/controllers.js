@@ -642,8 +642,61 @@
             $scope.model.customer = angular.copy($scope.originalCustomer);
         };
 
+        $scope.getComplaints = function (scope) {
+            scope.customerComplaints = {};
+            $http({
+                url: ServerRoutes.complaints.search,
+                method: "GET",
+                params: { customerId: $routeParams.Id },
+            }).then(function searchCompleted(response) {
+                scope.customerComplaints = angular.copy(response.data)
+            });
+        };
+
+        $scope.getReviews = function (scope) {
+            scope.customerReviews = {};
+            $http({
+                url: ServerRoutes.reviews.search,
+                method: "GET",
+                params: { customerId: $routeParams.Id },
+            }).then(function searchCompleted(response) {
+                scope.customerReviews = angular.copy(response.data)
+            });
+        };
+
         init();
     }]);
+
+    myApp.controller('CustomerModalCtrl', function ($uibModal, $log) {
+        var $ctrl = this;
+
+        $ctrl.open = function (func, template) {
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                //ariaLabelledBy: 'modal-title',
+                //ariaDescribedBy: 'modal-body',
+                templateUrl: template,
+                controller: 'CustomerModalInstanceCtrl',
+                controllerAs: '$ctrl',
+                size: 'lg',
+                resolve: {
+                    action: function () {
+                        return func;
+                    }
+                }
+            });
+
+        };
+    });
+
+    myApp.controller('CustomerModalInstanceCtrl', function ($uibModalInstance, action, $http, $routeParams, $scope, ServerRoutes) {
+        action($scope);
+
+        $scope.close = function () {
+            $uibModalInstance.close();
+        };
+    });
 
     myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
         $scope.regionTypes = DomainDecodes.regionDecode;

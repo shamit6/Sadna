@@ -82,11 +82,77 @@
                 <div class="col-sm-offset-6 col-sm-2">
                     <button type="submit" class="btn btn-danger btn-block btn-search" ng-click="freezeCustomer()">הקפא חשבון</button>
                 </div>
-                <div class="col-sm-2">
-                    <button type="submit" class="btn btn-default btn-block btn-search">צפה בתלונות</button>
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" class="btn btn-default btn-block btn-search">צפה בחוות דעות</button>
+
+                <div ng-controller="CustomerModalCtrl as $ctrl">
+                    <script type="text/ng-template" id="myModalContent.html">
+                        <div class="searchResults">
+                            <table class="table table-hover searchTable">
+                                <thead>
+                                <th colspan="3">פרטי מתלונן</th>
+                                <th colspan="2">פרטי תלונה</th>
+                                </thead>
+                                <thead>
+                                <th>מזהה</th>
+                                <th>שם פרטי</th>
+                                <th>שם משפחה</th>
+                                <th>פרטי תלונה</th>
+                                <th>תאריך</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in customerComplaints">
+                                        <td>{{row.OffendedCustomer.Id}}</td>
+                                        <td>{{row.OffendedCustomer.FirstName}}</td>
+                                        <td>{{row.OffendedCustomer.LastName}}</td>
+                                        <td>{{row.Description}}</td>
+                                        <td>{{row.Date}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" ng-click="close()">סגור</button>
+                        </div>
+                    </script>
+
+                    <script type="text/ng-template" id="customerReviews.html">
+                        <div class="searchResults">
+                            <table class="table table-hover searchTable">
+                                <thead>
+                                <th colspan="3">פרטי נותן חוו"ד</th>
+                                <th colspan="3">פרטי חוו"ד</th>
+                                </thead>
+                                <thead>
+                                <th>מזהה</th>
+                                <th>שם פרטי</th>
+                                <th>שם משפחה</th>
+                                <th>תמצית</th>
+                                <th>פירוט</th>
+                                <th>תאריך</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in customerReviews">
+                                        <td>{{row.Reviewer.Id}}</td>
+                                        <td>{{row.Reviewer.FirstName}}</td>
+                                        <td>{{row.Reviewer.LastName}}</td>
+                                        <td>{{row.Title}}</td>
+                                        <td>{{row.Description}}</td>
+                                        <td>{{row.Date}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" ng-click="close()">סגור</button>
+                        </div>
+                    </script>
+
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getComplaints, 'myModalContent.html')">צפה בתלונות</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">צפה בחוות דעות</button>
+                    </div>
+
                 </div>
             </div>
         </form>
@@ -154,3 +220,10 @@
         </form>
     </div>
 </div>
+
+
+
+
+<pre style="float:left; direction:ltr">
+    {{model.customerComplaints | json}}
+</pre>
