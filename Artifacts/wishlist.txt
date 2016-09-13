@@ -1,6 +1,8 @@
 ﻿TODO:
 
-validation
+validation + user already exists in DB + locked user
+
+
 
 put all web stuff in one directory
 
@@ -42,16 +44,5 @@ move external scripts to lib folder
 		 18:00-20:00  01.01.2016  כאילו לראות שזה שעתיים.
 
 
-
-registration validation:
-all fields are required - V
-max-len 20: first + last name + username - V
-email is regex - V
-
-megurim selected
-
-date is not future
-password = new password
-date popup is weird
 
 

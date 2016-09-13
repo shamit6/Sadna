@@ -165,19 +165,9 @@ h1.pageTitle {
 }
 
 
-
+select:not(:focus):not(.ng-valid) + .callout:not(:hover),
 input:not(:focus):not(.ng-valid) + .callout:not(:hover) {
 	transform: scale(0);
-	transition: .25s transform;
-}
-
-.form-group .callout:not(:first-of-type) {
-    margin-top:5px;
-}
-
-.callout {
-	transition: .5s cubic-bezier(.25,.1,.3,1.5) transform;
-	transform-origin: right -.4em;
 }
 
 .callout {	
@@ -205,4 +195,26 @@ input:not(:focus):not(.ng-valid) + .callout:not(:hover) {
 	border-right: 0;
 	border-bottom: 0;
 	transform: rotate(45deg);
+}
+
+.callout.up {
+    top: -1.3em;
+}
+
+.callout.up:before {
+	transform: rotate(225deg);
+    top: initial;
+	bottom: -.4em;
+}
+
+.callout.two-errors {
+    top: -2.3em;
+}
+
+.callout.three-errors {
+    top: -3.3em;
+}
+
+.callout.four-errors {
+    top: -4.3em;
 }
