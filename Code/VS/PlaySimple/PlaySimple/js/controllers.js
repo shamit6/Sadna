@@ -700,11 +700,7 @@
 
     myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
         $scope.regionTypes = DomainDecodes.regionDecode;
-        $scope.verifiedPassword = null;
         $scope.submitted = false;
-
-        // yesterday
-        $scope.yesterday = (function (d) { d.setDate(d.getDate() - 1); return d })(new Date);
 
         $scope.submitCustomer = function (isValid) {
             $scope.submitted = true;
@@ -712,31 +708,26 @@
             if (!isValid)
                 return;
 
-            if ($scope.verifiedPassword != $scope.model.Password) {
-                alert("סיסמא לא תואמת");
-            }
-            else {
-                $http({
-                    url: ServerRoutes.login.registration,
-                    method: "POST",
-                    data: $scope.model,
-                }).success(function searchCompleted(response) {
+            $http({
+                url: ServerRoutes.login.registration,
+                method: "POST",
+                data: $scope.model,
+            }).success(function searchCompleted(response) {
                     
-                    //$http({
-                    //    method: 'POST',
-                    //    url: ServerRoutes.login,
-                    //    data: {Username:$scope.model.Username, Password:$scope.model.Password}
-                    //}).then(function(response) {
-                    //    if (response.data.Role == "None") {
-                    //        window.alert("No permissions!");
-                    //    }
-                    //    else {
-                    LoginService.saveLogin(response.data);
-                    LoginService.navigateToHomepage();
-                    //    }
-                    //});
-                });
-            }
+                //$http({
+                //    method: 'POST',
+                //    url: ServerRoutes.login,
+                //    data: {Username:$scope.model.Username, Password:$scope.model.Password}
+                //}).then(function(response) {
+                //    if (response.data.Role == "None") {
+                //        window.alert("No permissions!");
+                //    }
+                //    else {
+                LoginService.saveLogin(response.data);
+                LoginService.navigateToHomepage();
+                //    }
+                //});
+            });
         };
     }]);
 })();
