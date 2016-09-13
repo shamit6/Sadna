@@ -18,6 +18,8 @@ namespace PlaySimple.QueryProcessors
         DTOs.Customer Save(DTOs.Customer customer);
 
         DTOs.Customer Update(int id, DTOs.Customer customer);
+
+        bool Exists(string username);
     }
 
     public class CustomersQueryProcessor : DBAccessBase<Customer>, ICustomersQueryProcessor
@@ -27,6 +29,11 @@ namespace PlaySimple.QueryProcessors
         public CustomersQueryProcessor(ISession session, IDecodesQueryProcessor decodesQueryProcessor) : base(session)
         {
             _decodesQueryProcessor = decodesQueryProcessor;
+        }
+
+        public bool Exists(string username)
+        {
+            return Query().Where(user => user.Username == username).Any();
         }
 
         public IEnumerable<DTOs.Customer> Search(string firstName, string lastName, int? minAge, int? maxAge, int? region, int? customerId)

@@ -706,7 +706,8 @@
         };
     });
 
-    myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
+    myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster',
+    function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
         $scope.regionTypes = DomainDecodes.regionDecode;
         $scope.submitted = false;
 
@@ -716,25 +717,18 @@
             if (!isValid)
                 return;
 
+
             $http({
                 url: ServerRoutes.login.registration,
                 method: "POST",
                 data: $scope.model,
             }).success(function searchCompleted(response) {
-                    
-                //$http({
-                //    method: 'POST',
-                //    url: ServerRoutes.login,
-                //    data: {Username:$scope.model.Username, Password:$scope.model.Password}
-                //}).then(function(response) {
-                //    if (response.data.Role == "None") {
-                //        window.alert("No permissions!");
-                //    }
-                //    else {
-                LoginService.saveLogin(response.data);
-                LoginService.navigateToHomepage();
-                //    }
-                //});
+                if (response.AlreadyExists) {
+                    toaster.error("אופס!", "שם משתמש כבר קיים באתר!", 5000);
+                }
+                else {
+                    $location.path("/login");
+                }
             });
         };
     }]);

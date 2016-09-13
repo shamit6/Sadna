@@ -5,6 +5,7 @@ using PlaySimple.QueryProcessors;
 using System;
 using System.Text;
 using System.Web.Http;
+using System.Linq;
 
 namespace PlaySimple.Controllers
 {
@@ -60,17 +61,22 @@ namespace PlaySimple.Controllers
 
         [HttpPost]
         [Route("api/login/registration")]
-        public LoginResponse Registration(DTOs.Customer customer)
+        public RegistrationReponse Registration(DTOs.Customer customer)
         {
+            if (_customersQueryProcessor.Exists(customer.Username))
+            {
+                return new RegistrationReponse
+                {
+                    AlreadyExists = true
+                };
+            }
+
             _customersQueryProcessor.Save(customer);
 
-            UserCredentials credential = new UserCredentials()
+            return new RegistrationReponse()
             {
-                Username = customer.Username,
-                Password = customer.Password
+                AlreadyExists = false
             };
-
-            return Login(credential);
         }
     }
 }
