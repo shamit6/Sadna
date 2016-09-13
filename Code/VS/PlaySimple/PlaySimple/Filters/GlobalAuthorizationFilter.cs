@@ -63,6 +63,9 @@ namespace PlaySimple.Filters
 
             if (user != null)
             {
+                if (user.FreezeDate.HasValue && user.FreezeDate > DateTime.Now)
+                    return false;
+
                 AuthorizationSucceed(user.Id, Consts.Roles.Customer);
                 return true;
             }

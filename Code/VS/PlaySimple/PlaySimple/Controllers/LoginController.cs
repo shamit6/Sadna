@@ -52,6 +52,7 @@ namespace PlaySimple.Controllers
 
             return new LoginResponse
             {
+                IsUserFrozen = user != null && user.FreezeDate.HasValue && user.FreezeDate > DateTime.Now,
                 AuthorizationKey = authenticationKey,
                 Role = role
             };

@@ -1,8 +1,8 @@
 ﻿TODO:
 
-validation + user already exists in DB + locked user
+user already exists in DB 
 
-
+user enters a url which without login
 
 put all web stuff in one directory
 

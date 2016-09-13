@@ -3,6 +3,8 @@
     myApp.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$location', 'LoginService', 'ServerRoutes', function ($rootScope, $scope, $http, $location, LoginService, ServerRoutes) {
         var init = function () {
             $scope.model = {};
+            $scope.noUser = false;
+            $scope.userFrozen = false;
 
             if (LoginService.hasPreviousLogin()) {
                 LoginService.navigateToHomepage();
@@ -10,13 +12,19 @@
         };
 
         $scope.submitUser = function () {
+            $scope.noUser = false;
+            $scope.userFrozen = false;
+
             $http({
                 method: 'POST',
                 url: ServerRoutes.login.login,
                 data: $scope.model
             }).then(function(response) {
                 if (response.data.Role == "None") {
-                    window.alert("No permissions!");
+                    $scope.noUser = true;
+                }
+                else if (response.data.IsUserFrozen){
+                    $scope.userFrozen = true;
                 }
                 else {
                     LoginService.saveLogin(response.data);
