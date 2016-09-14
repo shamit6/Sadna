@@ -35,7 +35,7 @@
             controller: 'CustomersCtrl',
             activetab: ''
         });
-        $routeProvider.when('/searchFields', {
+        $routeProvider.when('/reportFields', {
             templateUrl: 'partials/reportFields.html',
             controller: 'SearchFieldsCtrl',
             activetab: 'searchFields'
@@ -75,8 +75,13 @@
             templateUrl: 'partials/ownedOrders.html',
             controller: 'ownedOrdersCrtl',
             activetab: 'ownedOrders'
-        }); 
+        });
         $routeProvider.when('/editOrder/:Id?', {
+            templateUrl: 'partials/editOrder.html',
+            controller: 'OrdersCtrl',
+            activetab: ''
+        });
+        $routeProvider.when('/editOrder', {
             templateUrl: 'partials/editOrder.html',
             controller: 'OrdersCtrl',
             activetab: ''

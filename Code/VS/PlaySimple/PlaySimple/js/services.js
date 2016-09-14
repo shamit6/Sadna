@@ -57,6 +57,7 @@
 
                 $http.defaults.headers.common['Authorization'] = loginData.AuthorizationKey;
                 $rootScope.sharedVariables.role = loginData.Role;
+                $rootScope.sharedVariables.userId = loginData.UserId;
 
                 if (!path) {
                     if (loginData.Role == "Admin") {

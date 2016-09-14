@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using Domain;
 using PlaySimple.Validators;
+using PlaySimple.Common;
 
 namespace PlaySimple.DTOs
 {
     public class Order : Entity<DTOs.Order, Domain.Order>
     {
         //[NotInPast]
-        public virtual DateTime StartDate { get; set; }
+        public virtual long StartDate { get; set; }
 
         //[ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer Owner { get; set; }
 
-        [Above(0)]
+        [Above(-1)]
         public virtual int PlayersNumber { get; set; }
 
         //[IsEnumOfType(typeof(OrderStatusDecode))]
@@ -29,7 +30,7 @@ namespace PlaySimple.DTOs
             Order newOrder = new Order();
 
             newOrder.Id = domain.Id;
-            newOrder.StartDate = domain.StartDate;
+            newOrder.StartDate = DateUtils.ConvertToJavaScript(domain.StartDate);
             newOrder.Owner = new DTOs.Customer().Initialize(domain.Owner);
             newOrder.PlayersNumber = domain.PlayersNumber;
             newOrder.Status = domain.Status.Id;

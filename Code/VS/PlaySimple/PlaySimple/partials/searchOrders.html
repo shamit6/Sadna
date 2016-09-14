@@ -93,7 +93,8 @@
                 <tr ng-repeat="row in results">
                     <td>{{row.Id}}</td>
                     <td>{{row.Field.Id}} - {{row.Field.Name}}</td>
-                    <td>{{row.StartDate | date:'HH:mm dd/MM/yyyy'}}</td>
+                    <!--<td>{{datefomart(row.StartDate) | date:'HH:mm dd/MM/yyyy'}}</td>-->
+                    <td>{{row.StartDate | dateOrderFilter}}</td>
                     <td>{{row.Owner.Id}} - {{row.Owner.FirstName}} {{row.Owner.LastName}}</td>
                     <td>
                         <div ng-repeat="orderStatus in orderStatuses">

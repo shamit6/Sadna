@@ -65,17 +65,17 @@ namespace PlaySimple.QueryProcessors
         public IEnumerable<UsingFieldsReport> GetUsingFieldsReport(int? fieldId, string fieldName, DateTime? fromDate, DateTime? untilDate)
         {
             var orders = _ordersQueryProcessor.Search(null, null, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate);
-            var report = _fieldsQueryProcessor.Search(null, fieldId, fieldName, null).Select(x => 
+            var report = _fieldsQueryProcessor.Search(null, fieldId, fieldName, null).Select(x =>
              new UsingFieldsReport()
-               {
-                   FieldId = x.Id ?? 0,
-                   FieldName = x.Name,
-                   hours16_18Orders = orders.Where(f => x.Id == f.Field.Id && f.StartDate.Hour == 16).Count(),
-                   hours18_20Orders = orders.Where(f => x.Id == f.Field.Id && f.StartDate.Hour == 18).Count(),
-                   hours20_22Orders = orders.Where(f => x.Id == f.Field.Id && f.StartDate.Hour == 20).Count(),
-                   WeekDayOrders = orders.Where(f => x.Id == f.Field.Id && (f.StartDate.DayOfWeek == DayOfWeek.Friday || f.StartDate.DayOfWeek == DayOfWeek.Saturday)).Count(),
-                   WeekEndOrders = orders.Where(f => x.Id == f.Field.Id && !(f.StartDate.DayOfWeek == DayOfWeek.Friday || f.StartDate.DayOfWeek == DayOfWeek.Saturday)).Count()
-               });
+             {
+                 FieldId = x.Id ?? 0,
+                 FieldName = x.Name,
+                 hours16_18Orders = orders.Where(f => x.Id == f.Field.Id && DateUtils.ConvertFromJavaScript(f.StartDate).Hour == 16).Count(),
+                 hours18_20Orders = orders.Where(f => x.Id == f.Field.Id && DateUtils.ConvertFromJavaScript(f.StartDate).Hour == 18).Count(),
+                 hours20_22Orders = orders.Where(f => x.Id == f.Field.Id && DateUtils.ConvertFromJavaScript(f.StartDate).Hour == 20).Count(),
+                 WeekEndOrders = orders.Where(f => x.Id == f.Field.Id && (DateUtils.ConvertFromJavaScript(f.StartDate).DayOfWeek == DayOfWeek.Friday || DateUtils.ConvertFromJavaScript(f.StartDate).DayOfWeek == DayOfWeek.Saturday)).Count(),
+                 WeekDayOrders = orders.Where(f => x.Id == f.Field.Id && !(DateUtils.ConvertFromJavaScript(f.StartDate).DayOfWeek == DayOfWeek.Friday || DateUtils.ConvertFromJavaScript(f.StartDate).DayOfWeek == DayOfWeek.Saturday)).Count()
+             });
 
 
             return report;

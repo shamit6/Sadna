@@ -114,7 +114,7 @@ namespace PlaySimple.QueryProcessors
             Order newOrder = new Order()
             {
                 Owner = _customersQueryProcessor.Get(order.Owner.Id ?? 0),
-                StartDate = order.StartDate,
+                StartDate = DateUtils.ConvertFromJavaScript(order.StartDate),
                 Field = _fieldsQueryProcessor.Get(order.Field.Id ?? 0),
                 PlayersNumber = order.PlayersNumber,
                 Status = _decodesQueryProcessor.Get<OrderStatusDecode>(order.Status),
@@ -140,8 +140,7 @@ namespace PlaySimple.QueryProcessors
             if (order.PlayersNumber != 0)
                 existingOrder.PlayersNumber = order.PlayersNumber;
 
-            if (order.StartDate != null)
-                existingOrder.StartDate = order.StartDate;
+            existingOrder.StartDate = DateUtils.ConvertFromJavaScript(order.StartDate);
 
             Update(id, existingOrder);
 
@@ -160,11 +159,11 @@ namespace PlaySimple.QueryProcessors
 
             var order = Search(null, null, null, null, null, null, date, date);
 
-            var possibleOrders = possibleEvent.Where(a => !order.Any(r => r.StartDate == a.dateStart & r.Field.Id == a.field.Id)).
+            var possibleOrders = possibleEvent.Where(a => !order.Any(r => r.StartDate == DateUtils.ConvertToJavaScript(a.dateStart) & r.Field.Id == a.field.Id)).
                 Select(possibleOrder => new DTOs.Order()
                 {
                     Field = possibleOrder.field,
-                    StartDate = possibleOrder.dateStart
+                    StartDate = DateUtils.ConvertToJavaScript(possibleOrder.dateStart)
                 });
 
             return possibleOrders.ToList();

@@ -340,14 +340,20 @@
             optinalOrdersParams.orderId = $scope.model.Id;
             optinalOrdersParams.fieldId = $scope.model.Field.Id;
             optinalOrdersParams.fieldType = $scope.model.Field.Type;
-            optinalOrdersParams.date = $scope.model.StartDate;
-
+            optinalOrdersParams.date = new Date($scope.model.StartDate);
             $http({
                 url: ServerRoutes.orders.optionals,
                 method: "GET",
                 params: optinalOrdersParams,
             }).then(function searchCompleted(response) {
-                $scope.optinalOrders = angular.copy(response.data);
+                tempOptionalOrders = angular.copy(response.data);
+
+                for (var i = 0; i < tempOptionalOrders.length; i++) {
+                    var optional = tempOptionalOrders[i];
+
+                    optional.StartDate = new Date(optional.StartDate);
+                }
+                $scope.optinalOrders = tempOptionalOrders;
             });
         }
 
@@ -416,7 +422,10 @@
                     method: "GET",
                     params: { id: $routeParams.Id },
                 }).then(function searchCompleted(response) {
-                    $scope.model = angular.copy(response.data)
+                    var tempModal = angular.copy(response.data)
+                    tempModal.StartDate = new Date(tempModal.StartDate);
+                    $scope.model = tempModal;
+
                     $scope.originalModel = angular.copy($scope.model);
 
                     $scope.getOptionals();
@@ -425,17 +434,26 @@
             }
             else {
                 $scope.isNew = true;
-            }          
+
+                var tempModal = angular.fromJson($routeParams.order);
+                tempModal.StartDate = new Date(tempModal.StartDate);
+                $scope.model = tempModal;
+
+                $scope.getOptionals();
+                $scope.getOptionalField();
+            }
         }
 
         $scope.submitOrder = function (status) {
             //$scope.model.Participants = null;
             $scope.model.Status = status;
+            var modalToSend = angular.copy($scope.model);
+            modalToSend.StartDate = new Date(modalToSend.StartDate).getTime();
             if ($scope.isNew) {
                 $http({
                     url: ServerRoutes.orders.base,
                     method: "POST",
-                    data: $scope.model,
+                    data: modalToSend,
                 }).then(function searchCompleted(response) {
                     $location.path('/editOrder/' + response.data.Id);
                 });
@@ -445,7 +463,7 @@
                     url: ServerRoutes.orders.base,
                     method: "PUT",
                     params: { id: $scope.model.Id },
-                    data: $scope.model,
+                    data: modalToSend,
                 }).then(function searchCompleted(response) {
                     $scope.originalModel = angular.copy($scope.model);
                     alert("data saved successfully");

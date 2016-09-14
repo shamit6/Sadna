@@ -7,7 +7,9 @@ namespace PlaySimple.DTOs
 {
     public class LoginResponse
     {
-        public bool IsUserFrozen { get; set; }
+        public int UserId { get; set; }
+		
+		public bool IsUserFrozen { get; set; }
 
         public string Role { get; set; }
 

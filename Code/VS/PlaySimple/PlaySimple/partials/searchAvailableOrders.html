@@ -56,10 +56,13 @@
                 <tr ng-repeat="row in results">
                     <td>{{row.Field.Id}}</td>
                     <td>{{row.Field.Name}}</td>
-                    <td>{{row.StartDate}}</td>
-                    <td><a href="#/editCustomer/{{row.CustomerId}}">הזמן</a></td>
+                    <td>{{row.StartDate | dateOrderFilter}}</td>
+                    <td><a href="#/editOrder?order={{row}}">הזמן</a></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+<pre style="float:left; direction:ltr">
+    {{results | json}}
+</pre>

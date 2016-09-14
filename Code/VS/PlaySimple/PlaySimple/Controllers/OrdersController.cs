@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
+using PlaySimple.Common;
 
 namespace PlaySimple.Controllers
 {
@@ -67,6 +68,13 @@ namespace PlaySimple.Controllers
         [TransactionFilter]
         public DTOs.Order Save([FromBody]DTOs.Order order)
         {
+            var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            var currIdentity = currPrincipal.Identity as BasicAuthenticationIdentity;
+            int userId = currIdentity.UserId;
+            order.Owner = new DTOs.Customer()
+            {
+                Id = userId
+            };
             return _ordersQueryProcessor.Save(order);
         }
 
@@ -105,13 +113,19 @@ namespace PlaySimple.Controllers
         [HttpGet]
         public List<DTOs.Order> SearchOptionalsOrders(int? orderId = null, int? fieldId = null, int? fieldType = null, DateTime? date = null)
         {
-            List<DTOs.Order> optionals = _ordersQueryProcessor.SearchOptionalOrders(fieldId, null, fieldType, date??DateTime.Today);
+            DateTime? dateTime = date.Value.Date;
+
+            //if (date.HasValue)
+            //    dateTime = DateUtils.ConvertFromJavaScript(date ?? 0);
+
+
+            List<DTOs.Order> optionals = _ordersQueryProcessor.SearchOptionalOrders(fieldId, null, fieldType, dateTime??DateTime.Today);
 
             if (orderId.HasValue)
             {
                 DTOs.Order current = _ordersQueryProcessor.GetOrder(orderId ?? 0);
 
-                if (current.Field.Id == fieldId && current.StartDate.Date == date.Value.Date)
+                if (current.Field.Id == fieldId && DateUtils.ConvertFromJavaScript(current.StartDate).Date == dateTime.Value.Date)
                 {
                     optionals.Add(current);
                 }

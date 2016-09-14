@@ -91,7 +91,7 @@
                 <tr ng-repeat="row in results">
                     <td>{{row.Order.Id}}</td>
                     <td>{{row.Order.Field.Id}} - {{row.Order.Field.Name}}</td>
-                    <td>{{row.Order.StartDate}}</td>
+                    <td>{{row.Order.StartDate | dateOrderFilter}}</td>
                     <td>{{row.Order.Owner.Id}} - {{row.Order.Owner.FirstName}} {{row.Order.Owner.LastName}}</td>
                     <td>
                         <div ng-repeat="orderStatus in orderStatuses">

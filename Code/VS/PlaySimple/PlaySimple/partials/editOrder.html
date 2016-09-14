@@ -39,6 +39,10 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>תאריך</label>
+                        <!--<input class="form-control" ng-model="model.StartDate" moment-picker="model.StartDate" onchange="getOptionals()"
+                               locale="he" format="MM/DD/YYYY" min-view="month" max-view="month" autoclose="true"
+                               today="true">-->
+
                         <input class="form-control" type="date" ng-model="model.StartDate" ng-change="getOptionals()" />
                     </div>
                 </div>
@@ -47,9 +51,8 @@
                         <label>שעה</label>
                         <select class="form-control" 
                             ng-model="model.StartDate"
-                            ng-init="model.StartDate = model.StartDate || optinalOrders[0].StartDate"
-                            ng-options="optinalOrder.StartDate as optinalOrder.StartDate for optinalOrder in optinalOrders" ng-change="getOptionals()">
-                            <option value=""></option>
+                                ng-init="{{amodel.StartDate|date :'dd/MM/yy HH:mm': 'GMT'}}"
+                            ng-options="optinalOrder.StartDate as optinalOrder.StartDate|date :'dd/MM/yy HH:mm': 'GMT' for optinalOrder in optinalOrders">
                         </select>
                     </div>
                 </div>

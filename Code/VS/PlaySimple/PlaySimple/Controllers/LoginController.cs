@@ -27,12 +27,14 @@ namespace PlaySimple.Controllers
             byte[] toEncodeAsBytes = ASCIIEncoding.ASCII.GetBytes(credentials.Username + ":" + credentials.Password);
             string authenticationKey = "Basic " + Convert.ToBase64String(toEncodeAsBytes);
             string role = null;
+            int userId = 0;
 
             var user = _session.QueryOver<Domain.Customer>().Where(x => x.Username == credentials.Username && x.Password == credentials.Password).SingleOrDefault();
 
             if (user != null)
             {
                 role = Consts.Roles.Customer;
+                userId = user.Id;
             }
 
             var employee = _session.QueryOver<Domain.Employee>().Where(x => x.Username == credentials.Username && x.Password == credentials.Password).SingleOrDefault();
@@ -40,6 +42,7 @@ namespace PlaySimple.Controllers
             if (employee != null)
             {
                 role = Consts.Roles.Employee;
+                userId = employee.Id;
             }
 
             var admin = _session.QueryOver<Admin>().Where(x => x.Username == credentials.Username && x.Password == credentials.Password).SingleOrDefault();
@@ -47,13 +50,15 @@ namespace PlaySimple.Controllers
             if (admin != null)
             {
                 role = Consts.Roles.Admin;
+                userId = admin.Id;
             }
 
             role = role ?? Consts.Roles.None;
 
             return new LoginResponse
             {
-                IsUserFrozen = user != null && user.FreezeDate.HasValue && user.FreezeDate > DateTime.Now,
+                UserId = userId,
+				IsUserFrozen = user != null && user.FreezeDate.HasValue && user.FreezeDate > DateTime.Now,
                 AuthorizationKey = authenticationKey,
                 Role = role
             };

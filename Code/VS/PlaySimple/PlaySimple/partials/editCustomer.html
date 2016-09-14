@@ -7,28 +7,28 @@
 <div class="row page">
     <div class="col-sm-12 editPanel">
         <form class="form-horizontal">
-            <div class='row'>
+            <div class='row' >
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>שם משתמש</label>
-                        <input disabled class="form-control" type="text" ng-model="model.customer.Username" />
+                        <input class="form-control" type="text" ng-model="model.customer.Username" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם פרטי</label>
-                        <input class="form-control" type="text" ng-model="model.customer.FirstName" />
+                        <input class="form-control" type="text" ng-model="model.customer.FirstName" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם משפחה</label>
-                        <input class="form-control" type="text" ng-model="model.customer.LastName" />
+                        <input class="form-control" type="text" ng-model="model.customer.LastName" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
                     </div>
                 </div>
             </div>
 
-            <div class='row'>
+            <div class='row' ng-show="sharedVariables.userId == model.customer.Id && sharedVariables.role != 'Admin'">
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>סיסמה נוכחית</label>
@@ -53,19 +53,19 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>תאריך לידה</label>
-                        <input class="form-control" type="text" ng-model="model.customer.BirthDate" />
+                        <input class="form-control" type="text" ng-model="model.customer.BirthDate" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>אימייל</label>
-                        <input class="form-control" type="password" ng-model="model.customer.Email" />
+                        <input class="form-control" type="password" ng-model="model.customer.Email" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
                         <label>מגורים</label>
-                        <select class="form-control" ng-model="model.customer.Region"
+                        <select class="form-control" ng-model="model.customer.Region" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"
                                 ng-options="type.id as type.name for type in regionTypes">
                             <option value=""></option>
                         </select>
@@ -73,15 +73,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2 col-sm-offset-8">
-                    <button type="submit" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitCustomer()">שמור</button>
-                </div>
-                <div class="col-sm-offset-6 col-sm-2">
-                    <button type="submit" class="btn btn-danger btn-block btn-search" ng-click="freezeCustomer()">הקפא חשבון</button>
-                </div>
 
                 <div ng-controller="CustomerModalCtrl as $ctrl">
                     <script type="text/ng-template" id="myModalContent.html">
@@ -104,7 +95,7 @@
                                         <td>{{row.OffendedCustomer.FirstName}}</td>
                                         <td>{{row.OffendedCustomer.LastName}}</td>
                                         <td>{{row.Description}}</td>
-                                        <td>{{row.Date}}</td>
+                                        <td>{{row.Date | date:'dd/MM/yyyy'}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -136,7 +127,7 @@
                                         <td>{{row.Reviewer.LastName}}</td>
                                         <td>{{row.Title}}</td>
                                         <td>{{row.Description}}</td>
-                                        <td>{{row.Date}}</td>
+                                        <td>{{row.Date | date:'dd/MM/yyyy'}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -146,25 +137,48 @@
                         </div>
                     </script>
 
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getComplaints, 'myModalContent.html')">צפה בתלונות</button>
-                    </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 col-sm-offset-6" ng-show="sharedVariables.role == 'Admin' || sharedVariables.userId == model.customer.Id">
                         <button type="submit" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">צפה בחוות דעות</button>
                     </div>
+                    <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'">
+                        <button type="submit" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getComplaints, 'myModalContent.html')">צפה בתלונות</button>
+                    </div>
 
+                </div>
+
+
+                <!-- As current user-->
+                <div ng-show="sharedVariables.userId == model.customer.Id && sharedVariables.role != 'Admin'">
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitCustomer()">שמור</button>
+                    </div>
+                </div>
+                <!-- As admin-->
+                <div ng-show="sharedVariables.role == 'Admin'">
+                    <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'">
+                        <button type="submit" class="btn btn-danger btn-block btn-search" ng-click="freezeCustomer()">הקפא חשבון</button>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-8">
+                        <button type="submit" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
+                    </div>
+                    <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'|| sharedVariables.userId == model.customer.Id">
+                        <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitCustomer()">שמור</button>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<div class="row page">
+<div class="row page" ng-show="sharedVariables.role == 'Customer' && sharedVariables.userId != model.customer.Id">
     <div class="col-sm-12 editPanel">
         <form class="form-horizontal">
             <div class="row">
                 <div class="col-sm-12" style="padding-right: 0; font-weight: bold" >
-                    על משתמש זה נכתבו <a href="">4 חוות דעת</a>. <span>השאר חוות דעת (0/1000)</span>
+                    על משתמש זה נכתבו <a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a>. <span>השאר חוות דעת (0/1000)</span>
                 </div>
             </div>
             <div class="row">
@@ -189,7 +203,7 @@
     </div>
 </div>
 
-<div class="row page">
+<div class="row page" ng-show="sharedVariables.role == 'Customer' && sharedVariables.userId != model.customer.Id">
     <div class="col-sm-12 editPanel">
         <form class="form-horizontal">
             <div class="row">

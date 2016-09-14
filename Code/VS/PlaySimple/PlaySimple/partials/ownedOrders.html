@@ -71,7 +71,7 @@
                 <tr ng-repeat="row in results">
                     <td>{{row.Id}}</td>
                     <td>{{row.Field.Id}} - {{row.Field.Name}}</td>
-                    <td>{{row.StartDate | date}}</td>
+                    <td>{{row.StartDate | dateOrderFilter}}</td>
                     <td>
                         <div ng-repeat="status in types">
                             <div ng-if="status.id == row.Status">
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </td>
-                    <td><span class="tableAction">צפה</span></td>
+                    <td><a href="#/editOrder?Id={{row.Id}}">צפה</a></td>
                 </tr>
             </tbody>
         </table>
