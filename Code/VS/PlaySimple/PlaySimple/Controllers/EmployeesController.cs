@@ -34,21 +34,21 @@ namespace PlaySimple.Controllers
 
         [HttpPost]
         [TransactionFilter]
-        public void Save([FromBody]DTOs.Employee employee)
+        public DTOs.Employee Save([FromBody]DTOs.Employee employee)
         {
-            _employessQueryProcessor.Save(employee);
+            return _employessQueryProcessor.Save(employee);
         }
 
         [HttpPut]
         [TransactionFilter]
-        public void Update(int id, [FromBody]DTOs.Employee employee)
+        public DTOs.Employee Update([FromUri]int id, [FromBody]DTOs.Employee employee)
         {
-            _employessQueryProcessor.Update(id, employee);
+            return _employessQueryProcessor.Update(id, employee);
         }
 
         [HttpDelete]
         [TransactionFilter]
-        public void Delete(int id)
+        public void Delete([FromUri]int id)
         {
             _employessQueryProcessor.Delete(id);
         }

@@ -6,7 +6,7 @@
 
 <div class="row page">
     <div class="col-sm-12 editPanel">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="fieldForm" ng-submit="submitField(fieldForm.$valid)" novalidate>
             <div class='row'>
                 <div class='col-sm-3'>
                     <div class='form-group'>
@@ -15,43 +15,60 @@
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : fieldForm.name.$invalid && submitted }">
                         <label>שם</label>
-                        <input class="form-control" type="text" ng-model="model.Name" />
+                        <input name="name" class="form-control" type="text" ng-model="model.Name" required ng-maxlength="20"/>
+                        <div class="callout" ng-show="fieldForm.name.$invalid && submitted">
+                            <div ng-show="fieldForm.name.$error.required && submitted">יש להזין שם מגרש</div>
+                            <div ng-show="fieldForm.name.$error.maxlength && submitted">שם מגרש חייב להיות קטן מ-20 תווים</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : fieldForm.size.$invalid && submitted }">
                         <label>גודל</label>
-                        <select class="form-control" ng-model="model.Size" ng-options="size.id as size.name for size in sizes">
-                            <option value=""></option>
+                        <select required name="size" class="form-control" ng-model="model.Size" 
+                                ng-options="size.id as size.name for size in sizes">
                         </select>
+                        <div class="callout up" ng-show="fieldForm.size.$invalid && submitted">
+                            <div ng-show="fieldForm.size.$error.required && submitted">יש לבחור גודל מגרש</div>
+                        </div>
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : fieldForm.fieldType.$invalid && submitted }">
                         <label>סוג</label>
-                        <select class="form-control" ng-model="model.Type" ng-options="type.id as type.name for type in types">
-                            <option value=""></option>
+                        <select required name="fieldType" class="form-control" ng-model="model.Type" 
+                                ng-options="type.id as type.name for type in types">
                         </select>
+                        <div class="callout up" ng-show="fieldForm.fieldType.$invalid && submitted">
+                            <div ng-show="fieldForm.fieldType.$error.required && submitted">יש לבחור גודל מגרש</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class='row'>
                 <div class="col-sm-1 col-sm-offset-9" ng-hide="isNew">
-                    <button type="submit" class="btn btn-danger btn-block" ng-click="delete()">מחק</button>
+                    <button type="button" class="btn btn-danger btn-block" ng-click="delete()">מחק</button>
                 </div>
                 <div class="col-sm-1" ng-class="{'col-sm-offset-10': isNew}">
-                    <button type="submit" class="btn btn-default btn-block" ng-click="cancelChanges()">בטל</button>
+                    <button type="button" class="btn btn-default btn-block" ng-click="cancelChanges()">בטל</button>
                 </div>
                 <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary btn-block" ng-click="submitField()">שמור</button>
+                    <button type="submit" class="btn btn-primary btn-block">שמור</button>
                 </div>
             </div>
         </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group form-errors text-danger" ng-show="fieldForm.$invalid && submitted" ng-class="{ 'has-error' : userForm.$invalid && submitted }">
+            <p class="form-control-static">יש לתקן את השגיאות בשדות האדומים</p>
+        </div>
     </div>
 </div>

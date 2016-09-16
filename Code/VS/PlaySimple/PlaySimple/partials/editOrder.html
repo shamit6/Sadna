@@ -6,7 +6,7 @@
 
 <div class="row page">
     <div class="col-sm-12 editPanel">
-        <form class="page clearfix">
+        <form class="form-horizontal" name="orderForm" ng-submit="submitOrder(orderForm.$valid, 1)" novalidate>
 
             <div class='row'>
                 <div class='col-sm-3'>
@@ -20,7 +20,6 @@
                         <label>סוג</label>
                         <select class="form-control" ng-model="model.Field.Type" 
                                 ng-options="type.id as type.name for type in fieldType" ng-change="fieldTypeChanged()">
-                            <option value=""></option>
                         </select>
                     </div>
                 </div>
@@ -43,23 +42,29 @@
                                locale="he" format="MM/DD/YYYY" min-view="month" max-view="month" autoclose="true"
                                today="true">-->
 
-                        <input class="form-control" type="date" ng-model="model.StartDate" ng-change="getOptionals()" />
+                        <input class="form-control" type="date" ng-model="datePicker" ng-change="getOptionals()" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : orderForm.startDate.$invalid && submitted }">
                         <label>שעה</label>
-                        <select class="form-control" 
-                            ng-model="model.StartDate"
-                                ng-init="{{amodel.StartDate|date :'dd/MM/yy HH:mm': 'GMT'}}"
-                            ng-options="optinalOrder.StartDate as optinalOrder.StartDate|date :'dd/MM/yy HH:mm': 'GMT' for optinalOrder in optinalOrders">
+                        <select required name="startDate" class="form-control"  ng-model="model.StartDate"
+                            ng-options="optinalOrder.StartDate as optinalOrder.StartDate| dateOrderFilter for optinalOrder in optinalOrders">
                         </select>
+                        <div class="callout up" ng-show="orderForm.startDate.$invalid && submitted">
+                            <div ng-show="orderForm.startDate.$error.required && submitted">יש לבחור שעה</div>
+                        </div>
                     </div>
                 </div>
+
                 <div class='col-sm-push-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : orderForm.playersNumber.$invalid && submitted }">
                         <label>מספר שחקנים</label>
-                        <input class="form-control" type="number" ng-model="model.PlayersNumber" />
+                        <input name="playersNumber" class="form-control" type="number" ng-model="model.PlayersNumber" min="0" required />
+                        <div class="callout" ng-show="orderForm.playersNumber.$invalid && submitted">
+                            <div ng-show="orderForm.playersNumber.$error.required && submitted">יש להזין מספר שחקנים</div>
+                            <div ng-show="orderForm.playersNumber.$error.min && orderForm.playersNumber.$error.number && submitted">מס' שחקנים חייב להיות מספר לא שלילי</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,19 +121,26 @@
             </div>
             <div class="row">
                 <div class="col-sm-offset-6 col-sm-2">
-                    <button type="submit" class="btn btn-danger btn-block btn-search" ng-click="submitOrder(4)">בטל הזמנה</button>
+                    <button type="button" class="btn btn-danger btn-block btn-search" ng-click="cancelOrder()">בטל הזמנה</button>
                 </div>
                 <div class="col-sm-2">
-                    <button type="submit" class="btn btn-danger btn-block btn-search" ng-click="cancelChanges()">בטל שינויים</button>
+                    <button type="button" class="btn btn-danger btn-block btn-search" ng-click="cancelChanges()">בטל שינויים</button>
                 </div>
                 <div class="col-sm-2">
-                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitOrder(1)">שמור</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-search">שמור</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 		
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group form-errors text-danger" ng-show="orderForm.$invalid && submitted" ng-class="{ 'has-error' : orderForm.$invalid && submitted }">
+            <p class="form-control-static">יש לתקן את השגיאות בשדות האדומים</p>
+        </div>
+    </div>
+</div>
 
 <pre style="float:left; direction:ltr">
     {{model | json}}

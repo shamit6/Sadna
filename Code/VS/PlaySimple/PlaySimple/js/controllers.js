@@ -36,8 +36,8 @@
         init();
     }]);
 
-    myApp.controller('MyCtrl2', ['$scope', function ($scope) {
-    }]);
+    //myApp.controller('MyCtrl2', ['$scope', function ($scope) {
+    //}]);
 
     myApp.controller('SearchFieldsCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
@@ -54,11 +54,12 @@
         }
     }]);
 
-    myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
+    myApp.controller('FieldsCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
         var init = function () {
             $scope.sizes = DomainDecodes.fieldSize;
             $scope.types = DomainDecodes.fieldType;
 
+            $scope.submitted = false;
             $scope.model = {};
             $scope.originalModel = {};
 
@@ -79,7 +80,12 @@
             }
         }
 
-        $scope.submitField = function () {
+        $scope.submitField = function (isValid) {
+            $scope.submitted = true;
+
+            if (!isValid)
+                return;
+
             if ($scope.isNew) {
                 $http({
                     url: ServerRoutes.fields,
@@ -135,10 +141,17 @@
         }
     }]);
 
-    myApp.controller('EmployeesCtrl', ['$scope', '$http', '$routeParams', '$location', 'ServerRoutes', function ($scope, $http, $routeParams, $location, ServerRoutes) {
+    myApp.controller('EmployeesCtrl', ['$scope', '$http', '$routeParams', '$location', 'ServerRoutes', 'toaster', function ($scope, $http, $routeParams, $location, ServerRoutes, toaster) {
 
         var init = function () {
+
+            $scope.submitted = false;
             $scope.model = {};
+            $scope.model.employee = {};
+            $scope.model.passwordChanging = {};
+            $scope.model.passwordChanging.new = null;
+            $scope.model.passwordChanging.newVerify = null;
+
             $scope.originalModel = {};
 
             if ($routeParams.Id) {
@@ -149,8 +162,9 @@
                     method: "GET",
                     params: { id: $routeParams.Id },
                 }).then(function searchCompleted(response) {
-                    $scope.model = angular.copy(response.data)
-                    $scope.originalModel = angular.copy($scope.model);
+                    $scope.model.employee = angular.copy(response.data)
+                    $scope.originalModel = angular.copy($scope.model.employee);
+                    $scope.model.verifiedPassword = $scope.model.employee.Password;
                 });
             }
             else {
@@ -158,13 +172,24 @@
             }
         }
 
-        $scope.submitField = function () {
+        $scope.submitEmployee = function (isValid) {
+            $scope.submitted = true;
+
+            if (!isValid)
+                return;
+
+            if ($scope.model.passwordChanging.new != null && $scope.model.passwordChanging.new != "") {
+                $scope.model.employee.Password = $scope.model.passwordChanging.new;
+                $scope.model.verifiedPassword = $scope.model.employee.Password;
+            }
+            
             if ($scope.isNew) {
                 $http({
                     url: ServerRoutes.employees,
                     method: "POST",
-                    data: $scope.model,
+                    data: $scope.model.employee,
                 }).then(function searchCompleted(response) {
+                    $scope.model.verifiedPassword = $scope.model.employee.Password;
                     $location.path('/editEmployee/' + response.data.Id);
                 });
             }
@@ -172,24 +197,24 @@
                 $http({
                     url: ServerRoutes.employees,
                     method: "PUT",
-                    params: { id: $scope.model.Id },
-                    data: $scope.model,
+                    params: { id: $scope.model.employee.Id },
+                    data: $scope.model.employee,
                 }).then(function searchCompleted(response) {
-                    $scope.originalModel = angular.copy($scope.model);
+                    $scope.originalModel = angular.copy($scope.model.employee);
                     alert("data saved successfully");
                 });
             }
         };
 
         $scope.cancelChanges = function () {
-            $scope.model = angular.copy($scope.originalModel);
+            $scope.model.employee = angular.copy($scope.originalModel);
         };
 
         $scope.delete = function () {
             $http({
                 url: ServerRoutes.employees,
                 method: "DELETE",
-                params: { id: $scope.model.Id }
+                params: { id: $scope.model.employee.Id }
             }).then(function searchCompleted(response) {
                 $location.path('/editEmployee');
             });
@@ -216,21 +241,9 @@
 
     myApp.controller('ReportComplaintCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
-        $scope.types = [
-                {
-                    id: 1,
-                    name: 'אי תשלום'
-                },
-                {
-                    id: 2,
-                    name: 'אי הגעה'
-                },
-                {
-                    id: 3,
-                    name: 'חוסר ספורטיביות'
-                }
-        ];
+        $scope.types = ServerRoutes.complaintType;
         $scope.results;
+
         $scope.submitSearch = function () {
             $http({
                 url: ServerRoutes.reports.complaints,
@@ -241,27 +254,11 @@
             });
 
         }
-    }]); 
+    }]);
+
     myApp.controller('SearchCustomersCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
-        $scope.types = [
-                {
-                    id: 1,
-                    name: 'דן'
-                },
-                {
-                    id: 2,
-                    name: 'נגב'
-                },
-                {
-                    id: 3,
-                    name: 'חיפה'
-                },
-                {
-                    id: 4,
-                    name: 'ירושלים'
-                }
-        ];
+        $scope.types = ServerRoutes.regionDecode;
         $scope.results;
         $scope.submitSearch = function () {
             $http({
@@ -273,22 +270,10 @@
             });
         }
     }]); 
+
     myApp.controller('SearchAvailableOrdersCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
-        $scope.types = [
-                {
-                    id: 1,
-                    name: 'כדורגל'
-                },
-                {
-                    id: 2,
-                    name: 'כדורסל'
-                },
-                {
-                    id: 3,
-                    name: 'טניס'
-                }
-        ],
+        $scope.types = ServerRoutes.fieldType;
         $scope.results;
         $scope.submitSearch = function () {
             $http({
@@ -303,24 +288,7 @@
 
     myApp.controller('ownedOrdersCrtl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
-        $scope.types = [
-            {
-                id: 1,
-                name: 'נשלח'
-            },
-            {
-                id: 2,
-                name: 'התקבל'
-            },
-            {
-                id: 3,
-                name: 'נדחה'
-            },
-            {
-                id: 4,
-                name: 'בוטל'
-            }
-        ],
+        $scope.types = ServerRoutes.orderStatus;
         $scope.results;
         $scope.submitSearch = function () {
             $http({
@@ -332,6 +300,7 @@
             });
         }
     }]); 
+
     myApp.controller('OrdersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
 
         $scope.getOptionals = function () {
@@ -340,20 +309,13 @@
             optinalOrdersParams.orderId = $scope.model.Id;
             optinalOrdersParams.fieldId = $scope.model.Field.Id;
             optinalOrdersParams.fieldType = $scope.model.Field.Type;
-            optinalOrdersParams.date = new Date($scope.model.StartDate);
+            optinalOrdersParams.date = $scope.datePicker;
             $http({
                 url: ServerRoutes.orders.optionals,
                 method: "GET",
                 params: optinalOrdersParams,
             }).then(function searchCompleted(response) {
-                tempOptionalOrders = angular.copy(response.data);
-
-                for (var i = 0; i < tempOptionalOrders.length; i++) {
-                    var optional = tempOptionalOrders[i];
-
-                    optional.StartDate = new Date(optional.StartDate);
-                }
-                $scope.optinalOrders = tempOptionalOrders;
+                $scope.optinalOrders = angular.copy(response.data);
             });
         }
 
@@ -402,7 +364,7 @@
                 data: participant,
             }).then(function searchCompleted(response) {
                 $location.path('/editOrder/' + response.data.Id);
-                $scope.model.Participants = angular.copy(response.data.Participants)
+                $scope.model.Participants = angular.copy(response.data.Participants);
                 $scope.originalModel.Participants = angular.copy($scope.model.Participants);
             });
         }
@@ -412,6 +374,7 @@
             $scope.originalModel = {};
 
             $scope.fieldType = DomainDecodes.fieldType;
+            
             $scope.optinalOrders = {};
 
             if ($routeParams.Id) {
@@ -422,29 +385,28 @@
                     method: "GET",
                     params: { id: $routeParams.Id },
                 }).then(function searchCompleted(response) {
-                    var tempModal = angular.copy(response.data)
-                    tempModal.StartDate = new Date(tempModal.StartDate);
-                    $scope.model = tempModal;
-
+                    $scope.model = angular.copy(response.data);
                     $scope.originalModel = angular.copy($scope.model);
-
+                    $scope.datePicker = new Date($scope.model.StartDate);
                     $scope.getOptionals();
                     $scope.getOptionalField();
                 });  
             }
             else {
                 $scope.isNew = true;
-
-                var tempModal = angular.fromJson($routeParams.order);
-                tempModal.StartDate = new Date(tempModal.StartDate);
-                $scope.model = tempModal;
-
+                $scope.model = angular.fromJson($routeParams.order);
+                $scope.datePicker = new Date($scope.model.StartDate);
                 $scope.getOptionals();
                 $scope.getOptionalField();
             }
         }
 
-        $scope.submitOrder = function (status) {
+        $scope.submitOrder = function (isValid, status) {
+            $scope.submitted = true;
+
+            if (!isValid)
+                return;
+
             //$scope.model.Participants = null;
             $scope.model.Status = status;
             var modalToSend = angular.copy($scope.model);
@@ -455,7 +417,7 @@
                     method: "POST",
                     data: modalToSend,
                 }).then(function searchCompleted(response) {
-                    $location.path('/editOrder/' + response.data.Id);
+                    $location.path('/ownedOrders');
                 });
             }
             else {
@@ -470,6 +432,24 @@
                 });
             }
         };
+
+        $scope.cancelOrder = function () {
+
+            $scope.originalModel.Status = 4;
+            var modalToSend = angular.copy($scope.originalModel);
+            modalToSend.StartDate = new Date(modalToSend.StartDate).getTime();
+
+            $http({
+                url: ServerRoutes.orders.base,
+                method: "PUT",
+                params: { id: $scope.originalModel.Id },
+                data: modalToSend,
+            }).then(function searchCompleted(response) {
+                $scope.originalModel = angular.copy($scope.model);
+                alert("data saved successfully");
+                $location.path('/ownedOrders');
+            });
+        }
 
         $scope.cancelChanges = function () {           
             $scope.model = angular.copy($scope.originalModel);
@@ -539,6 +519,7 @@
             });
         }
     }]); 
+
     myApp.controller('PendingOrdersToJoinCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
         $scope.model = {};
         $scope.orderStatuses = DomainDecodes.orderStatus;
@@ -579,6 +560,7 @@
             $scope.model.complaint = {};
             $scope.model.passwordChanging = {};
             $scope.originalCustomer = {};
+            $scope.submitted = false;
 
             $http({
                 url: ServerRoutes.customers,
@@ -589,42 +571,29 @@
                 $scope.originalCustomer = angular.copy($scope.model.customer);
             });
         }
-        $scope.passwordVerify = function () {
-            if ($scope.model.passwordChanging.current != null || $scope.model.passwordChanging.new != null || $scope.model.passwordChanging.newVerify != null) {
-                if ($scope.model.passwordChanging.new == null) {
-                    alert("no new password");
-                    return false;
-                }
 
-                if ($scope.model.passwordChanging.new != $scope.model.passwordChanging.newVerify) {
-                    alert("new password is not the same");
-                    return false;
-                }
+        $scope.submitCustomer = function (isValid) {
+            $scope.submitted = true;
 
-                if ($scope.model.passwordChanging.current != $scope.model.customer.Password) {
-                    alert("current password is not matched");
-                    return false;
-                }
-            };
+            if (!isValid)
+                return;
 
-            return true;
-        };
 
-        $scope.submitCustomer = function () {
-
-            if ($scope.passwordVerify()) {
-
+            if ($scope.model.passwordChanging.new != null && $scope.model.passwordChanging.new != "") {
                 $scope.model.customer.Password = $scope.model.passwordChanging.new;
-                $http({
-                    url: ServerRoutes.customers,
-                    method: "PUT",
-                    params: { id: $scope.model.customer.Id },
-                    data: $scope.model.customer,
-                }).then(function searchCompleted(response) {
-                    $scope.originalCustomer = angular.copy($scope.model.customer);
-                    alert("data saved successfully");
-                });
+                $scope.model.verifiedPassword = $scope.model.customer.Password;
             }
+
+            $http({
+                url: ServerRoutes.customers,
+                method: "PUT",
+                params: { id: $scope.model.customer.Id },
+                data: $scope.model.customer,
+            }).then(function searchCompleted(response) {
+                $scope.originalCustomer = angular.copy($scope.model.customer);
+                alert("data saved successfully");
+                $scope.submitted = false;
+            });
         };
 
         $scope.saveReview = function () {
@@ -734,7 +703,6 @@
 
             if (!isValid)
                 return;
-
 
             $http({
                 url: ServerRoutes.login.registration,

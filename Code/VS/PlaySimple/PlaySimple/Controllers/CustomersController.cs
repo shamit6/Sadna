@@ -46,6 +46,7 @@ namespace PlaySimple.Controllers
         }
 
         [HttpPut]
+        [TransactionFilter]
         //[Authorize(Roles = Consts.Roles.Customer)]
         public DTOs.Customer Update(int id, [FromBody]DTOs.Customer customer)
         {

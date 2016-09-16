@@ -6,45 +6,65 @@
 
 <div class="row page">
     <div class="col-sm-12 editPanel">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="customerForm" ng-submit="submitCustomer(customerForm.$valid)" novalidate>
             <div class='row' >
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>שם משתמש</label>
-                        <input class="form-control" type="text" ng-model="model.customer.Username" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
+                        <input class="form-control" type="text" ng-model="model.customer.Username" ng-disabled="true"/>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : customerForm.firstName.$invalid && submitted }">
                         <label>שם פרטי</label>
-                        <input class="form-control" type="text" ng-model="model.customer.FirstName" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
+                        <input name="firstName" class="form-control" type="text" ng-model="model.customer.FirstName" 
+                               ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'" required ng-maxlength="20"/>
+                        <div class="callout" ng-show="customerForm.firstName.$invalid && submitted">
+                            <div ng-show="customerForm.firstName.$error.required && submitted">יש להזין שם פרטי</div>
+                            <div ng-show="customerForm.firstName.$error.maxlength && submitted">שם פרטי חייב להיות קטן מ-20 תווים</div>
+                        </div>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : customerForm.lastName.$invalid && submitted }">
                         <label>שם משפחה</label>
-                        <input class="form-control" type="text" ng-model="model.customer.LastName" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
+                        <input name="lastName" class="form-control" type="text" ng-model="model.customer.LastName" 
+                               ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'" required ng-maxlength="20"/>
+                        <div class="callout" ng-show="customerForm.lastName.$invalid && submitted">
+                            <div ng-show="customerForm.lastName.$error.required && submitted">יש להזין שם משפחה</div>
+                            <div ng-show="customerForm.lastName.$error.maxlength && submitted">שם משפחה חייב להיות קטן מ-20 תווים</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class='row' ng-show="sharedVariables.userId == model.customer.Id && sharedVariables.role != 'Admin'">
                 <div class='col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : customerForm.currentPassword.$invalid && submitted }">
                         <label>סיסמה נוכחית</label>
-                        <input class="form-control" type="password" ng-model="model.passwordChanging.current" />
+                        <input name="currentPassword" class="form-control" type="password" ng-model="model.passwordChanging.current" ng-required="model.passwordChanging.new" equalsornull="{{model.customer.Password}}" />
+                        <div class="callout" ng-show="customerForm.currentPassword.$invalid && submitted">
+                            <div ng-show="customerForm.currentPassword.$error.equalsornull && submitted">הסיסמא אינה הסיסמא הנוכחית</div>
+                            <div ng-show="customerForm.currentPassword.$error.required && submitted">יש להזין סיסמר נוכחית</div>
+                        </div>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : customerForm.newPassword.$invalid && submitted }">
                         <label>סיסמה חדשה</label>
-                        <input class="form-control" type="password" ng-model="model.passwordChanging.new" />
+                        <input name="newPassword" class="form-control" type="password" ng-model="model.passwordChanging.new" equals="{{model.passwordChanging.newVerify}}" />
+                        <div class="callout" ng-show="customerForm.newPassword.$invalid && submitted">
+                            <div ng-show="customerForm.newPassword.$error.equals && submitted">הסיסמא החדשה שונה מסיסמת האימות</div>
+                        </div>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
                     <div class='form-group'>
-                        <label>אימות סיסמה</label>
-                        <input class="form-control" type="password" ng-model="model.passwordChanging.newVerify" />
+                        <label>אימות סיסמא חדשה</label>
+                        <input name="newVerifyPassword" class="form-control" type="password" ng-model="model.passwordChanging.newVerify" />
+                        <!--<div class="callout" ng-show="employeeForm.newVerifyPassword.$invalid && submitted">
+                <div ng-show="employeeForm.newVerifyPassword.$error.equalsornull && submitted">סיסמת האימות שונה מהסיסמא החדשה</div>
+            </div>-->
                     </div>
                 </div>
             </div>
@@ -53,13 +73,21 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>תאריך לידה</label>
-                        <input class="form-control" type="text" ng-model="model.customer.BirthDate" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
+                        <text class="form-control" ng-model="model.customer.BirthDate" ng-disabled="true">
+                            {{model.customer.BirthDate | date : 'dd/MM/yyyy'}}
+
+                        </text>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : customerForm.email.$invalid && submitted }">
                         <label>אימייל</label>
-                        <input class="form-control" type="password" ng-model="model.customer.Email" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
+                        <input name="email" class="form-control" type="email" ng-model="model.customer.Email"  required 
+                               ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"/>
+                        <div class="callout" ng-show="customerForm.email.$invalid && submitted">
+                            <div ng-show="customerForm.email.$error.required && submitted">יש להזין אימייל</div>
+                            <div ng-show="customerForm.email.$error.email && submitted">כותבת אימייל אינה חוקית</div>
+                        </div>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
@@ -67,7 +95,6 @@
                         <label>מגורים</label>
                         <select class="form-control" ng-model="model.customer.Region" ng-disabled="sharedVariables.userId != model.customer.Id || sharedVariables.role == 'Admin'"
                                 ng-options="type.id as type.name for type in regionTypes">
-                            <option value=""></option>
                         </select>
                     </div>
                 </div>
@@ -150,22 +177,22 @@
                 <!-- As current user-->
                 <div ng-show="sharedVariables.userId == model.customer.Id && sharedVariables.role != 'Admin'">
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
+                        <button type="button" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
                     </div>
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitCustomer()">שמור</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-search">שמור</button>
                     </div>
                 </div>
                 <!-- As admin-->
                 <div ng-show="sharedVariables.role == 'Admin'">
                     <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'">
-                        <button type="submit" class="btn btn-danger btn-block btn-search" ng-click="freezeCustomer()">הקפא חשבון</button>
+                        <button type="button" class="btn btn-danger btn-block btn-search" ng-click="freezeCustomer()">הקפא חשבון</button>
                     </div>
                     <div class="col-sm-2 col-sm-offset-8">
-                        <button type="submit" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
+                        <button type="button" class="btn btn-danger btn-block btn-search">בטל שינויים</button>
                     </div>
                     <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'|| sharedVariables.userId == model.customer.Id">
-                        <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitCustomer()">שמור</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-search">שמור</button>
                     </div>
                 </div>
             </div>
@@ -234,10 +261,16 @@
         </form>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group form-errors text-danger" ng-show="customerForm.$invalid && submitted" ng-class="{ 'has-error' : customerForm.$invalid && submitted }">
+            <p class="form-control-static">יש לתקן את השגיאות בשדות האדומים</p>
+        </div>
+    </div>
+</div>
 
 
 
 <pre style="float:left; direction:ltr">
-    {{model.customerComplaints | json}}
+    {{model.customer | json}}
 </pre>

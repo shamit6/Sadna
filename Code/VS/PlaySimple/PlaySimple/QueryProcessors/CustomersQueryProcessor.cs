@@ -106,7 +106,7 @@ namespace PlaySimple.QueryProcessors
             existingCustomer.FirstName = customer.FirstName ?? existingCustomer.FirstName;
             existingCustomer.LastName = customer.LastName ?? existingCustomer.LastName;
             existingCustomer.Username = customer.Username ?? existingCustomer.Username;
-            existingCustomer.Password = customer.LastName ?? existingCustomer.Password;
+            existingCustomer.Password = customer.Password ?? existingCustomer.Password;
             existingCustomer.Email = customer.Email ?? existingCustomer.Email;
 
             if (customer.BirthDate != null)
