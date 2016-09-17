@@ -39,7 +39,7 @@
     //myApp.controller('MyCtrl2', ['$scope', function ($scope) {
     //}]);
 
-    myApp.controller('SearchFieldsCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+    myApp.controller('SearchFieldsCtrl', ['$scope', '$http', 'ServerRoutes', 'toaster', function ($scope, $http, ServerRoutes, toaster) {
         $scope.model = {};
         $scope.results;
 
@@ -50,6 +50,10 @@
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
+
+                if (angular.equals($scope.results,[])) {
+                    toaster.info('לא נמצאו מגרשים העונים על הדרישה');
+                }
             });
         }
     }]);
@@ -93,6 +97,7 @@
                     data: $scope.model,
                 }).then(function searchCompleted(response) {
                     $location.path('/editField/' + response.data.Id);
+                    toaster.success('המגרש נשמר בהצלחה');
                 });
             }
             else {
@@ -103,7 +108,7 @@
                     data: $scope.model,
                 }).then(function searchCompleted(response) {
                     $scope.originalModel = angular.copy($scope.model);
-                    alert("data saved successfully");
+                    toaster.success('נתוני המגרש עודכנו בהצלחה');
                 });
             }
         };
@@ -119,13 +124,14 @@
                 params: { id: $scope.model.Id }
             }).then(function searchCompleted(response) {
                 $location.path('/editField');
+                toaster.success('המגרש נמחק בהצלחה');
             });
         };
 
         init();
     }]);
 
-    myApp.controller('SearchEmployeesCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+    myApp.controller('SearchEmployeesCtrl', ['$scope', '$http', 'ServerRoutes', 'toaster', function ($scope, $http, ServerRoutes) {
         $scope.model = {};
         $scope.results;
 
@@ -136,6 +142,10 @@
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
+
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו עובדים העונים על הדרישה');
+                }
             });
 
         }
@@ -191,6 +201,7 @@
                 }).then(function searchCompleted(response) {
                     $scope.model.verifiedPassword = $scope.model.employee.Password;
                     $location.path('/editEmployee/' + response.data.Id);
+                    toaster.success('העובד נשמר בהצלחה');
                 });
             }
             else {
@@ -201,7 +212,7 @@
                     data: $scope.model.employee,
                 }).then(function searchCompleted(response) {
                     $scope.originalModel = angular.copy($scope.model.employee);
-                    alert("data saved successfully");
+                    toaster.success('פרטי העובד עודכנו בהצלחה');
                 });
             }
         };
@@ -217,13 +228,15 @@
                 params: { id: $scope.model.employee.Id }
             }).then(function searchCompleted(response) {
                 $location.path('/editEmployee');
+
+                toaster.success('העובד נמחק בהצלחה');
             });
         };
 
         init();
     }]);
 
-    myApp.controller('ReportCustomerCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+    myApp.controller('ReportCustomerCtrl', ['$scope', '$http', 'ServerRoutes', 'toaster', function ($scope, $http, ServerRoutes, toaster) {
         $scope.model = {};
         $scope.results;
 
@@ -234,31 +247,46 @@
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
-            });
 
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו לקוחות העונים על הדרישה');
+                }
+            });
         }
     }]);
 
-    myApp.controller('ReportComplaintCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+    myApp.controller('ReportComplaintCtrl', ['$scope', '$http', 'ServerRoutes', 'DomainDecodes', 'toaster', function ($scope, $http, ServerRoutes, DomainDecodes, toaster) {
         $scope.model = {};
-        $scope.types = ServerRoutes.complaintType;
+        $scope.types = DomainDecodes.complaintType;
         $scope.results;
+        $scope.submitted = false;
+        $scope.model.untilDate = new Date();
 
-        $scope.submitSearch = function () {
+        $scope.submitSearch = function (isValid) {
+            $scope.submitted = true;
+
+            if (!isValid)
+                return;
+
             $http({
                 url: ServerRoutes.reports.complaints,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
-            });
 
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו נתונים העונים על הדרישה');
+                }
+
+                $scope.submitted = false;
+            });
         }
     }]);
 
-    myApp.controller('SearchCustomersCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+    myApp.controller('SearchCustomersCtrl', ['$scope', '$http', 'ServerRoutes', 'DomainDecodes', 'toaster', function ($scope, $http, ServerRoutes, DomainDecodes, toaster) {
         $scope.model = {};
-        $scope.types = ServerRoutes.regionDecode;
+        $scope.types = DomainDecodes.regionDecode;
         $scope.results;
         $scope.submitSearch = function () {
             $http({
@@ -267,29 +295,54 @@
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
+
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו לקוחות העונים על הדרישה');
+                }
             });
         }
     }]); 
 
-    myApp.controller('SearchAvailableOrdersCtrl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+    myApp.controller('SearchAvailableOrdersCtrl', ['$scope', '$http', 'ServerRoutes', 'DomainDecodes', 'toaster', function ($scope, $http, ServerRoutes, DomainDecodes, toaster) {
         $scope.model = {};
-        $scope.types = ServerRoutes.fieldType;
+        $scope.types = DomainDecodes.fieldType;
+        $scope.submitted = false;
         $scope.results;
-        $scope.submitSearch = function () {
+
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        $scope.model.date = today;
+
+        $scope.submitSearch  = function (isValid) {
+            $scope.submitted = true;
+
+            if (!isValid)
+                return;
+
             $http({
                 url: ServerRoutes.orders.availables,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
-                $scope.results = response.data;
+                $scope.results = angular.copy(response.data);
+                $scope.submitted = false;
+
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו הזמנות העונות על הדרישה');
+                }
             });
         }
     }]); 
 
-    myApp.controller('ownedOrdersCrtl', ['$scope', '$http', 'ServerRoutes', function ($scope, $http, ServerRoutes) {
+    myApp.controller('ownedOrdersCrtl', ['$scope', '$http', 'ServerRoutes', 'DomainDecodes', 'toaster', function ($scope, $http, ServerRoutes, DomainDecodes, toaster) {
         $scope.model = {};
-        $scope.types = ServerRoutes.orderStatus;
+        $scope.types = DomainDecodes.orderStatus;
         $scope.results;
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        $scope.model.fromDate = today;
+
         $scope.submitSearch = function () {
             $http({
                 url: ServerRoutes.orders.searchmyorders,
@@ -297,11 +350,15 @@
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
+
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו הזמנות העונים על הדרישה');
+                }
             });
         }
     }]); 
 
-    myApp.controller('OrdersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
+    myApp.controller('OrdersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
 
         $scope.getOptionals = function () {
 
@@ -316,6 +373,10 @@
                 params: optinalOrdersParams,
             }).then(function searchCompleted(response) {
                 $scope.optinalOrders = angular.copy(response.data);
+
+                if (angular.equals($scope.optinalOrders, [])) {
+                    toaster.info('לא נמצאו מועדים פנויים');
+                }
             });
         }
 
@@ -370,12 +431,13 @@
         }
 
         var init = function () {
+            $scope.fieldType = DomainDecodes.fieldType;
+
             $scope.model = {};
             $scope.originalModel = {};
-
-            $scope.fieldType = DomainDecodes.fieldType;
-            
             $scope.optinalOrders = {};
+
+            $scope.lessThen24Hours = false;
 
             if ($routeParams.Id) {
                 $scope.isNew = false;
@@ -390,6 +452,12 @@
                     $scope.datePicker = new Date($scope.model.StartDate);
                     $scope.getOptionals();
                     $scope.getOptionalField();
+
+
+                    var tempDate = new Date($scope.model.StartDate);
+                    tempDate.setDate(tempDate.getDate() - 1);
+
+                    $scope.lessThen24Hours = new Date() > tempDate;
                 });  
             }
             else {
@@ -417,7 +485,7 @@
                     method: "POST",
                     data: modalToSend,
                 }).then(function searchCompleted(response) {
-                    $location.path('/ownedOrders');
+                    toaster.success('ההזמנה נשמרה בהצלחה');
                 });
             }
             else {
@@ -428,7 +496,7 @@
                     data: modalToSend,
                 }).then(function searchCompleted(response) {
                     $scope.originalModel = angular.copy($scope.model);
-                    alert("data saved successfully");
+                    toaster.success('ההזמנה עודכנה בהצלחה');
                 });
             }
         };
@@ -446,7 +514,7 @@
                 data: modalToSend,
             }).then(function searchCompleted(response) {
                 $scope.originalModel = angular.copy($scope.model);
-                alert("data saved successfully");
+                toaster.success('ההזמנה בוטלה בהצלחה');
                 $location.path('/ownedOrders');
             });
         }
@@ -459,17 +527,31 @@
         init();
     }]);
 
-    myApp.controller('SearchAvailableOrdersToJoinCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
+    myApp.controller('SearchAvailableOrdersToJoinCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($scope, $route, $http, DomainDecodes, ServerRoutes, toaster) {
         $scope.model = {};
         $scope.orderStatuses = DomainDecodes.orderStatus;
         $scope.results;
-        $scope.submitSearch = function () {
+
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        $scope.model.fromDate = today;
+        
+        $scope.submitSearch = function (isValid) {
+            $scope.submitted = true;
+
+            if (!isValid)
+                return;
+
             $http({
                 url: ServerRoutes.orders.availablestojoin,
                 method: "GET",
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
+
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו הזמנות העונות על הדרישה');
+                }
             });
         }
 
@@ -481,18 +563,24 @@
             }).then(function searchCompleted(response) {
                 //$location.path('/searchAvailableOrdersToJoin');
                 // $route.reload();
-
+                toaster.success('בקשת ההצטרפות נשמרה בהצלחה');
                 $scope.results.splice(index, 1);
+
             });
         }
     }]); 
 
-    myApp.controller('SearchOrdersCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes',
-    function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
+    myApp.controller('SearchOrdersCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', 'toaster',
+    function ($scope, $route, $http, DomainDecodes, ServerRoutes, toaster) {
 
         $scope.model = {};
         $scope.orderStatuses = DomainDecodes.orderStatus;
         $scope.results;
+
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        $scope.model.fromDate = today;
+
         $scope.submitSearch = function () {
 
             $http({
@@ -501,6 +589,10 @@
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
+
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו הזמנות העונות על הדרישה');
+                }
             });
         }
 
@@ -516,15 +608,22 @@
                 data: order,
             }).then(function searchCompleted(response) {
                 order = response.data;
+
+                toaster.success('הפעולה בוצעה בהצלחה');
             });
         }
     }]); 
 
-    myApp.controller('PendingOrdersToJoinCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', function ($scope, $route, $http, DomainDecodes, ServerRoutes) {
+    myApp.controller('PendingOrdersToJoinCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($scope, $route, $http, DomainDecodes, ServerRoutes, toaster) {
         $scope.model = {};
         $scope.orderStatuses = DomainDecodes.orderStatus;
         $scope.invitationStatuses = DomainDecodes.invitationStatus;
         $scope.results;
+
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        $scope.model.fromDate = today;
+
         $scope.submitSearch = function () {
             $http({
                 url: ServerRoutes.participants,
@@ -532,10 +631,14 @@
                 params: $scope.model,
             }).then(function searchCompleted(response) {
                 $scope.results = response.data;
+
+                if (angular.equals($scope.results, [])) {
+                    toaster.info('לא נמצאו הזמנות העונות על הדרישה');
+                }
             });
         }
 
-        $scope.submitSearch();
+        //$scope.submitSearch();
 
         $scope.cancelJoining = function (participantId, index) {
 
@@ -545,11 +648,13 @@
                 params: { id: participantId }
             }).then(function searchCompleted(response) {
                 $scope.results.splice(index, 1);
+
+                toaster.success('הפעולה בוצעה בהצלחה');
             });
         }
     }]);
 
-    myApp.controller('CustomersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes) {
+    myApp.controller('CustomersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
         var init = function () {
             $scope.regionTypes = DomainDecodes.regionDecode;
             $scope.complaintTypes = DomainDecodes.complaintType;
@@ -591,7 +696,7 @@
                 data: $scope.model.customer,
             }).then(function searchCompleted(response) {
                 $scope.originalCustomer = angular.copy($scope.model.customer);
-                alert("data saved successfully");
+                toaster.success('נתוני הלקוח נשמרו בהצלחה');
                 $scope.submitted = false;
             });
         };
@@ -606,7 +711,7 @@
                 method: "POST",
                 data: $scope.model.review,
             }).then(function searchCompleted(response) {
-                alert("data saved successfully");
+                toaster.success('פרטי חוות הדעת נשמרו בהצלחה');
                 $scope.model.review = {};
             });
         };
@@ -621,7 +726,7 @@
                 method: "POST",
                 data: $scope.model.review,
             }).then(function searchCompleted(response) {
-                alert("data saved successfully");
+                toaster.success('פרטי התלונה נשמרו בהצלחה');
                 $scope.model.complaint = {};
             });
         };
@@ -630,7 +735,7 @@
             var freezeDate = new Date();
             freezeDate.setDate(freezeDate.getDate() + 30);
             $scope.model.customer.FreezeDate = freezeDate;
-            $scope.submitCustomer();
+            $scope.submitCustomer(true);
         }
 
         $scope.cancelChanges = function () {

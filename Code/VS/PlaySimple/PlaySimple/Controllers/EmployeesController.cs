@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
-    //[Authorize(Roles = Consts.Roles.Admin)]
+    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
     public class EmployeesController : ApiController
     {
         private readonly IEmployeesQueryProcessor _employessQueryProcessor;

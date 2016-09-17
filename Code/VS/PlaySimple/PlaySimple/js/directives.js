@@ -60,6 +60,7 @@
 
     myApp.directive('past', function () {
         var today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         return {
             restrict: 'A', // only activate on element attribute
@@ -79,9 +80,10 @@
 
                 var validate = function () {
                     var val = ngModel.$viewValue;
-
+                    var valDate = new Date(val);
+                    valDate.setHours(0, 0, 0, 0);
                     // set validity
-                    ngModel.$setValidity('past', new Date(val) < today);
+                    ngModel.$setValidity('past', valDate <= today);
                 };
             }
         }
@@ -89,6 +91,7 @@
 
     myApp.directive('future', function () {
         var today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         return {
             restrict: 'A', // only activate on element attribute
@@ -110,7 +113,7 @@
                     var val = ngModel.$viewValue;
 
                     // set validity
-                    ngModel.$setValidity('future', new Date(val) > today);
+                    ngModel.$setValidity('future', new Date(val) >= today);
                 };
             }
         }

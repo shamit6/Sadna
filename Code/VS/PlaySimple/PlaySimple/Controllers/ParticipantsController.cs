@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace PlaySimple.Controllers
 {
+    [Authorize(Roles = Consts.Roles.Customer)]
     public class ParticipantsController : ApiController
     {
         private readonly IParticipantsQueryProcessor _participantsQueryProcessor;

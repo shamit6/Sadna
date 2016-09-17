@@ -34,14 +34,21 @@ namespace PlaySimple.QueryProcessors
 
         public IEnumerable<OffendingCustomersReport> GetOffendingCustomersReport(DateTime? fromDate, DateTime? untilDate, int? complaintType)
         {
-            return _complaintsQueryProcessor.Search(null, fromDate, untilDate, complaintType).GroupBy(x => x.OffendingCustomer).
-                Select(x => new OffendingCustomersReport()
-                {
-                    CustomerId = x.First().OffendingCustomer.Id ?? 0,
-                    FirstName = x.First().OffendingCustomer.FirstName,
-                    LastName = x.First().OffendingCustomer.LastName,
-                    NumberOfComplaints = x.Count()
-                });
+            var complaintsGrouping = _complaintsQueryProcessor.Search(null, fromDate, untilDate, complaintType).GroupBy(x => x.OffendingCustomer.Id, x => x.OffendedCustomer.Id);
+            List<OffendingCustomersReport> offendingList = new List<OffendingCustomersReport>();
+
+            foreach (var item in complaintsGrouping)
+            {
+                DTOs.Customer customer = _customersQueryProcessor.GetCustomer(item.Key ?? 0);
+                offendingList.Add(new OffendingCustomersReport()
+                        {
+                            CustomerId = customer.Id??0,
+                            FirstName = customer.FirstName,
+                            LastName = customer.LastName,
+                            NumberOfComplaints = item.Count()
+                        });
+            }
+            return offendingList;
         }
 
         public IEnumerable<CustomersActivityReport> GetCustomersActivityReport(string firstName, string lastName, int? minAge, int? maxAge, DateTime? fromDate, DateTime? untilDate)
@@ -53,12 +60,23 @@ namespace PlaySimple.QueryProcessors
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     Age = DateUtils.GetAge(x.BirthDate),
-                    //LastGameDate = _ordersQueryProcessor.Search(null, x.Id, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Max(t => t.StartDate),
+                    //LastGameDate = .OrderByDescending(x => x.StartDate),
                     NumberOfOrders = _ordersQueryProcessor.Search(null, x.Id, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, fromDate, untilDate).Count(),
                     NumberOfCanceledOrders = _ordersQueryProcessor.Search(null, x.Id, null, new int?[] { (int)Consts.Decodes.OrderStatus.Canceled }, null, null, fromDate, untilDate).Count(),
                     NumberOfJoiningAsGuest = _participantsQueryProcessor.Search(x.Id, null, new int?[] { (int)Consts.Decodes.InvitationStatus.Accepted },
                     null, null, null, null, null, null).Count()
-                });
+                }).ToArray();
+
+            for (int i = 0; i < report.Count(); i++)
+            {
+                var item = report[i];
+                var itemOrder = _ordersQueryProcessor.Search(null, item.CoustomerId, null, new int?[] { (int)Consts.Decodes.OrderStatus.Accepted }, null, null, null, null);
+
+                if (itemOrder.Count != 0)
+                {
+                    item.LastGameDate = itemOrder.Max(x => x.StartDate);
+                }
+            }         
 
             return report;
         }

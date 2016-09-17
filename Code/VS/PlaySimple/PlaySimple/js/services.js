@@ -21,6 +21,7 @@
 
                 // unauthorized
                 if (response.status == 401) {
+                    toaster.warning('אין לך הרשאות למסך זה');
                     $location.path("/login");
                 }
 
@@ -64,7 +65,7 @@
                         path = '/searchCustomers';
                     }
                     else if (loginData.Role == "Employee") { // 
-                        path = '/ownedPendingInvitations';
+                        path = '/searchOrders';
                     }
                     else {
                         path = '/ownedOrders';

@@ -6,76 +6,89 @@
 
 <div class="row page">
     <div class="col-sm-12 searchPanel">
-            <form class="form-horizontal">
+        <form class="form-horizontal" name="availableOrderToJoinForm" ng-submit="submitSearch(availableOrderToJoinForm.$valid)" novalidate>
 
-                <div class='row'>
-                    <div class='col-sm-3'>
-                        <div class='form-group'>
-                            <label>מספר מזמין</label>
-                            <input class="form-control" type="text" ng-model="model.ownerId" />
-                        </div>
-                    </div>
-                    <div class='col-sm-push-1 col-sm-3'>
-                        <div class='form-group'>
-                            <label>שם מזמין</label>
-                            <input class="form-control" type="text" ng-model="model.ownerName" />
-                        </div>
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>מספר מזמין</label>
+                        <input class="form-control" type="text" ng-model="model.ownerId" />
                     </div>
                 </div>
-
-                <div class='row'>
-                    <div class='col-sm-3'>
-                        <div class='form-group'>
-                            <label>מספר הזמנה</label>
-                            <input class="form-control" type="number" ng-model="model.orderId" />
-                        </div>
-                    </div>
-                    <div class='col-sm-push-1 col-sm-3'>
-                        <div class='form-group'>
-                            <label>סטטוס הזמנה</label>
-                            <select class="form-control" ng-model="model.orderStatusId" 
-                                    ng-options="orderStatus.id as orderStatus.name for orderStatus in orderStatuses">
-                                <option value=""></option>
-                            </select>
-                        </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם מזמין</label>
+                        <input class="form-control" type="text" ng-model="model.ownerName" />
                     </div>
                 </div>
+            </div>
 
-                <div class='row'>
-                    <div class='col-sm-3'>
-                        <div class='form-group'>
-                            <label>מספר מגרש</label>
-                            <input class="form-control" type="number" ng-model="model.fieldId" />
-                        </div>
-                    </div>
-                    <div class='col-sm-push-1 col-sm-3'>
-                        <div class='form-group'>
-                            <label>שם מגרש</label>
-                            <input class="form-control" type="text" ng-model="model.fieldName" />
-                        </div>
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>מספר הזמנה</label>
+                        <input class="form-control" type="number" ng-model="model.orderId" />
                     </div>
                 </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>סטטוס הזמנה</label>
+                        <select class="form-control" ng-model="model.orderStatusId" 
+                                ng-options="orderStatus.id as orderStatus.name for orderStatus in orderStatuses">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group'>
+                        <label>מספר מגרש</label>
+                        <input class="form-control" type="number" ng-model="model.fieldId" />
+                    </div>
+                </div>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label>שם מגרש</label>
+                        <input class="form-control" type="text" ng-model="model.fieldName" />
+                    </div>
+                </div>
+            </div>
       
-                <div class='row'>
-                    <div class='col-sm-3'>
-                        <div class='form-group'>
-                            <label>מתאריך</label>
-                            <input class="form-control" type="date" ng-model="model.fromDate" />
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <div class='form-group' ng-class="{ 'has-error' : availableOrderToJoinForm.fromDate.$invalid && submitted }">
+                        <label for="user_title">מתאריך</label>
+                        <input name="fromDate" class="form-control" type="date" ng-model="model.fromDate" required future />
+                        <div class="callout up three-errors" ng-show="availableOrderToJoinForm.fromDate.$invalid && submitted">
+                            <div ng-show="availableOrderToJoinForm.fromDate.$error.required && submitted">יש להזין תאריך</div>
+                            <div ng-show="availableOrderToJoinForm.fromDate.$error.date && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
+                            <div ng-show="availableOrderToJoinForm.fromDate.$error.future && submitted">יש להזין תאריך עתידי</div>
                         </div>
-                    </div>
-                    <div class='col-sm-push-1 col-sm-3'>
-                        <div class='form-group'>
-                            <label>עד תאריך</label>
-                            <input class="form-control" type="date" ng-model="model.untilDate" />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-push-5 col-sm-1">
-                        <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitSearch()">חפש</button>
                     </div>
                 </div>
-            </form>
+                <div class='col-sm-push-1 col-sm-3'>
+                    <div class='form-group'>
+                        <label for="user_title">עד תאריך</label>
+                        <input class="form-control" type="date" ng-model="model.untilDate" />
+                    </div>
+                </div>
+                <div class="col-sm-push-5 col-sm-1">
+                    <button type="submit" class="btn btn-primary btn-block btn-search">חפש</button>
+                </div>
+            
+            </div>
+        </form>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group form-errors text-danger" ng-show="availableOrderToJoinForm.$invalid && submitted" ng-class="{ 'has-error' : availableOrderToJoinForm.$invalid && submitted }">
+                <p class="form-control-static">יש לתקן את השגיאות בשדות האדומים</p>
+            </div>
+        </div>
+    </div>	
+
     <div class="searchResults">
         <table class="table table-hover searchTable">
             <thead>
@@ -99,7 +112,7 @@
                             </div>
                         </div>
                     </td>
-                    <td><a href="" ng-click="joinToOrder(row, $index)">הזמן</a></td>
+                    <td><a href="" ng-click="joinToOrder(row, $index)">בקש להצטרף</a></td>
                 </tr>
             </tbody>
         </table>

@@ -7,6 +7,15 @@
 <div class="row page">
     <div class="col-sm-12 editPanel">
         <form class="form-horizontal" name="customerForm" ng-submit="submitCustomer(customerForm.$valid)" novalidate>
+            
+
+            <div class="row" ng-show="model.customer.FreezeDate">
+                <div class="col-sm-3">
+                    <div class="form-group text-danger">
+                        <p class="form-control-static">הלקוח קפוא עד התאריך {{model.customer.FreezeDate | date : 'dd/MM/yyyy'}} </p>
+                    </div>
+                </div>
+            </div>
             <div class='row' >
                 <div class='col-sm-3'>
                     <div class='form-group'>
@@ -165,10 +174,10 @@
                     </script>
 
                     <div class="col-sm-2 col-sm-offset-6" ng-show="sharedVariables.role == 'Admin' || sharedVariables.userId == model.customer.Id">
-                        <button type="submit" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">צפה בחוות דעות</button>
+                        <button type="button" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">צפה בחוות דעות</button>
                     </div>
                     <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'">
-                        <button type="submit" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getComplaints, 'myModalContent.html')">צפה בתלונות</button>
+                        <button type="button" class="btn btn-default btn-block btn-search" ng-click="$ctrl.open(getComplaints, 'myModalContent.html')">צפה בתלונות</button>
                     </div>
 
                 </div>
@@ -186,7 +195,8 @@
                 <!-- As admin-->
                 <div ng-show="sharedVariables.role == 'Admin'">
                     <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'">
-                        <button type="button" class="btn btn-danger btn-block btn-search" ng-click="freezeCustomer()">הקפא חשבון</button>
+                        <button type="button" class="btn btn-danger btn-block btn-search" ng-disabled="model.customer.FreezeDate"
+                                ng-click="freezeCustomer()">הקפא חשבון ל-30 יום</button>
                     </div>
                     <div class="col-sm-2 col-sm-offset-8">
                         <button type="button" class="btn btn-danger btn-block btn-search">בטל שינויים</button>

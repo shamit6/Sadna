@@ -75,7 +75,7 @@
                     <td>{{row.FirstName}}</td>
                     <td>{{row.LastName}}</td>
                     <td>{{row.Age}}</td>
-                    <td>{{row.LastGameDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{row.LastGameDate |  dateOrderFilter}}</td>
                     <td>{{row.NumberOfOrders}}</td>
                     <td>{{row.NumberOfCanceledOrders}}</td>
                     <td>{{row.NumberOfJoiningAsGuest}}</td>
@@ -84,3 +84,7 @@
         </table>
     </div>
 </div>
+
+<pre style="float:left; direction:ltr">
+    {{results | json}}
+</pre>

@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
-    //[RoutePrefix("api/reports")]
+    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
     public class ReportsController : ApiController
     {
         private readonly IReportsQueryProcessor _reportsQueryProcessor;

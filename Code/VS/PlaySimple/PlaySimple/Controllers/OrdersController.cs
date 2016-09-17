@@ -10,6 +10,7 @@ using PlaySimple.Common;
 
 namespace PlaySimple.Controllers
 {
+    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
     public class OrdersController : ApiController
     {
         private readonly IOrdersQueryProcessor _ordersQueryProcessor;

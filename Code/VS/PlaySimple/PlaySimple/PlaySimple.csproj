@@ -183,7 +183,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Compile Include="DTOs\Complaint.cs" />
-    <Compile Include="Filters\Employee.cs" />
+    <Compile Include="DTOs\Employee.cs" />
     <Compile Include="DTOs\Entity.cs" />
     <Compile Include="DTOs\Field.cs" />
     <Compile Include="DTOs\OffendingCustomersReport.cs" />

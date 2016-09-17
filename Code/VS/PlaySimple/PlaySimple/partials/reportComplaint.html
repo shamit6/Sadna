@@ -6,18 +6,27 @@
 		
 <div class="row page">
  	<div class="col-sm-12 searchPanel">
-		<form class="form-horizontal">
+		<form class="form-horizontal" name="reportComplaintForm" ng-submit="submitSearch(reportComplaintForm.$valid)" novalidate>
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : reportComplaintForm.fromDate.$invalid && submitted }">
                         <label>מתאריך</label>
-                        <input class="form-control" type="date" ng-model="model.fromDate" />
+                        <input name="fromDate" class="form-control" type="date" ng-model="model.fromDate"/>
+                        <div class="callout up three-errors" ng-show="reportComplaintForm.fromDate.$invalid && submitted">
+                            <div ng-show="reportComplaintForm.fromDate.$error.date && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
+                            <div ng-show="reportComplaintForm.fromDate.$error.past && submitted">יש להזין תאריך עבר</div>
+                        </div>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group' ng-class="{ 'has-error' : reportComplaintForm.untilDate.$invalid && submitted }">
                         <label>עד תאריך</label>
-                        <input class="form-control" type="date" ng-model="model.untilDate" />
+                        <input name="untilDate" class="form-control" type="date" ng-model="model.untilDate" required past/>
+                        <div class="callout up three-errors" ng-show="reportComplaintForm.untilDate.$invalid && submitted">
+                            <div ng-show="reportComplaintForm.untilDate.$error.required && submitted">יש להזין תאריך</div>
+                            <div ng-show="reportComplaintForm.untilDate.$error.date && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
+                            <div ng-show="reportComplaintForm.untilDate.$error.past && submitted">יש להזין תאריך עבר</div>
+                        </div>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
@@ -29,26 +38,18 @@
                     </div>
                 </div>
                 <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitSearch()">חפש</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-search">חפש</button>
                 </div>
-            </div>
-
-            <!--<div class="fieldContainer threePerRow newLine">
-                <label>מתאריך</label><input ng-model="model.fromDate" type="date">
-            </div>
-            <div class="fieldContainer threePerRow">
-                <label>עד תאריך</label><input ng-model="model.untilDate" type="date">
-            </div>
-            <div class="fieldContainer threePerRow">
-                <label>סוג</label><select ng-model="model.complaintType" ng-options="type.id as type.name for type in types">
-                    <option value=""></option>
-                </select>
-            </div>	
-            <div class="fieldContainer threePerRow pullLeft newLine">
-                <input type="button" value="חפש" class="btn" ng-click="submitSearch()">
-            </div>-->						
+            </div>				
 		</form>
 	</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group text-danger" ng-show="reportComplaintForm.$invalid && submitted" ng-class="{ 'has-error' : reportComplaintForm.$invalid && submitted }">
+                <p class="form-control-static">יש לתקן את השגיאות בשדות האדומים</p>
+            </div>
+        </div>
+    </div>		
     <div class="searchResults">
         <table class="table table-hover searchTable">
             <thead>
@@ -60,7 +61,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="row in results">
-                    <td>{{row.CoustomerId}}</td>
+                    <td>{{row.CustomerId}}</td>
                     <td>{{row.FirstName}}</td>
                     <td>{{row.LastName}}</td>
                     <td>{{row.NumberOfComplaints}}</td>

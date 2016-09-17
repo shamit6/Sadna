@@ -21,12 +21,11 @@
 
       myApp.filter('dateOrderFilter', function ($filter) {
 
-          //function pad(str, max) {
-          //    str = str.toString();
-          //    return str.length < max ? pad("0" + str, max) : str;
-          //}
+          function dateString(dateFromServer) {
 
-          function dateString(dateFromServer) { // birthday is a date
+              if (!dateFromServer) {
+                  return "";
+              }
               var twoHoursLater = new Date();
               twoHoursLater.setTime(dateFromServer);
               twoHoursLater.setHours(twoHoursLater.getHours() + 2);

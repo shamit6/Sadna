@@ -19,7 +19,7 @@ namespace PlaySimple.DTOs
 
         public virtual int Age { get; set; }
 
-        public virtual DateTime LastGameDate { get; set; }
+        public virtual long LastGameDate { get; set; }
 
         public virtual int NumberOfOrders { get; set; }
 
