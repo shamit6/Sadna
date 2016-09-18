@@ -6,7 +6,7 @@ using PlaySimple.Filters;
 
 namespace PlaySimple.Controllers
 {
-    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
+    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
     public class FieldsController : ApiController
     {
         private readonly IFieldsQueryProcessor _fieldsQueryProcessor;
@@ -17,14 +17,12 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         public IEnumerable<DTOs.Field> Search(int? fieldId = null, string fieldName = null, int? type = null)
         {
             return _fieldsQueryProcessor.Search(null, fieldId, fieldName, type);
         }
 
         [HttpGet]
-        [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         public DTOs.Field Get(int id)
         {
             return _fieldsQueryProcessor.GetField(id);
@@ -46,9 +44,11 @@ namespace PlaySimple.Controllers
 
         [HttpDelete]
         [TransactionFilter]
-        public void Delete([FromUri]int id)
+        public int Delete([FromUri]int id)
         {
             _fieldsQueryProcessor.Delete(id);
+
+            return 1;
         }
     }
 }

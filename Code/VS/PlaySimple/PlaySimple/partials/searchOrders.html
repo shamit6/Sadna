@@ -100,10 +100,10 @@
                         </div>
                     </td>
                     <td ng-if="row.Status == 1">
-                        <a href="" ng-click="acceptRejectOrder(row, 2)">אשר</a> <a href="" ng-click="acceptRejectOrder(row, 3)">דחה</a>
+                        <a href="#/editOrder/{{row.Id}}">צפה</a> <a href="" ng-click="acceptRejectOrder(row, 2)">אשר</a> <a href="" ng-click="acceptRejectOrder(row, 3)">דחה</a>
                     </td>
                     <td ng-if="row.Status == 2">
-                        <a href="">צפה</a>
+                        <a href="#/editOrder/{{row.Id}}">צפה</a>
                     </td>
                     <td ng-if="row.Status == 3 || row.Status == 4">
                         <a href=""/>

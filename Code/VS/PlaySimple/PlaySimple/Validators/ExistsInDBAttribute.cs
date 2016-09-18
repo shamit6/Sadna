@@ -18,7 +18,7 @@ namespace PlaySimple.Validators
         }
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (_type.BaseType != typeof(Domain.Entity))
+            if (!_type.IsSubclassOf(typeof(Domain.Entity)))
                 throw new ValidationException("type must inherit from Domain.Entity");
 
             ISession session = null;// NhibernateManager.Instance.OpenSession();

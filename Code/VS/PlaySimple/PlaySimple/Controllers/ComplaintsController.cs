@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
-    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
+    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
     public class ComplaintsController : ApiController
     {
         private readonly IComplaintsQueryProcessor _complaintsQueryProcessor;
@@ -34,7 +34,7 @@ namespace PlaySimple.Controllers
 
         [HttpPost]
         [TransactionFilter]
-        [Authorize(Roles = Consts.Roles.Customer)]
+        //[Authorize(Roles = Consts.Roles.Customer)]
         public DTOs.Complaint Save([FromBody]DTOs.Complaint complaint)
         {
             var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;

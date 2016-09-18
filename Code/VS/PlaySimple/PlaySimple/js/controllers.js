@@ -96,8 +96,10 @@
                     method: "POST",
                     data: $scope.model,
                 }).then(function searchCompleted(response) {
-                    $location.path('/editField/' + response.data.Id);
-                    toaster.success('המגרש נשמר בהצלחה');
+                    if (response.status == 200) {
+                        $location.path('/editField/' + response.data.Id);
+                        toaster.success('המגרש נשמר בהצלחה');
+                    }
                 });
             }
             else {
@@ -107,8 +109,10 @@
                     params: { id: $scope.model.Id },
                     data: $scope.model,
                 }).then(function searchCompleted(response) {
-                    $scope.originalModel = angular.copy($scope.model);
-                    toaster.success('נתוני המגרש עודכנו בהצלחה');
+                    if (response.status == 200) {
+                        $scope.originalModel = angular.copy($scope.model);
+                        toaster.success('נתוני המגרש עודכנו בהצלחה');
+                    }
                 });
             }
         };
@@ -123,8 +127,10 @@
                 method: "DELETE",
                 params: { id: $scope.model.Id }
             }).then(function searchCompleted(response) {
-                $location.path('/editField');
-                toaster.success('המגרש נמחק בהצלחה');
+                if (response.status == 200) {
+                    $location.path('/reportFields');
+                    toaster.success('המגרש נמחק בהצלחה');
+                }
             });
         };
 
@@ -199,9 +205,11 @@
                     method: "POST",
                     data: $scope.model.employee,
                 }).then(function searchCompleted(response) {
-                    $scope.model.verifiedPassword = $scope.model.employee.Password;
-                    $location.path('/editEmployee/' + response.data.Id);
-                    toaster.success('העובד נשמר בהצלחה');
+                    if (response.status == 200) {
+                        $scope.model.verifiedPassword = $scope.model.employee.Password;
+                        $location.path('/editEmployee/' + response.data.Id);
+                        toaster.success('העובד נשמר בהצלחה');
+                    }
                 });
             }
             else {
@@ -211,8 +219,10 @@
                     params: { id: $scope.model.employee.Id },
                     data: $scope.model.employee,
                 }).then(function searchCompleted(response) {
-                    $scope.originalModel = angular.copy($scope.model.employee);
-                    toaster.success('פרטי העובד עודכנו בהצלחה');
+                    if (response.status == 200) {
+                        $scope.originalModel = angular.copy($scope.model.employee);
+                        toaster.success('פרטי העובד עודכנו בהצלחה');
+                    }
                 });
             }
         };
@@ -227,9 +237,10 @@
                 method: "DELETE",
                 params: { id: $scope.model.employee.Id }
             }).then(function searchCompleted(response) {
-                $location.path('/editEmployee');
-
-                toaster.success('העובד נמחק בהצלחה');
+                if (response.status == 200) {
+                    $location.path('/editEmployee');
+                    toaster.success('העובד נמחק בהצלחה');
+                }
             });
         };
 
@@ -358,7 +369,7 @@
         }
     }]); 
 
-    myApp.controller('OrdersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
+    myApp.controller('OrdersCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($rootScope, $scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
 
         $scope.getOptionals = function () {
 
@@ -463,6 +474,7 @@
             else {
                 $scope.isNew = true;
                 $scope.model = angular.fromJson($routeParams.order);
+                $scope.model.Owner = { Id: $rootScope.sharedVariables.userId };
                 $scope.datePicker = new Date($scope.model.StartDate);
                 $scope.getOptionals();
                 $scope.getOptionalField();
@@ -485,7 +497,11 @@
                     method: "POST",
                     data: modalToSend,
                 }).then(function searchCompleted(response) {
-                    toaster.success('ההזמנה נשמרה בהצלחה');
+                    if (response.status == 200) {
+                        $scope.model = angular.copy(response.data);
+                        $scope.originalModel = angular.copy($scope.model);
+                        toaster.success('ההזמנה נשמרה בהצלחה');
+                    }
                 });
             }
             else {
@@ -495,8 +511,10 @@
                     params: { id: $scope.model.Id },
                     data: modalToSend,
                 }).then(function searchCompleted(response) {
-                    $scope.originalModel = angular.copy($scope.model);
-                    toaster.success('ההזמנה עודכנה בהצלחה');
+                    if (response.status == 200) {
+                        $scope.originalModel = angular.copy($scope.model);
+                        toaster.success('ההזמנה עודכנה בהצלחה');
+                    }
                 });
             }
         };
@@ -505,7 +523,7 @@
 
             $scope.originalModel.Status = 4;
             var modalToSend = angular.copy($scope.originalModel);
-            modalToSend.StartDate = new Date(modalToSend.StartDate).getTime();
+            //modalToSend.StartDate = new Date(modalToSend.StartDate).getTime();
 
             $http({
                 url: ServerRoutes.orders.base,
@@ -513,9 +531,11 @@
                 params: { id: $scope.originalModel.Id },
                 data: modalToSend,
             }).then(function searchCompleted(response) {
-                $scope.originalModel = angular.copy($scope.model);
-                toaster.success('ההזמנה בוטלה בהצלחה');
-                $location.path('/ownedOrders');
+                //$scope.originalModel = angular.copy($scope.model);
+                if (response.status == 200) {
+                    toaster.success('ההזמנה בוטלה בהצלחה');
+                    $location.path('/ownedOrders');
+                }
             });
         }
 
@@ -523,6 +543,23 @@
             $scope.model = angular.copy($scope.originalModel);
             $scope.fieldTypeChanged();
         };
+
+
+        $scope.acceptRejectOrder = function (newStatus) {
+            $scope.model.Status = newStatus;
+
+            $http({
+                url: ServerRoutes.orders.base,
+                method: "PUT",
+                params: { id: $scope.model.Id },
+                data: $scope.model,
+            }).then(function searchCompleted(response) {
+                if (response.status == 200) {
+                    toaster.success('הפעולה בוצעה בהצלחה');
+                    $location.path('/searchOrders');
+                }
+            });
+        }
 
         init();
     }]);
@@ -563,9 +600,10 @@
             }).then(function searchCompleted(response) {
                 //$location.path('/searchAvailableOrdersToJoin');
                 // $route.reload();
-                toaster.success('בקשת ההצטרפות נשמרה בהצלחה');
-                $scope.results.splice(index, 1);
-
+                if (response.status == 200) {
+                    toaster.success('בקשת ההצטרפות נשמרה בהצלחה');
+                    $scope.results.splice(index, 1);
+                }
             });
         }
     }]); 
@@ -647,9 +685,10 @@
                 method: "DELETE",
                 params: { id: participantId }
             }).then(function searchCompleted(response) {
-                $scope.results.splice(index, 1);
-
-                toaster.success('הפעולה בוצעה בהצלחה');
+                if (response.status == 200) {
+                    $scope.results.splice(index, 1);
+                    toaster.success('הפעולה בוצעה בהצלחה');
+                }
             });
         }
     }]);
@@ -695,9 +734,11 @@
                 params: { id: $scope.model.customer.Id },
                 data: $scope.model.customer,
             }).then(function searchCompleted(response) {
-                $scope.originalCustomer = angular.copy($scope.model.customer);
-                toaster.success('נתוני הלקוח נשמרו בהצלחה');
-                $scope.submitted = false;
+                if (response.status == 200) {
+                    $scope.originalCustomer = angular.copy($scope.model.customer);
+                    toaster.success('נתוני הלקוח נשמרו בהצלחה');
+                    $scope.submitted = false;
+                }
             });
         };
 
@@ -711,8 +752,10 @@
                 method: "POST",
                 data: $scope.model.review,
             }).then(function searchCompleted(response) {
-                toaster.success('פרטי חוות הדעת נשמרו בהצלחה');
-                $scope.model.review = {};
+                if (response.status == 200) {
+                    toaster.success('פרטי חוות הדעת נשמרו בהצלחה');
+                    $scope.model.review = {};
+                }
             });
         };
 
@@ -722,12 +765,14 @@
             $scope.model.complaint.OffendingCustomer = {};
             $scope.model.complaint.OffendingCustomer.Id = $scope.model.customer.Id;
             $http({
-                url: ServerRoutes.reviews.base,
+                url: ServerRoutes.complaints.base,
                 method: "POST",
-                data: $scope.model.review,
-            }).then(function searchCompleted(response) {
-                toaster.success('פרטי התלונה נשמרו בהצלחה');
-                $scope.model.complaint = {};
+                data: $scope.model.complaint,
+            }).success(function searchCompleted(response) {
+                if (response.status == 200) {
+                    toaster.success('פרטי התלונה נשמרו בהצלחה');
+                    $scope.model.complaint = {};
+                }
             });
         };
 

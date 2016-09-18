@@ -40,7 +40,6 @@ namespace PlaySimple.Controllers
 
         [HttpPost]
         [TransactionFilter]
-        //[Authorize(Roles = Consts.Roles.Customer)]
         public DTOs.Customer Save([FromBody]DTOs.Customer customer)
         {
             return _customersQueryProcessor.Save(customer);
@@ -48,7 +47,6 @@ namespace PlaySimple.Controllers
 
         [HttpPut]
         [TransactionFilter]
-        //[Authorize(Roles = Consts.Roles.Customer)]
         public DTOs.Customer Update(int id, [FromBody]DTOs.Customer customer)
         {
             return _customersQueryProcessor.Update(id, customer);

@@ -157,7 +157,9 @@ namespace PlaySimple.QueryProcessors
                                 from dateStart in DateUtils.PossibleDateOrders(date)
                                 select new { field, dateStart };
 
-            var order = Search(null, null, null, null, null, null, date, date);
+            var statuses = new int?[] { (int)Consts.Decodes.OrderStatus.Accepted, (int)Consts.Decodes.OrderStatus.Sent };
+
+            var order = Search(null, null, null, statuses, null, null, date, date);
 
             var possibleOrders = possibleEvent.Where(a => !order.Any(r => r.StartDate == DateUtils.ConvertToJavaScript(a.dateStart) & r.Field.Id == a.field.Id)).
                 Select(possibleOrder => new DTOs.Order()
@@ -205,6 +207,10 @@ namespace PlaySimple.QueryProcessors
             if (orderStatusId.HasValue)
             {
                 filter.And(x => orderStatusId == x.Status.Id);
+            }else
+            {
+                var statuses = new int?[] { (int)Consts.Decodes.OrderStatus.Accepted, (int)Consts.Decodes.OrderStatus.Sent };
+                filter.And(x => statuses.Contains(x.Status.Id));
             }
 
             if (fieldId.HasValue)

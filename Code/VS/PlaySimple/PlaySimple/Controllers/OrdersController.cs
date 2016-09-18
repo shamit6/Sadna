@@ -64,7 +64,6 @@ namespace PlaySimple.Controllers
         }
 
         // POST: api/Orders
-        //[Authorize(Roles = Consts.Roles.Customer)]
         [HttpPost]
         [TransactionFilter]
         public DTOs.Order Save([FromBody]DTOs.Order order)
@@ -79,18 +78,19 @@ namespace PlaySimple.Controllers
             return _ordersQueryProcessor.Save(order);
         }
 
-
-        //[Authorize(Roles = Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         [HttpPut]
         [TransactionFilter]
         public DTOs.Order Update([FromUri]int id, [FromBody]DTOs.Order order)
         {
             if(order.Status == (int)Consts.Decodes.OrderStatus.Canceled)
             {
-                foreach (var participant in order.Participants)
+                if (order.Participants != null)
                 {
-                    participant.Status = (int)Consts.Decodes.InvitationStatus.Rejected;
-                    _participantsQueryProcessor.Update(participant.Id??0, participant);
+                    foreach (var participant in order.Participants)
+                    {
+                        participant.Status = (int)Consts.Decodes.InvitationStatus.Rejected;
+                        _participantsQueryProcessor.Update(participant.Id ?? 0, participant);
+                    }
                 }
             }
             return _ordersQueryProcessor.Update(id, order);

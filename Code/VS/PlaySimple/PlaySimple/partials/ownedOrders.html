@@ -79,7 +79,12 @@
                             </div>
                         </div>
                     </td>
-                    <td><a href="#/editOrder?Id={{row.Id}}">צפה</a></td>
+                    <td ng-if="row.Status == 1 || row.Status == 2">
+                        <a href="#/editOrder/{{row.Id}}">צפה</a>
+                    </td>
+                    <td ng-if="row.Status == 3 || row.Status == 4">
+                        <a href=""/>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -18,7 +18,6 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
         [Route("api/reports/complaints")]
         public List<OffendingCustomersReport> GetOffendingCustomersReport(DateTime? fromDate = null, DateTime? untilDate = null, int? complaintType = null)
         {
@@ -26,7 +25,6 @@ namespace PlaySimple.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee)]
         [Route("api/reports/customers")]
         public List<CustomersActivityReport> GetCustomersActivityReport(string firstName = null, string lastName = null, int? minAge = null, int? maxAge = null, DateTime? fromDate = null, DateTime? untilDate = null)
         {
