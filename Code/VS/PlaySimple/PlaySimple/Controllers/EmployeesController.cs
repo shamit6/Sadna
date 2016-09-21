@@ -34,9 +34,19 @@ namespace PlaySimple.Controllers
 
         [HttpPost]
         [TransactionFilter]
-        public DTOs.Employee Save([FromBody]DTOs.Employee employee)
+        public DTOs.EmployeeResponse Save([FromBody]DTOs.Employee employee)
         {
-            return _employessQueryProcessor.Save(employee);
+            if (!_employessQueryProcessor.Exists(employee.Username))
+                return new DTOs.EmployeeResponse()
+                {
+                    AlreadyExists = false,
+                    Employee = _employessQueryProcessor.Save(employee)
+                };
+
+            return new DTOs.EmployeeResponse()
+            {
+                AlreadyExists = true
+            };
         }
 
         [HttpPut]

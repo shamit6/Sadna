@@ -18,6 +18,8 @@ namespace PlaySimple.QueryProcessors
 
         DTOs.Employee Update(int id, DTOs.Employee employee);
 
+        bool Exists(string name);
+
         void Delete(int id);
     }
 
@@ -91,6 +93,11 @@ namespace PlaySimple.QueryProcessors
             Update(id, existingEmployee);
 
             return new DTOs.Employee().Initialize(existingEmployee);
+        }
+
+        public bool Exists(string name)
+        {
+            return Query().Where(emp => emp.Username == name).Any();
         }
 
         public void Delete(int id)

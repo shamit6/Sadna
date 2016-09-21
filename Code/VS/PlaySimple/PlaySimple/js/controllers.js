@@ -206,9 +206,15 @@
                     data: $scope.model.employee,
                 }).then(function searchCompleted(response) {
                     if (response.status == 200) {
+                        if (response.data.AlreadyExists) {
+                            toaster.error("אופס!", "שם משתמש כבר קיים באתר!", 5000);
+                            return;
+                        }
+
+                        // TODO: is this line needed?
                         $scope.model.verifiedPassword = $scope.model.employee.Password;
-                        $location.path('/editEmployee/' + response.data.Id);
                         toaster.success('העובד נשמר בהצלחה');
+                        $location.path('/editEmployee/' + response.data.Employee.Id);
                     }
                 });
             }

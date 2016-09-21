@@ -150,6 +150,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ParticipantsController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="DTOs\EmployeeResponse.cs" />
     <Compile Include="DTOs\LoginResponse.cs" />
     <Compile Include="DTOs\RegistrationReponse.cs" />
     <Compile Include="DTOs\UserCredentials.cs" />
@@ -181,6 +182,7 @@
     <Content Include="css\toaster.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Compile Include="DTOs\Complaint.cs" />
     <Compile Include="DTOs\Employee.cs" />
@@ -264,6 +266,10 @@
     <Content Include="App_Data\db.sqlite" />
     <Content Include="css\bootstrap-theme.min.css.map" />
     <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -272,7 +278,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="fonts\" />
     <Folder Include="img\" />
   </ItemGroup>
   <ItemGroup>

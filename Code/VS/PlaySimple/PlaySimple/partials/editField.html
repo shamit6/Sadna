@@ -52,14 +52,14 @@
             </div>
 
             <div class='row'>
-                <div class="col-sm-1 col-sm-offset-9" ng-hide="isNew">
-                    <button type="button" class="btn btn-danger btn-block" ng-click="delete()">מחק</button>
+                <div class="col-sm-2 col-sm-offset-6" ng-hide="isNew">
+                    <button type="button" class="btn btn-danger btn-block" ng-click="delete()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> מחק</button>
                 </div>
-                <div class="col-sm-1" ng-class="{'col-sm-offset-10': isNew}">
-                    <button type="button" class="btn btn-default btn-block" ng-click="cancelChanges()">בטל</button>
+                <div class="col-sm-2" ng-class="{'col-sm-offset-10': isNew}">
+                    <button type="button" class="btn btn-default btn-block" ng-click="cancelChanges()"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> בטל</button>
                 </div>
-                <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary btn-block">שמור</button>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> שמור</button>
                 </div>
             </div>
         </form>

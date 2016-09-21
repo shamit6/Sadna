@@ -11,8 +11,8 @@ bugs:
 reportFields -> enter value, delete, send to server, bad request
 when already logged in and going to login page, redirect to homepage
 set fixed min width for the site so it won't break when minimized
-
 move external scripts to lib folder
+set max width for havat da'at and complain
 
 
 עמית:
@@ -28,10 +28,15 @@ move external scripts to lib folder
 2. הסימן הכחול בתפריט שמסמן באיזה מסך אנחנו:
     תכנס למשל לחיפוש לקוחות, תחפש, תלך לפרטי דף של משהו ואז הכחול ילך לכפתור של התנתק,
    או שהכחול ישאר בחיפוש לקוחות או שלא יהיה בכלל. (חשיבות 8).
-
+   ---------------------------------------
+   done - current link will be visible only for links in menu above + made curret report
+		  (inside reports menu) to be selected
+		
 3. במקרה שמנותקים ומכניסים url ידנית שישלח למסך התחבר או מסך ייעודי (חשיבות 7).
 
-4. ב- NinjectConfigurator את הנתיב של ה- DB. להגיע להסדר, במינימום להכניס ל- app.config. (חשיבות 7).
+4. ב- NinjectConfigurator את הנתיב של ה- DB. להגיע להסדר, במינימום להכניס ל- app.config. (חשיבות 7). 
+	---------------------------------------
+	done - binded to singleton method (will be activated when HttpContext is available)
 
 5. להנגיש את הטבלות: לתת אפשרות ל order by לעמודות או paging או כל רעיון אחר. (חשיבות 6).
 
@@ -42,17 +47,25 @@ move external scripts to lib folder
 8. ה- Authorize עם ה rule ים ששמים ב controller ים הם ברמת המחלקה ולא ברמת המתודות.
    האם יש דרך לשים הרשאות ברמת המתודות? יוצר בעיה שככה למשל ללקוח יש הרשאות לדוח תלונות 
    ומגרשים כי צריכים הרשאות לקונטרולרים המתאימים. (חשיבות - 4).
-
+   ---------------------------------------
+   we can put [Authorize] attribute per method and not per controller - shouldn't be a problem
+   you can put it wherever you want! :)
+  
 9.datepicker נורמלי או לפחות לגרום לנוכחי לא בלי באגים במקרה של dd/MM/yyyy (חשיבות 4). 
 
 10. אפשרות להצטרפות למגרש דרך מסך editOrder. (חשיבות 3).
 
 11. בדיקה של username ייחודי גם עבור employee בדקנו רק עבור customer (חשיבות 4).
+	---------------------------------------
+	done
 
 13. ה- method factory לא עובד, הפונקציה Initialization של כל dto ממשתי בדרך עקומה. שעושים את זה כביכול כמו שצריך אז כל השורות בשליפה מחזירות אותם ערכים. 
        אפשר לדבוק את לדוגמא עם customer וללכת למסך חיפוש לקוחות. כאשר לפני פונקציית ה- select (שבתוכה קוראים ל Initialization) קוראים ל- toList אז זה בסדר.
 
-14. להוסיף אייקון על כפתורי חיפוש. (חשיבות 3-4).
+14. בות 3-4). עשיתי בעריכת מגרש
+	---------------------------------------
+	created in editField (made the button larger as well) - we can use any icon in http://getbootstrap.com/components/#glyphicons-glyphs
+
 
 15. לשים את כל ה-web בתקייה אחת, כולל index.html (חשיבות 2).
 

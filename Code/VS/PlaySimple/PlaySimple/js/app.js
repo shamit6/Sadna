@@ -38,7 +38,7 @@
         $routeProvider.when('/reportFields', {
             templateUrl: 'partials/reportFields.html',
             controller: 'SearchFieldsCtrl',
-            activetab: 'searchFields'
+            activetab: 'reportFields'
         });
 
         $routeProvider.when('/editEmployee/:Id?', {
@@ -54,12 +54,12 @@
         $routeProvider.when('/reportCustomer', {
             templateUrl: 'partials/reportCustomer.html',
             controller: 'ReportCustomerCtrl',
-            activetab: 'reports'
+            activetab: 'reportCustomer'
         });
         $routeProvider.when('/reportComplaint', {
             templateUrl: 'partials/reportComplaint.html',
             controller: 'ReportComplaintCtrl',
-            activetab: 'reports'
+            activetab: 'reportComplaint'
         }); 
         $routeProvider.when('/searchCustomers', {
             templateUrl: 'partials/searchCustomers.html',

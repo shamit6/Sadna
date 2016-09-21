@@ -108,6 +108,14 @@ body {
 	background-color: #CCC;
 }
 
+.btn {
+    font-size: 1.2em;
+}
+
+.searchPanel .btn {
+    font-size: 1em;
+}
+
 .btn-search {
     margin-top: 26px;
 }

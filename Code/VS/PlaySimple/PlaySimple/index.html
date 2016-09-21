@@ -57,17 +57,17 @@
                     <a href="#/editEmployee" ng-show="sharedVariables.role == 'Admin'">צור עובד</a>
                 </li>
 
-                <li uib-dropdown role="presentation" ng-class="{active: $route.current.activetab == 'reports'}" class="dropdown"
+                <li uib-dropdown role="presentation" ng-class="{active: $route.current.activetab.startsWith('report')}" class="dropdown"
                     ng-show="sharedVariables.role == 'Admin' || sharedVariables.role == 'Employee'">
                     <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> הפקת דוחות <span class="caret"></span> </a>
                     <ul uib-dropdown-menu class="dropdown-menu">
-                        <li><a href="#/reportCustomer">פעילות לקוח</a></li>
-                        <li><a href="#/reportComplaint" ng-show="sharedVariables.role == 'Admin'">תלונות</a></li>
-                        <li><a href="#/reportFields">שימוש במגרשים</a></li>
+                        <li ng-class="{active: $route.current.activetab == 'reportCustomer'}"><a href="#/reportCustomer">פעילות לקוח</a></li>
+                        <li ng-class="{active: $route.current.activetab == 'reportComplaint'}"><a href="#/reportComplaint" ng-show="sharedVariables.role == 'Admin'">תלונות</a></li>
+                        <li ng-class="{active: $route.current.activetab == 'reportFields'}"><a href="#/reportFields">שימוש במגרשים</a></li>
                     </ul>
                 </li>
 
-                <li role="presentation" ng-class="{active: $route.current.activetab == ''}">
+                <li role="presentation">
                     <a href="" ng-click="logout()">התנתק</a>
                 </li>
             </ul>
@@ -81,24 +81,6 @@
     <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}">
 
     </toaster-container>
-    <!--<div class="pageContainer">
-        <nav class="appLinks" ng-class="{'appLinks-after-login': !sharedVariables.isLogin}">
-            <a href="#/searchAvailableOrders">הזמן</a>
-            <a href="#/ownedOrders">צפה בהזמנות</a>
-            <a href="">הצטרף למגרש</a>
-            <a href="">אישור הזמנות</a>
-            <a href="#/searchCustomers">חפש לקוחות</a>
-            <a href="">הפקת דוחות</a>
-            <a href="#/searchFields">חיפוש מגרשים</a>
-            <a href="#/editField">עריכת מגרשים</a>
-            <a href="#/searchEmployees">חיפוש עובדים</a>
-            <a href="#/editEmployee" ng-show="sharedVariables.role == 'Admin'">צור עובד</a>
-            <a href="#/reportCustomer">דוח פעילות לקוח</a>
-            <a href="#/reportComplaint">דוח תלונות</a>
-            <a href="" ng-click="logout()">התנתק</a>
-        </nav>-->
-
-    <!--</div>-->
 
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>

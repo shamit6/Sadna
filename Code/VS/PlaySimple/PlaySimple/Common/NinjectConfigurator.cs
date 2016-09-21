@@ -42,19 +42,21 @@ namespace PlaySimple.Common
 
         private void ConfigureNhibernate(IKernel container)
         {
-            //string absoluteDbPath = HttpContext.Current.Server.MapPath(Consts.DB_PATH);
-            string absoluteDbPath = "D:/Dev/sadna/Sadna/Code/VS/PlaySimple/PlaySimple/App_Data/db.sqlite";
+            container.Bind<ISessionFactory>().ToMethod(CreateSessionFactory).InSingletonScope();
 
-            ISessionFactory _sessionFactory = Fluently.Configure()
+            container.Bind<ISession>().ToMethod(CreateSession).InRequestScope();
+        }
+
+        private ISessionFactory CreateSessionFactory(IContext context)
+        {
+            string absoluteDbPath = HttpContext.Current.Server.MapPath(Consts.DB_PATH);
+
+            return Fluently.Configure()
                     .Database(SQLiteConfiguration.Standard.UsingFile(absoluteDbPath))
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<CustomerMap>())
                     .CurrentSessionContext("web")
                     .ExposeConfiguration(conf => new SchemaUpdate(conf).Execute(false, true))
                     .BuildSessionFactory();
-
-            container.Bind<ISessionFactory>().ToConstant(_sessionFactory);
-
-            container.Bind<ISession>().ToMethod(CreateSession).InRequestScope();
         }
 
         private ISession CreateSession(IContext context)
