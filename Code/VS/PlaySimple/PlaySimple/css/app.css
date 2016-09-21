@@ -108,6 +108,28 @@ body {
 	background-color: #CCC;
 }
 
+.scrollableTable thead, .scrollableTable tbody { 
+    display: block; 
+}
+
+.scrollableTable > thead > tr,
+.scrollableTable > tbody > tr {
+    display: block;
+    overflow: hidden;
+}
+
+.scrollableTable > thead > tr th,
+.scrollableTable > tbody > tr td {
+    display: inline-block;
+    float: right;
+}
+
+.scrollableTable tbody {
+    max-height: 300px;
+    overflow-y: auto;    
+    overflow-x: hidden;  
+}
+
 .btn {
     font-size: 1.2em;
 }

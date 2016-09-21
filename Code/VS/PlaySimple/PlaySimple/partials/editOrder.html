@@ -79,18 +79,18 @@
                 <div class="col-sm-3">
                     <!--<div class="col-sm-1">משתתפים</div>
                         <div class="col-sm-3 col-sm-offset-2">בקשות הצטרפות לאישור</div>-->
-                    <table class="table table-hover searchTable">
+                    <table class="table table-hover searchTable scrollableTable">
                         <caption>משתתפים</caption>
                         <thead>
-                        <th>מזהה</th>
-                        <th>שם</th>
+                        <th class="col-sm-6">מזהה</th>
+                        <th class="col-sm-6">שם</th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in model.Participants">
-                                <td ng-if="row.Status == 2">
+                                <td class="col-sm-6" ng-if="row.Status == 2">
                                     {{row.Customer.Id}}
                                 </td>
-                                <td ng-if="row.Status == 2">
+                                <td class="col-sm-6" ng-if="row.Status == 2">
                                     {{row.Customer.FirstName}} {{row.LastName}}
                                 </td>
                             </tr>
@@ -98,26 +98,26 @@
                     </table>
                 </div>
                 <div class="col-sm-9">
-                    <table class="table table-hover searchTable">
+                    <table class="table table-hover searchTable scrollableTable">
                         <caption>בקשות הצטרפות לאישור</caption>
                         <thead>
-                        <th>מזהה</th>
-                        <th>שם</th>
-                        <th>תאריך בקשה</th>
-                        <th>פעולות</th>
+                            <th class="col-sm-3">מזהה</th>
+                            <th class="col-sm-3">שם</th>
+                            <th class="col-sm-3">תאריך בקשה</th>
+                            <th class="col-sm-3">פעולות</th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in model.Participants">
-                                <td ng-if="row.Status == 1">
+                                <td class="col-sm-3" ng-if="row.Status == 1">
                                     {{row.Customer.Id}}
                                 </td>
-                                <td ng-if="row.Status == 1">
+                                <td class="col-sm-3" ng-if="row.Status == 1">
                                     {{row.Customer.FirstName}} {{row.LastName}}
                                 </td>
-                                <td ng-if="row.Status == 1">
+                                <td class="col-sm-3" ng-if="row.Status == 1">
                                     {{row.Date | date : 'dd/MM/yyyy'}}
                                 </td>
-                                <td ng-if="row.Status == 1 && sharedVariables.role == 'Customer' && model.Owner.Id == sharedVariables.userId">
+                                <td class="col-sm-3" ng-if="row.Status == 1 && sharedVariables.role == 'Customer' && model.Owner.Id == sharedVariables.userId">
                                     <a href="" ng-click="acceptRejectParticipant(row, 2)">אשר</a> <a href="" ng-click="acceptRejectParticipant(row, 3)">דחה</a>
                                 </td>
                                 <td ng-if="sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId">

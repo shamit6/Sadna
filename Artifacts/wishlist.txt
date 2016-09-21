@@ -24,6 +24,9 @@ set max width for havat da'at and complain
 רמת חשיבות מ- 1 עד 10. נגיד ש-5 ומעלה אנחנו חייבים לתקן.
 
 1. לשים גודל לטבלאות ו scrollbar, ב- editOrder יש שתי טבלאות קטנות. (חשיבות 10).
+	---------------------------------------
+	done - added scrollableTable css class. if it is used you need to specify col-sm-x for th and td.
+	should we do this for other tables as well?
 
 2. הסימן הכחול בתפריט שמסמן באיזה מסך אנחנו:
     תכנס למשל לחיפוש לקוחות, תחפש, תלך לפרטי דף של משהו ואז הכחול ילך לכפתור של התנתק,
@@ -69,6 +72,11 @@ set max width for havat da'at and complain
 
 15. לשים את כל ה-web בתקייה אחת, כולל index.html (חשיבות 2).
 
+
+what is this? editOrder.html
+<td ng-if="sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId">
+	<a href=""/>
+</td>
 
 
 
