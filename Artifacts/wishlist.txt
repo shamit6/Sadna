@@ -27,19 +27,10 @@ set max width for havat da'at and complain
 	---------------------------------------
 	done - added scrollableTable css class. if it is used you need to specify col-sm-x for th and td.
 	should we do this for other tables as well?
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	צריך לכל הטבלאות, 2 הטבלאות האלה פשוט שונות אז ציינתי אותם. אתה יכול לראות במסך הזמן יש שם הרבה רשומות כל פעם.
 
-2. הסימן הכחול בתפריט שמסמן באיזה מסך אנחנו:
-    תכנס למשל לחיפוש לקוחות, תחפש, תלך לפרטי דף של משהו ואז הכחול ילך לכפתור של התנתק,
-   או שהכחול ישאר בחיפוש לקוחות או שלא יהיה בכלל. (חשיבות 8).
-   ---------------------------------------
-   done - current link will be visible only for links in menu above + made curret report
-		  (inside reports menu) to be selected
-		
 3. במקרה שמנותקים ומכניסים url ידנית שישלח למסך התחבר או מסך ייעודי (חשיבות 7).
-
-4. ב- NinjectConfigurator את הנתיב של ה- DB. להגיע להסדר, במינימום להכניס ל- app.config. (חשיבות 7). 
-	---------------------------------------
-	done - binded to singleton method (will be activated when HttpContext is available)
 
 5. להנגיש את הטבלות: לתת אפשרות ל order by לעמודות או paging או כל רעיון אחר. (חשיבות 6).
 
@@ -53,30 +44,33 @@ set max width for havat da'at and complain
    ---------------------------------------
    we can put [Authorize] attribute per method and not per controller - shouldn't be a problem
    you can put it wherever you want! :)
+   +++++++++++++++++++++++++++++++++++++++++++++++++
+        זה לא עבד, לא מצאתי דוגמאות שמשתמשים בזה ברמת מתודה. מקרה לדוגמא הוא מגרשים שלקוח יכול get אבל לא save או put
+
   
 9.datepicker נורמלי או לפחות לגרום לנוכחי לא בלי באגים במקרה של dd/MM/yyyy (חשיבות 4). 
 
 10. אפשרות להצטרפות למגרש דרך מסך editOrder. (חשיבות 3).
 
-11. בדיקה של username ייחודי גם עבור employee בדקנו רק עבור customer (חשיבות 4).
-	---------------------------------------
-	done
-
 13. ה- method factory לא עובד, הפונקציה Initialization של כל dto ממשתי בדרך עקומה. שעושים את זה כביכול כמו שצריך אז כל השורות בשליפה מחזירות אותם ערכים. 
        אפשר לדבוק את לדוגמא עם customer וללכת למסך חיפוש לקוחות. כאשר לפני פונקציית ה- select (שבתוכה קוראים ל Initialization) קוראים ל- toList אז זה בסדר.
 
-14. בות 3-4). עשיתי בעריכת מגרש
+14.כפתורים.  בות 3-4). עשיתי בעריכת מגרש
 	---------------------------------------
 	created in editField (made the button larger as well) - we can use any icon in http://getbootstrap.com/components/#glyphicons-glyphs
-
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	מבחינתי להשאר עם הצבע האדום בלי האיקוניים אבל מה שעושה לך טוב.
 
 15. לשים את כל ה-web בתקייה אחת, כולל index.html (חשיבות 2).
+
+16. בחיפוש, אם רושמים למשל שם מגרש ואז מוחקים אז נשלח מחרוזת ריקה ולא null, נזרקת שגיאה, קורה בכל שדה חיפוש (חשיבות 4).
 
 
 what is this? editOrder.html
 <td ng-if="sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId">
 	<a href=""/>
 </td>
-
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+רק לקוח מזמין יכול לבצע פעולות על המשתפפים, התנאי בודקת שזה לא הלקוח המזמין ושם לינק ריק כי אם לא שמים כלום אז ההדגשה של ה- mouse over לא מסמנן את העמודה הזאת.
 
 
