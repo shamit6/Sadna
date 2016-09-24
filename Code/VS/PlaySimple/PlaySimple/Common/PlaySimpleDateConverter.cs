@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Converters;
 using System;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace PlaySimple.Common
 {
@@ -8,7 +9,7 @@ namespace PlaySimple.Common
     {
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return DateTime.Parse(reader.Value.ToString());
+            return DateTime.ParseExact(reader.Value.ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
