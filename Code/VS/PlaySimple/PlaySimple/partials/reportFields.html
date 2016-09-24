@@ -46,16 +46,30 @@
     <div class="searchResults">
         <table class="table table-hover searchTable">
             <thead>
-            <th>מזהה</th>
-            <th>שם</th>
-            <th>ימי חול</th>
-            <th>סוף שבוע</th>
-            <th>16:00-18:00</th>
-            <th>18:00-20:00</th>
-            <th>20:00-22:00</th>
+                <th ng-click="sortBy('FieldId')">
+                    <span class="sortorder" ng-show="propertyName === 'FieldId'" ng-class="{reverse: reverse}"></span>מזהה
+                </th>
+                <th ng-click="sortBy('FieldName')">
+                    <span class="sortorder" ng-show="propertyName === 'FieldName'" ng-class="{reverse: reverse}"></span>שם
+                </th>
+                <th ng-click="sortBy('WeekDayOrders')">
+                    <span class="sortorder" ng-show="propertyName === 'WeekDayOrders'" ng-class="{reverse: reverse}"></span>ימי חול
+                </th>
+                <th ng-click="sortBy('WeekEndOrders')">
+                    <span class="sortorder" ng-show="propertyName === 'WeekEndOrders'" ng-class="{reverse: reverse}"></span>סוף שבוע
+                </th>
+                <th ng-click="sortBy('hours16_18Orders')">
+                    <span class="sortorder" ng-show="propertyName === 'hours16_18Orders'" ng-class="{reverse: reverse}"></span>16:00-18:00
+                </th>
+                <th ng-click="sortBy('hours18_20Orders')">
+                    <span class="sortorder" ng-show="propertyName === 'hours18_20Orders'" ng-class="{reverse: reverse}"></span>18:00-20:00
+                </th>
+                <th ng-click="sortBy('hours20_22Orders')">
+                    <span class="sortorder" ng-show="propertyName === 'hours20_22Orders'" ng-class="{reverse: reverse}"></span>20:00-22:00
+                </th>
             </thead>
             <tbody>
-                <tr ng-repeat="row in results">
+                <tr ng-repeat="row in results | orderBy:propertyName:reverse">
                     <td><a href="#/editField/{{row.FieldId}}">{{row.FieldId}}</a></td>
                     <td>{{row.FieldName}}</td>
                     <td>{{row.WeekDayOrders}}</td>

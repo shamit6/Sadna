@@ -33,6 +33,8 @@ set max width for havat da'at and complain
 	done
 
 5. להנגיש את הטבלות: לתת אפשרות ל order by לעמודות או paging או כל רעיון אחר. (חשיבות 6).
+	---------------------------------------
+	created sorting for reportFields
 
 6. במסמך עיצוב הובטח חלוקה ל service ים ב client לפי נושאים, צריך להחליט מה לעשות (חשיבות 5).
 

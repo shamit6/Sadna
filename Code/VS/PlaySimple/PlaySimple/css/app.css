@@ -108,6 +108,14 @@ body {
 	background-color: #CCC;
 }
 
+.sortorder.reverse:after {
+    content: '\25b2';
+}
+
+.sortorder:after {
+    content: '\25bc';
+}
+
 .scrollableTable thead, .scrollableTable tbody { 
     display: block; 
 }
@@ -248,3 +256,4 @@ input:not(:focus):not(.ng-valid) + .callout:not(:hover) {
 .callout.four-errors {
     top: -4.3em;
 }
+

@@ -43,7 +43,17 @@
         $scope.model = {};
         $scope.results;
 
+        $scope.propertyName = 'FieldId';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
+
         $scope.submitSearch = function () {
+            alert("hi");
             $http({
                 url: ServerRoutes.reports.fields,
                 method: "GET",
