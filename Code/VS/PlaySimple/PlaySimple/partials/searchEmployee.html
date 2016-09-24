@@ -12,13 +12,13 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label for="user_title">שם פרטי</label>
-                        <input class="form-control" type="text" ng-model="model.firstName" />
+                        <input class="form-control" type="text" ng-model="model.firstName" empty-to-null />
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם משפחה</label>
-                        <input class="form-control" type="text" ng-model="model.lastName" />
+                        <input class="form-control" type="text" ng-model="model.lastName" empty-to-null />
                     </div>
                 </div>
             </div>
@@ -27,35 +27,19 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label for="user_title">אימייל</label>
-                        <input class="form-control" type="text" ng-model="model.eMail" />
+                        <input class="form-control" type="email" ng-model="model.eMail" empty-to-null />
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>מזהה</label>
-                        <input class="form-control" type="text" ng-model="model.id" />
+                        <input class="form-control" type="number" ng-model="model.id" />
                     </div>
                 </div>
                 <div class="col-sm-push-5 col-sm-1">
                     <button type="submit" class="btn btn-primary btn-block btn-search" ng-click="submitSearch()">חפש</button>
                 </div>
-            </div>
-
-            <!--<div class="fieldContainer threePerRow">
-	            <label>שם פרטי</label><input ng-model="model.firstName">				
-            </div>
-            <div class="fieldContainer threePerRow">
-	            <label>שם משפחה</label><input ng-model="model.lastName">				
-            </div>
-            <div class="fieldContainer threePerRow newLine">
-	            <label>אימייל</label><input ng-model="model.eMail">
-            </div>
-            <div class="fieldContainer threePerRow">
-	            <label>מזהה</label><input ng-model="model.id">				
-            </div>	
-            <div class="fieldContainer threePerRow pullLeft newLine">
-                <input type="button" value="חפש" class="btn" ng-click="submitSearch()">
-            </div>-->					
+            </div>				
         </form>
     </div>
     <div class="searchResults">
@@ -81,3 +65,6 @@
         </table>
     </div>
 </div>
+<pre style="float:left; direction:ltr">
+{{model | json}}
+</pre>

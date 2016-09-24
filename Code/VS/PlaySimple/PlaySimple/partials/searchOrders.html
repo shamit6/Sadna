@@ -36,7 +36,7 @@
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם מגרש</label>
-                        <input class="form-control" type="text" ng-model="model.fieldName" />
+                        <input class="form-control" type="text" ng-model="model.fieldName" empty-to-null />
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם לקוח</label>
-                        <input class="form-control" type="text" ng-model="model.ownerName" />
+                        <input class="form-control" type="text" ng-model="model.ownerName" empty-to-null />
                     </div>
                 </div>
                 <div class="col-sm-push-5 col-sm-1">
@@ -113,3 +113,6 @@
         </table>
     </div>
 </div>
+<pre style="float:left; direction: ltr">
+{{model | json}}
+</pre>

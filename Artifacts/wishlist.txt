@@ -9,6 +9,7 @@ rearrange the code in app.run block (Create default controller)
 
 bugs:
 replace -sm- classes with -xs-
+login form validation (only if we have time)
 
 עמית:
 יש יוזרים customer, employee, admin שהסיסמאות הם כמו היוזרים,

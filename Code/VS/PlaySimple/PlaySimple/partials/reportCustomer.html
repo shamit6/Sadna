@@ -11,13 +11,13 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>שם פרטי</label>
-                        <input class="form-control" type="text" ng-model="model.firstName" />
+                        <input class="form-control" type="text" ng-model="model.firstName" empty-to-null />
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם משפחה</label>
-                        <input class="form-control" type="text" ng-model="model.lastName" />
+                        <input class="form-control" type="text" ng-model="model.lastName" empty-to-null />
                     </div>
                 </div>
             </div>
@@ -26,13 +26,13 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>מגיל</label>
-                        <input class="form-control" type="text" ng-model="model.minAge" />
+                        <input class="form-control" type="number" ng-model="model.minAge" />
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>עד גיל</label>
-                        <input class="form-control" type="text" ng-model="model.maxAge" />
+                        <input class="form-control" type="number" ng-model="model.maxAge" />
                     </div>
                 </div>
             </div>
@@ -86,5 +86,5 @@
 </div>
 
 <pre style="float:left; direction:ltr">
-    {{results | json}}
+    {{model | json}}
 </pre>

@@ -11,7 +11,7 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>מספר הזמנה</label>
-                        <input class="form-control" type="text" ng-model="model.orderId" />
+                        <input class="form-control" type="number" ng-model="model.orderId" />
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
@@ -28,13 +28,13 @@
                 <div class='col-sm-3'>
                     <div class='form-group'>
                         <label>מספר מגרש</label>
-                        <input class="form-control" type="text" ng-model="model.fieldId" />
+                        <input class="form-control" type="number" ng-model="model.fieldId" />
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group'>
                         <label>שם מגרש</label>
-                        <input class="form-control" type="text" ng-model="model.fieldName" />
+                        <input class="form-control" type="text" ng-model="model.fieldName" empty-to-null />
                     </div>
                 </div>
             </div>
@@ -90,3 +90,6 @@
         </table>
     </div>
 </div>
+<pre style="float:left; direction: ltr">
+{{model | json}}
+</pre>
