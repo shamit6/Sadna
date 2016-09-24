@@ -18,21 +18,27 @@ namespace PlaySimple.Validators
         }
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+            {
+                return ValidationResult.Success;
+            }
+
             if (!_type.IsSubclassOf(typeof(Domain.Entity)))
                 throw new ValidationException("type must inherit from Domain.Entity");
 
             ISession session = null;// NhibernateManager.Instance.OpenSession();
             try
             {
-                var entity = session.Get(_type, ((Domain.Entity)value).Id);
-                if (entity == null)
-                {
-                    return new ValidationResult("Entity doesn't exist");
-                }
-                else
-                {
+                // TODO cast to Entity<TDTO, TDomain>
+                //var entity = session.Get(_type, ((DTOs.Entity)value).Id);
+                //if (entity == null)
+                //{
+                //    return new ValidationResult("Entity doesn't exist");
+                //}
+                //else
+                //{
                     return ValidationResult.Success;
-                }
+                //}
             }
             finally
             {

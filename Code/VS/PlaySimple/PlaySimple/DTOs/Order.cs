@@ -11,17 +11,18 @@ namespace PlaySimple.DTOs
         //[NotInPast]
         public virtual long StartDate { get; set; }
 
-        //[ExistsInDB(typeof(Domain.Customer))]
+        [ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer Owner { get; set; }
 
         [Above(-1)]
         public virtual int PlayersNumber { get; set; }
 
-        //[IsEnumOfType(typeof(OrderStatusDecode))]
+        [IsEnumOfType(typeof(Consts.Decodes.OrderStatus))]
         public virtual int? Status { get; set; }
 
         public virtual Field Field { get; set; }
 
+        // TODO REMOVE ListExistsInDb
         //[ListExistsInDb(typeof(Domain.Participant))]
         public virtual IList<DTOs.Participant> Participants { get; set; }
 
@@ -36,7 +37,6 @@ namespace PlaySimple.DTOs
             newOrder.Status = domain.Status.Id;
             newOrder.Field = new DTOs.Field().Initialize(domain.Field);
 
-            // TODO add Participants.
             return newOrder;
         }
     }

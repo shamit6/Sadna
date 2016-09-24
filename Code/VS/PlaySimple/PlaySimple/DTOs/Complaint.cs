@@ -10,15 +10,16 @@ namespace PlaySimple.DTOs
         [MaxLength(1000)]
         public virtual string Description { get; set; }
 
-        //[IsEnumOfType(typeof(ComplaintTypeDecode))]
+        [IsEnumOfType(typeof(Consts.Decodes.ComplaintType))]
         public virtual int? Type { get; set; }
 
+        [NotInFutureAttribute]
         public virtual DateTime Date { get; set; }
 
-        //[ExistsInDB(typeof(Domain.Customer))]
+        [ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer OffendingCustomer { get; set; }
 
-        //[ExistsInDB(typeof(Domain.Customer))]
+        [ExistsInDB(typeof(Domain.Customer))]
         public virtual Customer OffendedCustomer { get; set; }
 
         public override Complaint Initialize(Domain.Complaint domain)

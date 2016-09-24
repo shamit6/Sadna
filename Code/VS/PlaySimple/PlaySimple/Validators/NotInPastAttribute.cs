@@ -16,9 +16,9 @@ namespace PlaySimple.Validators
             }
 
             DateTime dt = (DateTime)value;
-            if (dt > DateTime.Now)
+            if (dt < DateTime.Now)
             {
-                return new ValidationResult("Make sure your date is >= than today");
+                return new ValidationResult("Make sure your date is newer than today");
             }
             else
             {

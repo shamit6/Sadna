@@ -15,11 +15,14 @@ namespace PlaySimple.Validators
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+            {
+                return ValidationResult.Success;
+            }
+
             if (!_type.IsEnum)
                 throw new ValidationException("type must be an enum");
 
-            if (value == null)
-                return new ValidationResult("Invalid enum - null sent");
 
             var enumTypesArr = Enum.GetValues(_type).GetEnumerator();
 

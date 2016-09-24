@@ -22,13 +22,13 @@ namespace PlaySimple.DTOs
         [MaxLength(20)]
         public virtual string LastName { get; set; }
 
-        //[NotInFuture]
+        [NotInFuture]
         public virtual DateTime BirthDate { get; set; }
         
-        //[EmailAddress]
+        [EmailAddress]
         public virtual string Email { get; set; }
 
-        //[IsEnumOfType(typeof(RegionDecode))]
+        [IsEnumOfType(typeof(Consts.Decodes.RegionDecode))]
         public virtual int? Region { get; set; }
 
         public virtual DateTime? FreezeDate { get; set; }

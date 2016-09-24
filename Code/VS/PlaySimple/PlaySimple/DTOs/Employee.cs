@@ -24,7 +24,7 @@ namespace PlaySimple.DTOs
         [Above(0)]
         public virtual int Salary { get; set; }
 
-        //[EmailAddress]
+        [EmailAddress]
         public virtual string Email { get; set; }
 
         public override Employee Initialize(Domain.Employee domain)

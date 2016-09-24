@@ -9,7 +9,6 @@ using System.Web.Http;
 
 namespace PlaySimple.Controllers
 {
-    [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
     public class ReviewsController : ApiController
     {
         private readonly IReviewsQueryProcessor _reviewsQueryProcessor;
@@ -21,12 +20,14 @@ namespace PlaySimple.Controllers
 
         [HttpGet]
         [Route("api/reviews/search")]
+        [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         public List<DTOs.Review> Search(int? customerId = null)
         {
             return _reviewsQueryProcessor.Search(customerId ?? 0).ToList();
         }
 
         [HttpGet]
+        [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         public DTOs.Review Get(int id)
         {
             return _reviewsQueryProcessor.GetReview(id);
@@ -34,6 +35,7 @@ namespace PlaySimple.Controllers
 
         [HttpPost]
         [TransactionFilter]
+        [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Customer)]
         public DTOs.Review Save([FromBody]DTOs.Review Review)
         {
             var currPrincipal = HttpContext.Current.User as ClaimsPrincipal;
@@ -50,6 +52,7 @@ namespace PlaySimple.Controllers
 
         [HttpPut]
         [TransactionFilter]
+        [Authorize(Roles = Consts.Roles.Admin + "," +Consts.Roles.Customer)]
         public DTOs.Review Update([FromUri]int id, [FromBody]DTOs.Review Review)
         {
             return _reviewsQueryProcessor.Update(id, Review);
