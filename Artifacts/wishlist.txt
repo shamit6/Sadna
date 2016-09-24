@@ -8,8 +8,6 @@ remove unused css
 rearrange the code in app.run block (Create default controller)
 
 bugs:
-reportFields -> enter value, delete, send to server, bad request
-when already logged in and going to login page, redirect to homepage
 set fixed min width for the site so it won't break when minimized
 move external scripts to lib folder
 set max width for havat da'at and complain
@@ -48,7 +46,10 @@ set max width for havat da'at and complain
    you can put it wherever you want! :)
    +++++++++++++++++++++++++++++++++++++++++++++++++
         זה לא עבד, לא מצאתי דוגמאות שמשתמשים בזה ברמת מתודה. מקרה לדוגמא הוא מגרשים שלקוח יכול get אבל לא save או put
-
+	---------------------------------------
+	created a working example in FieldsController (Although I'm not sure where Search method is being used) -
+	we need to remove the [Authorize] attribute from the controller and put it on each method.
+	
   
 9.datepicker נורמלי או לפחות לגרום לנוכחי לא בלי באגים במקרה של dd/MM/yyyy (חשיבות 4). 
 	---------------------------------------
