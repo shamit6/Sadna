@@ -78,15 +78,27 @@
     <div class="searchResults">
         <table class="table table-hover searchTable">
             <thead>
-            <th>הזמנה</th>
-            <th>מגרש</th>
-            <th>תאריך</th>
-            <th>לקוח</th>
-            <th>סטטוס</th>
-            <th>פעולות</th>
+            <th ng-click="sortBy('Id')">
+                <span class="sortorder" ng-show="propertyName === 'Id'" ng-class="{reverse: reverse}"></span>הזמנה
+            </th>
+            <th ng-click="sortBy('Field.Id')">
+                <span class="sortorder" ng-show="propertyName === 'Field.Id'" ng-class="{reverse: reverse}"></span>מגרש
+            </th>
+            <th ng-click="sortBy('StartDate')">
+                <span class="sortorder" ng-show="propertyName === 'StartDate'" ng-class="{reverse: reverse}"></span>תאריך
+            </th>
+            <th ng-click="sortBy('Owner.FirstName')">
+                <span class="sortorder" ng-show="propertyName === 'Owner.FirstName'" ng-class="{reverse: reverse}"></span>לקוח
+            </th>
+            <th ng-click="sortBy('Status')">
+                <span class="sortorder" ng-show="propertyName === 'Status'" ng-class="{reverse: reverse}"></span>סטטוס
+            </th>
+            <th>
+                פעולות
+            </th>
             </thead>
             <tbody>
-                <tr ng-repeat="row in results">
+                <tr ng-repeat="row in results | orderBy:propertyName:reverse">
                     <td>{{row.Id}}</td>
                     <td>{{row.Field.Id}} - {{row.Field.Name}}</td>
                     <!--<td>{{datefomart(row.StartDate) | date:'HH:mm dd/MM/yyyy'}}</td>-->

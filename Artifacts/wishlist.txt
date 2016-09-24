@@ -10,6 +10,7 @@ rearrange the code in app.run block (Create default controller)
 bugs:
 replace -sm- classes with -xs-
 login form validation (only if we have time)
+make sortable tables have cursor pointer
 
 עמית:
 יש יוזרים customer, employee, admin שהסיסמאות הם כמו היוזרים,
@@ -32,7 +33,7 @@ login form validation (only if we have time)
 
 5. להנגיש את הטבלות: לתת אפשרות ל order by לעמודות או paging או כל רעיון אחר. (חשיבות 6).
 	---------------------------------------
-	created sorting for reportFields
+	done
 
 6. במסמך עיצוב הובטח חלוקה ל service ים ב client לפי נושאים, צריך להחליט מה לעשות (חשיבות 5).
 
@@ -71,6 +72,8 @@ login form validation (only if we have time)
 	done in searchFields page - It is some kind of limitation in WEB API. I could write some complex C# code to solve this issue
 	but I think we should go with the easier solution - I've created a empty-to-null directive which just set the model to null when model
 	is empty. We might need to use it on the new datepicker as well (it is input type="text")
+	---------------------------------------
+	done
 
 what is this? editOrder.html
 <td ng-if="sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId">

@@ -60,17 +60,33 @@
     <div class="searchResults">
         <table class="table table-hover searchTable">
             <thead>
-            <th>מזהה</th>
-            <th>שם פרטי</th>
-            <th>שם משפחה</th>
-            <th class="centeredCell">גיל</th>
-            <th>תאריך משחק אחרון</th>
-            <th class="largeCell">מספר הזמנות</th>
-            <th class="centeredCell">מספר הזמנות שביטל</th>
-            <th class="centeredCell">מספר הזמנות שהצטרף</th>
+            <th ng-click="sortBy('CoustomerId')">
+                <span class="sortorder" ng-show="propertyName === 'CoustomerId'" ng-class="{reverse: reverse}"></span>מזהה
+            </th>
+            <th ng-click="sortBy('FirstName')">
+                <span class="sortorder" ng-show="propertyName === 'FirstName'" ng-class="{reverse: reverse}"></span>שם פרטי
+            </th>
+            <th ng-click="sortBy('LastName')">
+                <span class="sortorder" ng-show="propertyName === 'LastName'" ng-class="{reverse: reverse}"></span>שם משפחה
+            </th>
+            <th class="centeredCell" ng-click="sortBy('Age')">
+                <span class="sortorder" ng-show="propertyName === 'Age'" ng-class="{reverse: reverse}"></span>גיל
+            </th>
+            <th ng-click="sortBy('LastGameDate')">
+                <span class="sortorder" ng-show="propertyName === 'LastGameDate'" ng-class="{reverse: reverse}"></span>תאריך משחק אחרון
+            </th>
+            <th class="largeCell" ng-click="sortBy('NumberOfOrders')">
+                <span class="sortorder" ng-show="propertyName === 'NumberOfOrders'" ng-class="{reverse: reverse}"></span>מספר הזמנות
+            </th>
+            <th class="centeredCell" ng-click="sortBy('NumberOfCanceledOrders')">
+                <span class="sortorder" ng-show="propertyName === 'NumberOfCanceledOrders'" ng-class="{reverse: reverse}"></span>מספר הזמנות שביטל
+            </th>
+            <th class="centeredCell" ng-click="sortBy('NumberOfJoiningAsGuest')">
+                <span class="sortorder" ng-show="propertyName === 'NumberOfJoiningAsGuest'" ng-class="{reverse: reverse}"></span>מספר הזמנות שהצטרף
+            </th>
             </thead>
             <tbody>
-                <tr ng-repeat="row in results">
+                <tr ng-repeat="row in results | orderBy:propertyName:reverse">
                     <td><a href="#/editField/{{row.CoustomerId}}">{{row.CoustomerId}}</a></td>
                     <td>{{row.FirstName}}</td>
                     <td>{{row.LastName}}</td>

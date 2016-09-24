@@ -45,15 +45,27 @@
     <div class="searchResults">
         <table class="table table-hover searchTable">
             <thead>
-            <th>מזהה</th>
-            <th>שם פרטי</th>
-            <th>שם משפחה</th>
-            <th>משכורת</th>
-            <th>אימייל</th>
-            <th>פעולות</th>
+            <th ng-click="sortBy('Id')">
+                <span class="sortorder" ng-show="propertyName === 'Id'" ng-class="{reverse: reverse}"></span>מזהה
+            </th>
+            <th ng-click="sortBy('FirstName')">
+                <span class="sortorder" ng-show="propertyName === 'FirstName'" ng-class="{reverse: reverse}"></span>שם פרטי
+            </th>
+            <th ng-click="sortBy('LastName')">
+                <span class="sortorder" ng-show="propertyName === 'LastName'" ng-class="{reverse: reverse}"></span>שם משפחה
+            </th>
+            <th ng-click="sortBy('Salary')">
+                <span class="sortorder" ng-show="propertyName === 'Salary'" ng-class="{reverse: reverse}"></span>משכורת
+            </th>
+            <th ng-click="sortBy('Email')">
+                <span class="sortorder" ng-show="propertyName === 'Email'" ng-class="{reverse: reverse}"></span>אימייל
+            </th>
+            <th>
+                פעולות
+            </th>
             </thead>
             <tbody>
-                <tr ng-repeat="row in results">
+                <tr ng-repeat="row in results | orderBy:propertyName:reverse"">
                     <td>{{row.Id}}</td>
                     <td>{{row.FirstName}}</td>
                     <td>{{row.LastName}}</td>

@@ -150,6 +150,15 @@
         $scope.model = {};
         $scope.results;
 
+        $scope.propertyName = 'Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
+
         $scope.submitSearch = function () {
             $http({
                 url: ServerRoutes.employees,
@@ -266,6 +275,12 @@
         $scope.model = {};
         $scope.results;
 
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
+
         $scope.submitSearch = function () {
             $http({
                 url: ServerRoutes.reports.customers,
@@ -287,6 +302,15 @@
         $scope.results;
         $scope.submitted = false;
         $scope.model.untilDate = new Date();
+
+        $scope.propertyName = 'Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
 
         $scope.submitSearch = function (isValid) {
             $scope.submitted = true;
@@ -314,6 +338,16 @@
         $scope.model = {};
         $scope.types = DomainDecodes.regionDecode;
         $scope.results;
+
+        $scope.propertyName = 'Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
+
         $scope.submitSearch = function () {
             $http({
                 url: ServerRoutes.customers,
@@ -340,7 +374,16 @@
 
         $scope.model.date = today;
 
-        $scope.submitSearch  = function (isValid) {
+        $scope.propertyName = 'Field.Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
+
+        $scope.submitSearch = function (isValid) {
             $scope.submitted = true;
 
             if (!isValid)
@@ -368,6 +411,15 @@
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         $scope.model.fromDate = today;
+
+        $scope.propertyName = 'Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
 
         $scope.submitSearch = function () {
             $http({
@@ -588,6 +640,15 @@
         today.setHours(0, 0, 0, 0);
         $scope.model.fromDate = today;
         
+        $scope.propertyName = 'Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
+
         $scope.submitSearch = function (isValid) {
             $scope.submitted = true;
 
@@ -625,7 +686,6 @@
 
     myApp.controller('SearchOrdersCrtl', ['$scope', '$route', '$http', 'DomainDecodes', 'ServerRoutes', 'toaster',
     function ($scope, $route, $http, DomainDecodes, ServerRoutes, toaster) {
-
         $scope.model = {};
         $scope.orderStatuses = DomainDecodes.orderStatus;
         $scope.results;
@@ -633,6 +693,15 @@
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         $scope.model.fromDate = today;
+
+        $scope.propertyName = 'Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
 
         $scope.submitSearch = function () {
 
@@ -676,6 +745,15 @@
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         $scope.model.fromDate = today;
+
+        $scope.propertyName = 'Order.Id';
+        $scope.reverse = false;
+
+        $scope.sortBy = function (propertyName) {
+            // reverse current or false for new property
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
 
         $scope.submitSearch = function () {
             $http({
