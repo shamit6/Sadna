@@ -53,7 +53,6 @@
         };
 
         $scope.submitSearch = function () {
-            alert("hi");
             $http({
                 url: ServerRoutes.reports.fields,
                 method: "GET",

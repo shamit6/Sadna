@@ -212,10 +212,12 @@
 
 <div class="row page" ng-show="sharedVariables.role == 'Customer' && sharedVariables.userId != model.customer.Id">
     <div class="col-sm-12 editPanel">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="reviewForm">
             <div class="row">
                 <div class="col-sm-12" style="padding-right: 0; font-weight: bold" >
-                    על משתמש זה נכתבו <a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a>. <span>השאר חוות דעת (0/1000)</span>
+                    על משתמש זה נכתבו <a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a>.
+                    <span ng-show="reviewForm.$valid">{{model.review.Description ? model.review.Description.length : 0}}/1000</span>
+                    <span class="text-danger" ng-show="reviewForm.$invalid">אנא הזן עד 1000 תווים</span>
                 </div>
             </div>
             <div class="row">
@@ -227,13 +229,13 @@
             <div class="row">
                 <div class="col-sm-11">
                     <div class='form-group'>
-                        <textarea class="form-control" ng-model="model.review.Description"></textarea>
+                        <textarea class="form-control" required ng-maxlength="1000" ng-model="model.review.Description"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-offset-10 col-sm-2">
-                    <button type="button" class="btn btn-default btn-block btn-search" ng-click="saveReview()">שלח</button>
+                    <button type="button" class="btn btn-default btn-block btn-search" ng-click="saveReview()" ng-disabled="reviewForm.$invalid">שלח</button>
                 </div>
             </div>
         </form>
@@ -242,10 +244,12 @@
 
 <div class="row page" ng-show="sharedVariables.role == 'Customer' && sharedVariables.userId != model.customer.Id">
     <div class="col-sm-12 editPanel">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="complaintForm">
             <div class="row">
                 <div class="col-sm-12" style="padding-right: 0; font-weight: bold">
-                    המשתמש פגע בך? ספר לנו! <span>(0/1000)</span>
+                    המשתמש פגע בך? ספר לנו!
+                    <span ng-show="complaintForm.$valid">{{model.complaint.Description ? model.complaint.Description.length : 0}}/1000</span>
+                    <span class="text-danger" ng-show="complaintForm.$invalid">אנא הזן עד 1000 תווים</span>
                 </div>
             </div>
             <div class="row">
@@ -259,13 +263,13 @@
             <div class="row">
                 <div class="col-sm-11">
                     <div class='form-group'>
-                        <textarea class="form-control" ng-model="model.complaint.Description"></textarea>
+                        <textarea name="complaint" class="form-control" required ng-maxlength="1000" ng-model="model.complaint.Description"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-offset-10 col-sm-2">
-                    <button type="button" class="btn btn-default btn-block btn-search" ng-click="saveComplaint()">שלח</button>
+                    <button type="button" class="btn btn-default btn-block btn-search" ng-click="saveComplaint()" ng-disabled="complaintForm.$invalid">שלח</button>
                 </div>
             </div>
         </form>

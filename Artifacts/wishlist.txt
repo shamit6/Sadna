@@ -8,10 +8,7 @@ remove unused css
 rearrange the code in app.run block (Create default controller)
 
 bugs:
-set fixed min width for the site so it won't break when minimized
-move external scripts to lib folder
-set max width for havat da'at and complain
-
+replace -sm- classes with -xs-
 
 עמית:
 יש יוזרים customer, employee, admin שהסיסמאות הם כמו היוזרים,

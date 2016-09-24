@@ -55,6 +55,10 @@ body {
 	background-color: #FCFDFD;
 }
 
+body, .container {
+    min-width: 992px;
+}
+
 .appLinks {
     margin-top: 30px;
     display: none;
