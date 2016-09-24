@@ -84,6 +84,21 @@
         }
     });
 
+    myApp.directive('emptyToNull', function () {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                ctrl.$parsers.push(function (viewValue) {
+                    if (viewValue === "") {
+                        return null;
+                    }
+                    return viewValue;
+                });
+            }
+        };
+    });
+
     myApp.directive('past', function () {
         var today = new Date();
         today.setHours(0, 0, 0, 0);

@@ -17,7 +17,7 @@
                 <div class='col-sm-push-1 col-sm-3'>
                     <div class='form-group' ng-class="{ 'has-error' : fieldForm.name.$invalid && submitted }">
                         <label>שם</label>
-                        <input name="name" class="form-control" type="text" ng-model="model.Name" required ng-maxlength="20"/>
+                        <input name="name" class="form-control" type="text" ng-model="model.Name" required ng-maxlength="20" />
                         <div class="callout" ng-show="fieldForm.name.$invalid && submitted">
                             <div ng-show="fieldForm.name.$error.required && submitted">יש להזין שם מגרש</div>
                             <div ng-show="fieldForm.name.$error.maxlength && submitted">שם מגרש חייב להיות קטן מ-20 תווים</div>
