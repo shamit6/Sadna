@@ -76,12 +76,22 @@
 
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group' ng-class="{ 'has-error' : userForm.birthDate.$invalid && submitted }">
+                    <div class='form-group' ng-class="{ 'has-error' : userForm.birthDate.$invalid && submitted }"
+                               moment-picker="model.BirthDate"
+                               locale="he"
+                               format="l"
+                               min-view="year"
+                               max-view="month"
+                               autoclose="true"
+                               today="true">
                         <label>תאריך לידה</label>
-                        <input name="birthDate" type="date" class="form-control" required past ng-model="model.BirthDate">
+                        <input name="birthDate" class="form-control" 
+                               required past psdate ng-model="model.BirthDate"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               placeholder="Select a date...">
                         <div class="callout up three-errors" ng-show="userForm.birthDate.$invalid && submitted">
                             <div ng-show="userForm.birthDate.$error.required && submitted">יש להזין תאריך לידה</div>
-                            <div ng-show="userForm.birthDate.$error.date && submitted">יש להזין תאריך בפורמט DD/MM/YYYY</div>
+                            <div ng-show="userForm.birthDate.$error.psdate && submitted">יש להזין תאריך בפורמט DD/MM/YYYY</div>
                             <div ng-show="userForm.birthDate.$error.past && submitted">יש להזין תאריך בעבר</div>
                         </div>
                     </div>
@@ -101,6 +111,17 @@
                 <div class="col-sm-push-3 col-sm-1" style="margin-right: 15px">
                     <button type="submit" class="btn btn-primary btn-block btn-search">הירשם</button>
                 </div>
+
+                <!--<div moment-picker="ctrl.myInput"
+                     locale="he"
+                     format="l"
+                     min-view="year"
+                     max-view="month"
+                     autoclose="true"
+                     today="true">
+                    {{ ctrl.myInput }}
+                </div>-->
+
             </div>
         </form>
     </div>
@@ -114,7 +135,8 @@
     </div>
 </div>
 
-<div>
+
+<div class="pull-left" style="direction:ltr">
     {{ model | json }}
     {{ submitted | json }}
 </div>

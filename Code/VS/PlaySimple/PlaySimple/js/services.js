@@ -48,6 +48,7 @@
             },
 
             deleteLogin: function deleteLogin() {
+                $rootScope.sharedVariables.isLogin = true;
                 localStorage.removeItem("currLogin");
                 $location.path('/login');
             },
@@ -59,6 +60,7 @@
                 $http.defaults.headers.common['Authorization'] = loginData.AuthorizationKey;
                 $rootScope.sharedVariables.role = loginData.Role;
                 $rootScope.sharedVariables.userId = loginData.UserId;
+                $rootScope.sharedVariables.isLogin = false;
 
                 if (!path) {
                     if (loginData.Role == "Admin") {

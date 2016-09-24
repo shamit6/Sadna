@@ -107,6 +107,8 @@
     }]);
 
     playSimpleApp.run(function ($rootScope, $location, $route, LoginService) {
+        var nonAuthenticanUrls = ["/", "/login", "/registrationForm"];
+
         $rootScope.sharedVariables = {
             isLogin: true
         };
@@ -115,14 +117,16 @@
             LoginService.deleteLogin();
         };
 
-        $rootScope.$on("$routeChangeSuccess", function (event, current, previous, rejection) {
+        $rootScope.$on('$routeChangeStart', function (event) {
             var currPath = $location.path();
+            
+            if (nonAuthenticanUrls.indexOf(currPath) != -1)
+                return;
 
-            if (currPath == "/" || currPath == "/login" || currPath == "/registration") {
-                $rootScope.sharedVariables.isLogin = true;
-            }
-            else {
-                $rootScope.sharedVariables.isLogin = false;
+            // user not logged in and tried to navigate to a secured page
+            if ($rootScope.sharedVariables.isLogin) {
+                event.preventDefault();
+                $location.path('/login');
             }
         });
 

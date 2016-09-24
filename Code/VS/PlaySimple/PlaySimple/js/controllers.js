@@ -853,6 +853,7 @@
     function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
         $scope.regionTypes = DomainDecodes.regionDecode;
         $scope.submitted = false;
+        $scope.model = {};
 
         $scope.submitCustomer = function (isValid) {
             $scope.submitted = true;
