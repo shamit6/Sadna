@@ -41,15 +41,29 @@
 
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group'
+                        moment-picker="model.fromDate"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label>מתאריך</label>
-                        <input class="form-control" type="date" ng-model="model.fromDate" />
+                        <input class="form-control" type="text" ng-model="model.fromDate" empty-to-null
+                               ng-model-options="{ updateOn: 'blur' }" />
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group'
+                        moment-picker="model.untilDate"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label>עד תאריך</label>
-                        <input class="form-control" type="date" ng-model="model.untilDate" />
+                        <input class="form-control" type="text" ng-model="model.untilDate" empty-to-null
+                               ng-model-options="{ updateOn: 'blur' }" />
                     </div>
                 </div>
                 <div class="col-sm-push-5 col-sm-1">

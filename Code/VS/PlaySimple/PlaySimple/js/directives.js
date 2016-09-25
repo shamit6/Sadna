@@ -75,10 +75,14 @@
 
                 var validate = function () {
                     var val = ngModel.$viewValue;
-                    var valDate = moment(val, "DD-MM-YYYY");
-
-                    // set validity
-                    ngModel.$setValidity('psdate', valDate.isValid());
+                    
+                    if (!val) {
+                        ngModel.$setValidity('psdate', true);
+                    }
+                    else {
+                        var valDate = moment(val, "DD-MM-YYYY");
+                        ngModel.$setValidity('psdate', valDate.isValid());
+                    }
                 };
             }
         }
@@ -155,7 +159,7 @@
                     var valDate = moment(val, "DD-MM-YYYY").toDate()
 
                     // set validity
-                    ngModel.$setValidity('future', new Date(val) >= today);
+                    ngModel.$setValidity('future', valDate >= today);
                 };
             }
         }

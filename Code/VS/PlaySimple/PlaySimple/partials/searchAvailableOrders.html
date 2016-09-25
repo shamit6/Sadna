@@ -25,13 +25,20 @@
 
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group'  ng-class="{ 'has-error' : availableOrderForm.searchDate.$invalid && submitted }">
+                    <div class='form-group'  ng-class="{ 'has-error' : availableOrderForm.searchDate.$invalid && submitted }"
+                        moment-picker="model.date"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label for="user_title">תאריך</label>
-                        <input name="searchDate" class="form-control" type="date" ng-model="model.date" required future />
+                        <input name="searchDate" class="form-control" type="text" ng-model="model.date" required future psdate empty-to-null
+                               ng-model-options="{ updateOn: 'blur' }" />
                     
                         <div class="callout up three-errors" ng-show="availableOrderForm.searchDate.$invalid && submitted">
                             <div ng-show="availableOrderForm.searchDate.$error.required && submitted">יש להזין תאריך</div>
-                            <div ng-show="availableOrderForm.searchDate.$error.date && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
+                            <div ng-show="availableOrderForm.searchDate.$error.psdate && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
                             <div ng-show="availableOrderForm.searchDate.$error.future && submitted">יש להזין תאריך עתידי</div>
                         </div>
                     </div>

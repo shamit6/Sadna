@@ -58,20 +58,33 @@
       
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group' ng-class="{ 'has-error' : availableOrderToJoinForm.fromDate.$invalid && submitted }">
+                    <div class='form-group' ng-class="{ 'has-error' : availableOrderToJoinForm.fromDate.$invalid && submitted }"
+                        moment-picker="model.fromDate"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label for="user_title">מתאריך</label>
-                        <input name="fromDate" class="form-control" type="date" ng-model="model.fromDate" required future />
+                        <input name="fromDate" class="form-control" type="text" ng-model="model.fromDate" required future psdate empty-to-null
+                               ng-model-options="{ updateOn: 'blur' }" />
                         <div class="callout up three-errors" ng-show="availableOrderToJoinForm.fromDate.$invalid && submitted">
                             <div ng-show="availableOrderToJoinForm.fromDate.$error.required && submitted">יש להזין תאריך</div>
-                            <div ng-show="availableOrderToJoinForm.fromDate.$error.date && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
+                            <div ng-show="availableOrderToJoinForm.fromDate.$error.psdate && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
                             <div ng-show="availableOrderToJoinForm.fromDate.$error.future && submitted">יש להזין תאריך עתידי</div>
                         </div>
                     </div>
                 </div>
                 <div class='col-sm-push-1 col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group'
+                        moment-picker="model.untilDate"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label for="user_title">עד תאריך</label>
-                        <input class="form-control" type="date" ng-model="model.untilDate" />
+                        <input class="form-control" type="text" ng-model="model.untilDate" ng-model-options="{ updateOn: 'blur' }" empty-to-null />
                     </div>
                 </div>
                 <div class="col-sm-push-5 col-sm-1">

@@ -42,13 +42,18 @@
 
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group'>
+                    <div class='form-group'
+                        moment-picker="datePicker"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label>תאריך</label>
-                        <!--<input class="form-control" ng-model="model.StartDate" moment-picker="model.StartDate" onchange="getOptionals()"
-                               locale="he" format="MM/DD/YYYY" min-view="month" max-view="month" autoclose="true"
-                               today="true">-->
 
-                        <input class="form-control" type="date" ng-model="datePicker" ng-change="getOptionals()" ng-disabled="lessThen24Hours || sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId" />
+                        <input class="form-control" type="text" ng-model="datePicker" ng-change="getOptionals()" 
+                               ng-model-options="{ updateOn: 'blur' }" empty-to-null
+                               ng-disabled="lessThen24Hours || sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId" />
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>

@@ -301,7 +301,8 @@
         $scope.types = DomainDecodes.complaintType;
         $scope.results;
         $scope.submitted = false;
-        $scope.model.untilDate = new Date();
+        var today = new Date();
+        $scope.model.untilDate = moment(today).format("DD/MM/YYYY");
 
         $scope.propertyName = 'Id';
         $scope.reverse = false;
@@ -370,9 +371,7 @@
         $scope.results;
 
         var today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        $scope.model.date = today;
+        $scope.model.date = moment(today).format("DD/MM/YYYY");
 
         $scope.propertyName = 'Field.Id';
         $scope.reverse = false;
@@ -409,8 +408,7 @@
         $scope.types = DomainDecodes.orderStatus;
         $scope.results;
         var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        $scope.model.fromDate = today;
+        $scope.model.fromDate = moment(today).format("DD/MM/YYYY");
 
         $scope.propertyName = 'Id';
         $scope.reverse = false;
@@ -527,7 +525,7 @@
                 }).then(function searchCompleted(response) {
                     $scope.model = angular.copy(response.data);
                     $scope.originalModel = angular.copy($scope.model);
-                    $scope.datePicker = new Date($scope.model.StartDate);
+                    $scope.datePicker = moment(new Date($scope.model.StartDate)).format("DD/MM/YYYY");
                     $scope.getOptionals();
                     $scope.getOptionalField();
 
@@ -542,7 +540,7 @@
                 $scope.isNew = true;
                 $scope.model = angular.fromJson($routeParams.order);
                 $scope.model.Owner = { Id: $rootScope.sharedVariables.userId };
-                $scope.datePicker = new Date($scope.model.StartDate);
+                $scope.datePicker = moment(new Date($scope.model.StartDate)).format("DD/MM/YYYY");
                 $scope.getOptionals();
                 $scope.getOptionalField();
             }
@@ -637,8 +635,7 @@
         $scope.results;
 
         var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        $scope.model.fromDate = today;
+        $scope.model.fromDate = moment(today).format("DD/MM/YYYY");
         
         $scope.propertyName = 'Id';
         $scope.reverse = false;
@@ -742,8 +739,7 @@
         $scope.results;
 
         var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        $scope.model.fromDate = today;
+        $scope.model.fromDate = moment(today).format("DD/MM/YYYY");
 
         $scope.propertyName = 'Order.Id';
         $scope.reverse = false;

@@ -9,22 +9,36 @@
 		<form class="form-horizontal" name="reportComplaintForm" ng-submit="submitSearch(reportComplaintForm.$valid)" novalidate>
             <div class='row'>
                 <div class='col-sm-3'>
-                    <div class='form-group' ng-class="{ 'has-error' : reportComplaintForm.fromDate.$invalid && submitted }">
+                    <div class='form-group' ng-class="{ 'has-error' : reportComplaintForm.fromDate.$invalid && submitted }"
+                        moment-picker="model.fromDate"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label>מתאריך</label>
-                        <input name="fromDate" class="form-control" type="date" ng-model="model.fromDate"/>
+                        <input name="fromDate" class="form-control" type="text" ng-model="model.fromDate" past psdate empty-to-null
+                               ng-model-options="{ updateOn: 'blur' }" />
                         <div class="callout up three-errors" ng-show="reportComplaintForm.fromDate.$invalid && submitted">
-                            <div ng-show="reportComplaintForm.fromDate.$error.date && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
+                            <div ng-show="reportComplaintForm.fromDate.$error.psdate && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
                             <div ng-show="reportComplaintForm.fromDate.$error.past && submitted">יש להזין תאריך עבר</div>
                         </div>
                     </div>
                 </div>
                 <div class='col-sm-offset-1 col-sm-3'>
-                    <div class='form-group' ng-class="{ 'has-error' : reportComplaintForm.untilDate.$invalid && submitted }">
+                    <div class='form-group' ng-class="{ 'has-error' : reportComplaintForm.untilDate.$invalid && submitted }"
+                        moment-picker="model.untilDate"
+                        locale="he"
+                        format="l"
+                        min-view="year"
+                        max-view="month"
+                        autoclose="true">
                         <label>עד תאריך</label>
-                        <input name="untilDate" class="form-control" type="date" ng-model="model.untilDate" required past/>
+                        <input name="untilDate" class="form-control" type="text" ng-model="model.untilDate" required past psdate empty-to-null
+                              ng-model-options="{ updateOn: 'blur' }" />
                         <div class="callout up three-errors" ng-show="reportComplaintForm.untilDate.$invalid && submitted">
                             <div ng-show="reportComplaintForm.untilDate.$error.required && submitted">יש להזין תאריך</div>
-                            <div ng-show="reportComplaintForm.untilDate.$error.date && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
+                            <div ng-show="reportComplaintForm.untilDate.$error.psdate && submitted">יש להזין תאריך בפורמט MM/DD/YYYY</div>
                             <div ng-show="reportComplaintForm.untilDate.$error.past && submitted">יש להזין תאריך עבר</div>
                         </div>
                     </div>

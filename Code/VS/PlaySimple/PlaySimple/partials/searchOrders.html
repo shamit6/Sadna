@@ -49,10 +49,9 @@
                         format="l"
                         min-view="year"
                         max-view="month"
-                        autoclose="true"
-                        today="true">
+                        autoclose="true">
                         <label>מתאריך</label>
-                        <input class="form-control" type="text" 
+                        <input class="form-control" type="text" empty-to-null
                             ng-model="model.fromDate"
                             ng-model-options="{ updateOn: 'blur' }"/>
                     </div>
@@ -66,7 +65,8 @@
                         max-view="month"
                         autoclose="true">
                         <label>עד תאריך</label>
-                        <input class="form-control" type="text" ng-model="model.untilDate" />
+                        <input class="form-control" type="text" ng-model="model.untilDate" empty-to-null
+                               ng-model-options="{ updateOn: 'blur' }" />
                     </div>
                 </div>
             </div>
