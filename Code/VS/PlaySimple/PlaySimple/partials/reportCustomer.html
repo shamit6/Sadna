@@ -83,8 +83,8 @@
             <th ng-click="sortBy('LastName')" style="width: 11.1%">
                 <span class="sortorder" ng-show="propertyName === 'LastName'" ng-class="{reverse: reverse}"></span>שם משפחה
             </th>
-            <th class="centeredCell" ng-click="sortBy('Age')" style="width: 8.1%">
-                <span class="sortorder" ng-show="propertyName === 'Age'" ng-class="{reverse: reverse}"></span>גיל
+            <th class="centeredCell" ng-click="sortBy('BirthDate')" style="width: 8.1%">
+                <span class="sortorder" ng-show="propertyName === 'BirthDate'" ng-class="{reverse: reverse}"></span>גיל
             </th>
             <th ng-click="sortBy('LastGameDate')" style="width: 14.1%">
                 <span class="sortorder" ng-show="propertyName === 'LastGameDate'" ng-class="{reverse: reverse}"></span>ת. משחק אחרון
@@ -104,10 +104,10 @@
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td style="width: 11.1%">{{row.CoustomerId}}</td>
+                    <td style="width: 10.1%">{{row.CoustomerId}}</td>
                     <td style="width: 11.1%">{{row.FirstName}}</td>
                     <td style="width: 11.1%">{{row.LastName}}</td>
-                    <td class="centeredCell" style="width: 8.1%"{{row.Age}}</td>
+                    <td class="centeredCell" style="width: 9.1%">{{row.BirthDate | ageFilter}}</td>
                     <td style="width: 14.1%">{{row.LastGameDate |  dateOrderFilter}}</td>
                     <td class="centeredCell" style="width: 11.1%">{{row.NumberOfOrders}}</td>
                     <td class="centeredCell" style="width: 11.1%">{{row.NumberOfCanceledOrders}}</td>
@@ -120,5 +120,5 @@
 </div>
 
 <pre style="float:left; direction:ltr">
-    {{model | json}}
+    {{results | json}}
 </pre>

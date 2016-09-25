@@ -133,13 +133,13 @@
             </div>
             <div class="row" ng-show="sharedVariables.role == 'Customer' && model.Owner.Id == sharedVariables.userId">
                 <div class="col-sm-offset-6 col-sm-2">
-                    <button type="button" class="btn btn-danger btn-block btn-search" ng-click="cancelOrder()" ng-disabled="lessThen24Hours">בטל הזמנה</button>
+                    <button type="button" class="btn btn-danger btn-block btn-search" ng-click="cancelOrder()" ng-disabled="lessThen24Hours"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>בטל הזמנה</button>
                 </div>
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-danger btn-block btn-search" ng-click="cancelChanges()" ng-disabled="lessThen24Hours">בטל שינויים</button>
+                    <button type="button" class="btn btn-danger btn-block btn-search" ng-click="cancelChanges()" ng-disabled="lessThen24Hours"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>בטל שינויים</button>
                 </div>
                 <div class="col-sm-2">
-                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-disabled="lessThen24Hours">שמור</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-search" ng-disabled="lessThen24Hours"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>שמור</button>
                 </div>
             </div>
 
