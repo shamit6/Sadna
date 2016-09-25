@@ -66,27 +66,27 @@
     </div>	
 
     <div class="searchResults">
-        <table class="table table-hover searchTable">
+        <table class="table table-hover searchTable scrollableTable">
             <thead>
-                <th ng-click="sortBy('Field.Id')">
+                <th ng-click="sortBy('Field.Id')" class="col-sm-3">
                     <span class="sortorder" ng-show="propertyName === 'Field.Id'" ng-class="{reverse: reverse}"></span>מזהה
                 </th>
-                <th ng-click="sortBy('Field.Name')">
+                <th ng-click="sortBy('Field.Name')" class="col-sm-3">
                     <span class="sortorder" ng-show="propertyName === 'Field.Name'" ng-class="{reverse: reverse}"></span>מגרש
                 </th>
-                <th ng-click="sortBy('StartDate')">
+                <th ng-click="sortBy('StartDate')" class="col-sm-3">
                     <span class="sortorder" ng-show="propertyName === 'StartDate'" ng-class="{reverse: reverse}"></span>תאריך
                 </th>
-                <th>
+                <th class="col-sm-3">
                     פעולות
                 </th>
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td>{{row.Field.Id}}</td>
-                    <td>{{row.Field.Name}}</td>
-                    <td>{{row.StartDate | dateOrderFilter}}</td>
-                    <td><a href="#/editOrder?order={{row}}">הזמן</a></td>
+                    <td class="col-sm-3">{{row.Field.Id}}</td>
+                    <td class="col-sm-3">{{row.Field.Name}}</td>
+                    <td class="col-sm-3">{{row.StartDate | dateOrderFilter}}</td>
+                    <td class="col-sm-3"><a href="#/editOrder?order={{row}}">הזמן</a></td>
                 </tr>
             </tbody>
         </table>

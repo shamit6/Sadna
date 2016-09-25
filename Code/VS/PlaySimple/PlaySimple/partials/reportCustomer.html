@@ -72,43 +72,47 @@
 		</form>
 	</div>
     <div class="searchResults">
-        <table class="table table-hover searchTable">
+        <table class="table table-hover searchTable scrollableTable">
             <thead>
-            <th ng-click="sortBy('CoustomerId')">
+            <th ng-click="sortBy('CoustomerId')"style="width: 11.1%">
                 <span class="sortorder" ng-show="propertyName === 'CoustomerId'" ng-class="{reverse: reverse}"></span>מזהה
             </th>
-            <th ng-click="sortBy('FirstName')">
+            <th ng-click="sortBy('FirstName')" style="width: 11.1%">
                 <span class="sortorder" ng-show="propertyName === 'FirstName'" ng-class="{reverse: reverse}"></span>שם פרטי
             </th>
-            <th ng-click="sortBy('LastName')">
+            <th ng-click="sortBy('LastName')" style="width: 11.1%">
                 <span class="sortorder" ng-show="propertyName === 'LastName'" ng-class="{reverse: reverse}"></span>שם משפחה
             </th>
-            <th class="centeredCell" ng-click="sortBy('Age')">
+            <th class="centeredCell" ng-click="sortBy('Age')" style="width: 8.1%">
                 <span class="sortorder" ng-show="propertyName === 'Age'" ng-class="{reverse: reverse}"></span>גיל
             </th>
-            <th ng-click="sortBy('LastGameDate')">
-                <span class="sortorder" ng-show="propertyName === 'LastGameDate'" ng-class="{reverse: reverse}"></span>תאריך משחק אחרון
+            <th ng-click="sortBy('LastGameDate')" style="width: 14.1%">
+                <span class="sortorder" ng-show="propertyName === 'LastGameDate'" ng-class="{reverse: reverse}"></span>ת. משחק אחרון
             </th>
-            <th class="largeCell" ng-click="sortBy('NumberOfOrders')">
-                <span class="sortorder" ng-show="propertyName === 'NumberOfOrders'" ng-class="{reverse: reverse}"></span>מספר הזמנות
+            <th class="centeredCell" ng-click="sortBy('NumberOfOrders')" style="width: 11.1%">
+                <span class="sortorder" ng-show="propertyName === 'NumberOfOrders'" ng-class="{reverse: reverse}"></span>הזמנות
             </th>
-            <th class="centeredCell" ng-click="sortBy('NumberOfCanceledOrders')">
-                <span class="sortorder" ng-show="propertyName === 'NumberOfCanceledOrders'" ng-class="{reverse: reverse}"></span>מספר הזמנות שביטל
+            <th class="centeredCell" ng-click="sortBy('NumberOfCanceledOrders')" style="width: 11.1%">
+                <span class="sortorder" ng-show="propertyName === 'NumberOfCanceledOrders'" ng-class="{reverse: reverse}"></span>הזמנות שביטל
             </th>
-            <th class="centeredCell" ng-click="sortBy('NumberOfJoiningAsGuest')">
-                <span class="sortorder" ng-show="propertyName === 'NumberOfJoiningAsGuest'" ng-class="{reverse: reverse}"></span>מספר הזמנות שהצטרף
+            <th class="centeredCell" ng-click="sortBy('NumberOfJoiningAsGuest')" style="width: 11.1%">
+                <span class="sortorder" ng-show="propertyName === 'NumberOfJoiningAsGuest'" ng-class="{reverse: reverse}"></span>הזמנות שהצטרף
+            </th>
+            <th style="width: 11.1%">
+                פעולות
             </th>
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td><a href="#/editField/{{row.CoustomerId}}">{{row.CoustomerId}}</a></td>
-                    <td>{{row.FirstName}}</td>
-                    <td>{{row.LastName}}</td>
-                    <td>{{row.Age}}</td>
-                    <td>{{row.LastGameDate |  dateOrderFilter}}</td>
-                    <td>{{row.NumberOfOrders}}</td>
-                    <td>{{row.NumberOfCanceledOrders}}</td>
-                    <td>{{row.NumberOfJoiningAsGuest}}</td>
+                    <td style="width: 11.1%">{{row.CoustomerId}}</td>
+                    <td style="width: 11.1%">{{row.FirstName}}</td>
+                    <td style="width: 11.1%">{{row.LastName}}</td>
+                    <td class="centeredCell" style="width: 8.1%"{{row.Age}}</td>
+                    <td style="width: 14.1%">{{row.LastGameDate |  dateOrderFilter}}</td>
+                    <td class="centeredCell" style="width: 11.1%">{{row.NumberOfOrders}}</td>
+                    <td class="centeredCell" style="width: 11.1%">{{row.NumberOfCanceledOrders}}</td>
+                    <td class="centeredCell" style="width: 11.1%">{{row.NumberOfJoiningAsGuest}}</td>
+                    <td style="width: 11.1%"><a href="#/editCustomer/{{row.CoustomerId}}">עבור לדף לקוח {{row.CoustomerId}}</a></td>
                 </tr>
             </tbody>
         </table>

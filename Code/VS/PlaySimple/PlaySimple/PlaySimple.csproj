@@ -179,7 +179,6 @@
     <Compile Include="Validators\NotInPastAttribute.cs" />
     <Content Include="css\angular-moment-picker.min.css" />
     <Content Include="css\app.css" />
-    <Content Include="css\app - old.css" />
     <Content Include="css\bootstrap-rtl.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\toaster.css" />

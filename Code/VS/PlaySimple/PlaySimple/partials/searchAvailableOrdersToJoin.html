@@ -103,41 +103,41 @@
     </div>	
 
     <div class="searchResults">
-        <table class="table table-hover searchTable">
+        <table class="table table-hover searchTable scrollableTable">
             <thead>
-            <th ng-click="sortBy('Id')">
+            <th ng-click="sortBy('Id')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'Id' " ng-class="{reverse: reverse}"></span>הזמנה
             </th>
-            <th ng-click="sortBy('Field.Name')">
+            <th ng-click="sortBy('Field.Name')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'Field.Name'" ng-class="{reverse: reverse}"></span>מגרש
             </th>
-            <th ng-click="sortBy('StartDate')">
+            <th ng-click="sortBy('StartDate')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'StartDate'" ng-class="{reverse: reverse}"></span>תאריך
             </th>
-            <th ng-click="sortBy('Owner.FirstName')">
+            <th ng-click="sortBy('Owner.FirstName')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'Owner.FirstName'" ng-class="{reverse: reverse}"></span>לקוח מזמין
             </th>
-            <th ng-click="sortBy('Status')">
+            <th ng-click="sortBy('Status')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'Status'" ng-class="{reverse: reverse}"></span>סטטוס הזמנה
             </th>
-            <th>
+            <th class="col-sm-2">
                 פעולות
             </th>
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td>{{row.Id}}</td>
-                    <td>{{row.Field.Id}} - {{row.Field.Name}}</td>
-                    <td>{{row.StartDate | dateOrderFilter}}</td>
-                    <td>{{row.Owner.Id}} - {{row.Owner.FirstName}} {{row.Owner.LastName}}</td>
-                    <td>
+                    <td class="col-sm-2">{{row.Id}}</td>
+                    <td class="col-sm-2">{{row.Field.Id}} - {{row.Field.Name}}</td>
+                    <td class="col-sm-2">{{row.StartDate | dateOrderFilter}}</td>
+                    <td class="col-sm-2">{{row.Owner.Id}} - {{row.Owner.FirstName}} {{row.Owner.LastName}}</td>
+                    <td class="col-sm-2">
                         <div ng-repeat="orderStatus in orderStatuses">
                             <div ng-if="orderStatus.id == row.Status">
                                 {{orderStatus.name}}
                             </div>
                         </div>
                     </td>
-                    <td><a href="" ng-click="joinToOrder(row, $index)">בקש להצטרף</a></td>
+                    <td class="col-sm-2"><a href="" ng-click="joinToOrder(row, $index)">בקש להצטרף</a></td>
                 </tr>
             </tbody>
         </table>

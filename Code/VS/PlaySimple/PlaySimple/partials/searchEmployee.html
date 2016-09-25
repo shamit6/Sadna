@@ -43,35 +43,35 @@
         </form>
     </div>
     <div class="searchResults">
-        <table class="table table-hover searchTable">
+        <table class="table table-hover searchTable scrollableTable">
             <thead>
-            <th ng-click="sortBy('Id')">
+            <th ng-click="sortBy('Id')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'Id'" ng-class="{reverse: reverse}"></span>מזהה
             </th>
-            <th ng-click="sortBy('FirstName')">
+            <th ng-click="sortBy('FirstName')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'FirstName'" ng-class="{reverse: reverse}"></span>שם פרטי
             </th>
-            <th ng-click="sortBy('LastName')">
+            <th ng-click="sortBy('LastName')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'LastName'" ng-class="{reverse: reverse}"></span>שם משפחה
             </th>
-            <th ng-click="sortBy('Salary')">
+            <th ng-click="sortBy('Salary')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'Salary'" ng-class="{reverse: reverse}"></span>משכורת
             </th>
-            <th ng-click="sortBy('Email')">
+            <th ng-click="sortBy('Email')" class="col-sm-2">
                 <span class="sortorder" ng-show="propertyName === 'Email'" ng-class="{reverse: reverse}"></span>אימייל
             </th>
-            <th>
+            <th class="col-sm-2">
                 פעולות
             </th>
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse"">
-                    <td>{{row.Id}}</td>
-                    <td>{{row.FirstName}}</td>
-                    <td>{{row.LastName}}</td>
-                    <td>{{row.Salary}}</td>
-                    <td>{{row.Email}}</td>
-                    <td><a href="#/editEmployee/{{row.Id}}">עבור לדף העובד</a></td>
+                    <td class="col-sm-2">{{row.Id}}</td>
+                    <td class="col-sm-2">{{row.FirstName}}</td>
+                    <td class="col-sm-2">{{row.LastName}}</td>
+                    <td class="col-sm-2">{{row.Salary}}</td>
+                    <td class="col-sm-2">{{row.Email}}</td>
+                    <td class="col-sm-2"><a href="#/editEmployee/{{row.Id}}">עבור לדף העובד</a></td>
                 </tr>
             </tbody>
         </table>

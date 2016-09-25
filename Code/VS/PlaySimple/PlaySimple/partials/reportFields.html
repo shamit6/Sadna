@@ -58,43 +58,43 @@
         </form>
     </div>
     <div class="searchResults">
-        <table class="table table-hover searchTable">
+        <table class="table table-hover searchTable scrollableTable">
             <thead>
-                <th ng-click="sortBy('FieldId')">
+                <th ng-click="sortBy('FieldId')" style="width: 12.5%">
                     <span class="sortorder" ng-show="propertyName === 'FieldId'" ng-class="{reverse: reverse}"></span>מזהה
                 </th>
-                <th ng-click="sortBy('FieldName')">
+                <th ng-click="sortBy('FieldName')" style="width: 12.5%">
                     <span class="sortorder" ng-show="propertyName === 'FieldName'" ng-class="{reverse: reverse}"></span>שם
                 </th>
-                <th ng-click="sortBy('WeekDayOrders')">
+                <th ng-click="sortBy('WeekDayOrders')" style="width: 12.5%">
                     <span class="sortorder" ng-show="propertyName === 'WeekDayOrders'" ng-class="{reverse: reverse}"></span>ימי חול
                 </th>
-                <th ng-click="sortBy('WeekEndOrders')">
+                <th ng-click="sortBy('WeekEndOrders')" style="width: 12.5%">
                     <span class="sortorder" ng-show="propertyName === 'WeekEndOrders'" ng-class="{reverse: reverse}"></span>סוף שבוע
                 </th>
-                <th ng-click="sortBy('hours16_18Orders')">
+                <th ng-click="sortBy('hours16_18Orders')" style="width: 12.5%">
                     <span class="sortorder" ng-show="propertyName === 'hours16_18Orders'" ng-class="{reverse: reverse}"></span>16:00-18:00
                 </th>
-                <th ng-click="sortBy('hours18_20Orders')">
+                <th ng-click="sortBy('hours18_20Orders')" style="width: 12.5%">
                     <span class="sortorder" ng-show="propertyName === 'hours18_20Orders'" ng-class="{reverse: reverse}"></span>18:00-20:00
                 </th>
-                <th ng-click="sortBy('hours20_22Orders')">
+                <th ng-click="sortBy('hours20_22Orders')" style="width: 12.5%">
                     <span class="sortorder" ng-show="propertyName === 'hours20_22Orders'" ng-class="{reverse: reverse}"></span>20:00-22:00
                 </th>
-                <th>
+                <th style="width: 12.5%">
                     פעולות
                 </th>
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td>{{row.FieldId}}</td>
-                    <td>{{row.FieldName}}</td>
-                    <td>{{row.WeekDayOrders}}</td>
-                    <td>{{row.WeekEndOrders}}</td>
-                    <td>{{row.hours16_18Orders}}</td>
-                    <td>{{row.hours18_20Orders}}</td>
-                    <td>{{row.hours20_22Orders}}</td>
-                    <td><a href="#/editField/{{row.FieldId}}">עבור לדף המגרש</a></td>
+                    <td style="width: 12.5%">{{row.FieldId}}</td>
+                    <td style="width: 12.5%">{{row.FieldName}}</td>
+                    <td style="width: 12.5%">{{row.WeekDayOrders}}</td>
+                    <td style="width: 12.5%">{{row.WeekEndOrders}}</td>
+                    <td style="width: 12.5%">{{row.hours16_18Orders}}</td>
+                    <td style="width: 12.5%">{{row.hours18_20Orders}}</td>
+                    <td style="width: 12.5%">{{row.hours20_22Orders}}</td>
+                    <td style="width: 12.5%"><a href="#/editField/{{row.FieldId}}">עבור לדף המגרש</a></td>
                 </tr>
             </tbody>
         </table>

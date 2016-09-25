@@ -65,29 +65,29 @@
         </div>
     </div>		
     <div class="searchResults">
-        <table class="table table-hover searchTable">
+        <table class="table table-hover searchTable scrollableTable">
             <thead>
-            <th ng-click="sortBy('CustomerId')">
+            <th ng-click="sortBy('CustomerId')" style="width: 20%">
                 <span class="sortorder" ng-show="propertyName === 'CustomerId'" ng-class="{reverse: reverse}"></span>מזהה
             </th>
-            <th ng-click="sortBy('FirstName')" class="mediumCell">
+            <th ng-click="sortBy('FirstName')" style="width: 20%">
                 <span class="sortorder" ng-show="propertyName === 'FirstName'" ng-class="{reverse: reverse}"></span>שם פרטי
             </th>
-            <th ng-click="sortBy('LastName')" class="mediumCell">
+            <th ng-click="sortBy('LastName')" style="width: 20%">
                 <span class="sortorder" ng-show="propertyName === 'LastName'" ng-class="{reverse: reverse}"></span>שם משפחה
             </th>
-            <th ng-click="sortBy('NumberOfComplaints')" class="smallCell centeredCell">
+            <th ng-click="sortBy('NumberOfComplaints')" class="centeredCell" style="width: 20%">
                 <span class="sortorder" ng-show="propertyName === 'NumberOfComplaints'" ng-class="{reverse: reverse}"></span>תלונות
             </th>
-            <th>פעולות</th>
+            <th style="width: 20%">פעולות</th>
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td>{{row.CustomerId}}</td>
-                    <td>{{row.FirstName}}</td>
-                    <td>{{row.LastName}}</td>
-                    <td>{{row.NumberOfComplaints}}</td>
-                    <td><a href="#/editCustomer/{{row.CustomerId}}">צפה בתלונות</a></td>
+                    <td style="width: 20%">{{row.CustomerId}}</td>
+                    <td style="width: 20%">{{row.FirstName}}</td>
+                    <td style="width: 20%">{{row.LastName}}</td>
+                    <td style="width: 20%">{{row.NumberOfComplaints}}</td>
+                    <td style="width: 20%"><a href="#/editCustomer/{{row.CustomerId}}">צפה בתלונות</a></td>
                 </tr>
             </tbody>
         </table>

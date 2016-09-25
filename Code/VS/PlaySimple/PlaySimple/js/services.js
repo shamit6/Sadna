@@ -50,6 +50,7 @@
             updatePassword: function updatePassword(authenticationKey) {
                 var loginData = JSON.parse(localStorage.getItem("currLogin"));
                 loginData.AuthorizationKey = authenticationKey;
+                $http.defaults.headers.common['Authorization'] = loginData.AuthorizationKey;
                 this.saveLogin(loginData);
             },
 
