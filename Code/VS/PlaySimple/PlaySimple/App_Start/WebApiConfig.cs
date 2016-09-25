@@ -33,6 +33,9 @@ namespace PlaySimple
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(
+             new PlaySimpleDateConverter());
+
             config.ParameterBindingRules
               .Add(typeof(DateTime?), des => new DateTimeParameterBinding(des));
         }
