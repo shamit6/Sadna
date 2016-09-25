@@ -7,9 +7,9 @@
       }]);
       myApp.filter('ageFilter', function () {
           function calculateAge(birthday) { // birthday is a date
-              var birthday = new Date(birthday);
-              var today = new Date();
-              var age = ((today - birthday) / (31557600000));
+              var birthday = moment(birthday, "DD/MM/YYYY");
+              var today = moment(new Date());
+              var age = moment.duration(today.diff(birthday)).asYears();
               var age = Math.floor(age);
               return age;
           }
