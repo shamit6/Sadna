@@ -691,8 +691,7 @@
         $scope.results;
 
         var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        $scope.model.fromDate = today;
+        $scope.model.fromDate = moment(today).format("DD/MM/YYYY");
 
         $scope.propertyName = 'Id';
         $scope.reverse = false;

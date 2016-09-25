@@ -1,5 +1,6 @@
 ﻿using PlaySimple.Common;
 using PlaySimple.Filters;
+using System;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 
@@ -32,8 +33,8 @@ namespace PlaySimple
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(
-             new PlaySimpleDateConverter());
+            config.ParameterBindingRules
+              .Add(typeof(DateTime?), des => new DateTimeParameterBinding(des));
         }
     }
 }

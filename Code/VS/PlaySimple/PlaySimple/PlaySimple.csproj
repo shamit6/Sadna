@@ -143,10 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Common\DateTimeParameterBinding.cs" />
     <Compile Include="Common\DateUtils.cs" />
     <Compile Include="Common\NinjectConfigurator.cs" />
     <Compile Include="Common\NinjectDependencyResolver.cs" />
-    <Compile Include="Common\PlaySimpleDateConverter.cs" />
     <Compile Include="Controllers\ComplaintsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ParticipantsController.cs" />

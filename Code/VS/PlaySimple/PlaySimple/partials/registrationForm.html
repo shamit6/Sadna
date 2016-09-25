@@ -87,8 +87,7 @@
                         <label>תאריך לידה</label>
                         <input name="birthDate" class="form-control" 
                                required past psdate ng-model="model.BirthDate"
-                               ng-model-options="{ updateOn: 'blur' }"
-                               placeholder="Select a date...">
+                               ng-model-options="{ updateOn: 'blur' }">
                         <div class="callout up three-errors" ng-show="userForm.birthDate.$invalid && submitted">
                             <div ng-show="userForm.birthDate.$error.required && submitted">יש להזין תאריך לידה</div>
                             <div ng-show="userForm.birthDate.$error.psdate && submitted">יש להזין תאריך בפורמט DD/MM/YYYY</div>
