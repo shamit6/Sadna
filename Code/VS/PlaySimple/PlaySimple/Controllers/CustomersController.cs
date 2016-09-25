@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 
 namespace PlaySimple.Controllers
@@ -49,9 +50,15 @@ namespace PlaySimple.Controllers
         [HttpPut]
         [TransactionFilter]
         [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Customer)]
-        public DTOs.Customer Update(int id, [FromBody]DTOs.Customer customer)
+        public DTOs.CustomerUpdateResponse Update(int id, [FromBody]DTOs.Customer customer)
         {
-            return _customersQueryProcessor.Update(id, customer);
+            byte[] toEncodeAsBytes = ASCIIEncoding.ASCII.GetBytes(customer.Username + ":" + customer.Password);
+            string authenticationKey = "Basic " + Convert.ToBase64String(toEncodeAsBytes);
+
+            return new DTOs.CustomerUpdateResponse {
+                Customer = _customersQueryProcessor.Update(id, customer),
+                AuthenticationKey = authenticationKey
+            };
         }
     }
 }

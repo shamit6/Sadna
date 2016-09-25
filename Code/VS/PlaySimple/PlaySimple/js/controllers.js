@@ -781,7 +781,8 @@
         }
     }]);
 
-    myApp.controller('CustomersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
+    myApp.controller('CustomersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', 'LoginService',
+        function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster, LoginService) {
         var init = function () {
             $scope.regionTypes = DomainDecodes.regionDecode;
             $scope.complaintTypes = DomainDecodes.complaintType;
@@ -799,7 +800,7 @@
                 method: "GET",
                 params: { id: $routeParams.Id },
             }).then(function searchCompleted(response) {
-                $scope.model.customer = angular.copy(response.data)
+                $scope.model.customer = angular.copy(response.data);
                 $scope.originalCustomer = angular.copy($scope.model.customer);
             });
         }
@@ -826,6 +827,7 @@
                     $scope.originalCustomer = angular.copy($scope.model.customer);
                     toaster.success('נתוני הלקוח נשמרו בהצלחה');
                     $scope.submitted = false;
+                    LoginService.updatePassword(response.data.AuthenticationKey);
                 }
             });
         };

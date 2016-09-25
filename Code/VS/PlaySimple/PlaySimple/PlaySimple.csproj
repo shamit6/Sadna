@@ -152,6 +152,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ParticipantsController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="DTOs\CustomerUpdateResponse.cs" />
     <Compile Include="DTOs\EmployeeResponse.cs" />
     <Compile Include="DTOs\LoginResponse.cs" />
     <Compile Include="DTOs\RegistrationReponse.cs" />

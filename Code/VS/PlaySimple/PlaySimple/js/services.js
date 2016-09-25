@@ -47,6 +47,12 @@
                 localStorage.setItem("currLogin", JSON.stringify(login))
             },
 
+            updatePassword: function updatePassword(authenticationKey) {
+                var loginData = JSON.parse(localStorage.getItem("currLogin"));
+                loginData.AuthorizationKey = authenticationKey;
+                this.saveLogin(loginData);
+            },
+
             deleteLogin: function deleteLogin() {
                 $rootScope.sharedVariables.isLogin = true;
                 localStorage.removeItem("currLogin");
