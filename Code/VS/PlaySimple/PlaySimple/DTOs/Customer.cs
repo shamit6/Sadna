@@ -35,18 +35,17 @@ namespace PlaySimple.DTOs
 
         public override Customer Initialize(Domain.Customer domain)
         {
-            Customer newCustomer = new Customer();
-            newCustomer.Id = domain.Id;
-            newCustomer.Username = domain.Username;
-            newCustomer.Password = domain.Password;
-            newCustomer.FirstName = domain.FirstName;
-            newCustomer.LastName = domain.LastName;
-            newCustomer.BirthDate = domain.BirthDate;
-            newCustomer.Email = domain.Email;
-            newCustomer.Region = domain.Region.Id;
-            newCustomer.FreezeDate = domain.FreezeDate;
+            Id = domain.Id;
+            Username = domain.Username;
+            Password = domain.Password;
+            FirstName = domain.FirstName;
+            LastName = domain.LastName;
+            BirthDate = domain.BirthDate;
+            Email = domain.Email;
+            Region = domain.Region.Id;
+            FreezeDate = domain.FreezeDate;
 
-            return newCustomer;
+            return this;
         }
     }
 }

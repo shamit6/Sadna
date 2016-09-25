@@ -24,16 +24,14 @@ namespace PlaySimple.DTOs
 
         public override Complaint Initialize(Domain.Complaint domain)
         {
-            Complaint newComplaint = new Complaint();
+            Id = domain.Id;
+            Description = domain.Description;
+            Type = domain.Type.Id;
+            Date = domain.Date;
+            OffendingCustomer = new DTOs.Customer().Initialize(domain.OffendingCustomer);
+            OffendedCustomer = new DTOs.Customer().Initialize(domain.OffendedCustomer);
 
-            newComplaint.Id = domain.Id;
-            newComplaint.Description = domain.Description;
-            newComplaint.Type = domain.Type.Id;
-            newComplaint.Date = domain.Date;
-            newComplaint.OffendingCustomer = new DTOs.Customer().Initialize(domain.OffendingCustomer);
-            newComplaint.OffendedCustomer = new DTOs.Customer().Initialize(domain.OffendedCustomer);
-
-            return newComplaint;
+            return this;
         }
     }
 }

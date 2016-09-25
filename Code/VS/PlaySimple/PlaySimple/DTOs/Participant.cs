@@ -19,15 +19,13 @@ namespace PlaySimple.DTOs
 
         public override Participant Initialize(Domain.Participant domain)
         {
-            Participant newParticipant = new Participant();
+            Id = domain.Id;
+            Customer = new DTOs.Customer().Initialize(domain.Customer);
+            Date = domain.Date;
+            Order = new DTOs.Order().Initialize(domain.Order);
+            Status = domain.Status.Id;
 
-            newParticipant.Id = domain.Id;
-            newParticipant.Customer = new DTOs.Customer().Initialize(domain.Customer);
-            newParticipant.Date = domain.Date;
-            newParticipant.Order = new DTOs.Order().Initialize(domain.Order);
-            newParticipant.Status = domain.Status.Id;
-
-            return newParticipant;
+            return this;
         }
     }
 }

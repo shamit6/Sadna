@@ -28,16 +28,14 @@ namespace PlaySimple.DTOs
 
         public override Order Initialize(Domain.Order domain)
         {
-            Order newOrder = new Order();
+            Id = domain.Id;
+            StartDate = DateUtils.ConvertToJavaScript(domain.StartDate);
+            Owner = new DTOs.Customer().Initialize(domain.Owner);
+            PlayersNumber = domain.PlayersNumber;
+            Status = domain.Status.Id;
+            Field = new DTOs.Field().Initialize(domain.Field);
 
-            newOrder.Id = domain.Id;
-            newOrder.StartDate = DateUtils.ConvertToJavaScript(domain.StartDate);
-            newOrder.Owner = new DTOs.Customer().Initialize(domain.Owner);
-            newOrder.PlayersNumber = domain.PlayersNumber;
-            newOrder.Status = domain.Status.Id;
-            newOrder.Field = new DTOs.Field().Initialize(domain.Field);
-
-            return newOrder;
+            return this;
         }
     }
 }

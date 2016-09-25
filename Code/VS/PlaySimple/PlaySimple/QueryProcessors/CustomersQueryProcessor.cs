@@ -47,7 +47,7 @@ namespace PlaySimple.QueryProcessors
 
             if (!string.IsNullOrEmpty(lastName))
             {
-                filter.And(x => x.FirstName.Contains(lastName));
+                filter.And(x => x.LastName.Contains(lastName));
             }
 
             if (minAge.HasValue)
@@ -70,7 +70,7 @@ namespace PlaySimple.QueryProcessors
             {
                 filter.And(x => x.Id == customerId);
             }
-            var result = Query().Where(filter).Select(x => new DTOs.Customer().Initialize(x));
+            var result = Query().Where(filter).ToList().Select(x => new DTOs.Customer().Initialize(x));
 
             return result;
         }

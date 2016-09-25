@@ -27,7 +27,7 @@ namespace PlaySimple.QueryProcessors
 
         public IEnumerable<DTOs.Review> Search(int reviewedCustomerId)
         {
-            return Query().Where(x => x.ReviewedCustomer.Id == reviewedCustomerId).Select(x => new DTOs.Review().Initialize(x));
+            return Query().Where(x => x.ReviewedCustomer.Id == reviewedCustomerId).ToList().Select(x => new DTOs.Review().Initialize(x));
         }
 
         public DTOs.Review GetReview(int id)

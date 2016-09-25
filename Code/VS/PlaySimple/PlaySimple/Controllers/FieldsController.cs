@@ -19,7 +19,7 @@ namespace PlaySimple.Controllers
         [Authorize(Roles = Consts.Roles.Admin + "," + Consts.Roles.Employee + "," + Consts.Roles.Customer)]
         public IEnumerable<DTOs.Field> Search(int? fieldId = null, string fieldName = null, int? type = null)
         {
-            return _fieldsQueryProcessor.Search(null, fieldId, fieldName, type);
+            return _fieldsQueryProcessor.Search(fieldId, fieldName, type);
         }
 
         [HttpGet]

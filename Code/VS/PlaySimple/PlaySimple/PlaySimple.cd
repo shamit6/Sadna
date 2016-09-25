@@ -113,7 +113,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PlaySimple.QueryProcessors.ComplaintsQueryProcessor">
-    <Position X="13.75" Y="24.75" Width="1.5" />
+    <Position X="13.75" Y="33" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAIAAAAAAAAAAABEAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\ComplaintsQueryProcessor.cs</FileName>
@@ -121,7 +121,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.CustomersQueryProcessor">
-    <Position X="13.75" Y="18" Width="1.5" />
+    <Position X="13.75" Y="26.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAEhAAA=</HashCode>
       <FileName>QueryProcessors\CustomersQueryProcessor.cs</FileName>
@@ -129,7 +129,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.DBAccessBase&lt;T&gt;">
-    <Position X="17" Y="21.75" Width="1.5" />
+    <Position X="17" Y="30" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAABAAAAAAAAAAAEAAAggAAAAAAAAAAA=</HashCode>
       <FileName>QueryProcessors\DBAccessBase.cs</FileName>
@@ -137,7 +137,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.EmployeesQueryProcessor">
-    <Position X="16" Y="24.75" Width="1.5" />
+    <Position X="16.5" Y="33" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAgAAAAAAAAAAAAAEAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\EmployeesQueryProcessor.cs</FileName>
@@ -145,7 +145,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.FieldsQueryProcessor">
-    <Position X="16" Y="18" Width="1.5" />
+    <Position X="16.5" Y="26.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAgAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\FieldsQueryProcessor.cs</FileName>
@@ -153,7 +153,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.OrdersQueryProcessor">
-    <Position X="18.25" Y="24.75" Width="1.5" />
+    <Position X="19.25" Y="33" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQABYAAAAAAAAAABAAAAABECAAAAAgAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\OrdersQueryProcessor.cs</FileName>
@@ -161,7 +161,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.ParticipantsQueryProcessor">
-    <Position X="18.25" Y="18" Width="1.5" />
+    <Position X="19" Y="26.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAEAAAAAAAAAAAAAhEAAEAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\ParticipantsQueryProcessor.cs</FileName>
@@ -169,7 +169,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.ReportsQueryProcessor" BaseTypeListCollapsed="true">
-    <Position X="20.5" Y="18" Width="1.5" />
+    <Position X="22" Y="26.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAEAAAAAAAAAAAAABACAAAKAgAAgAAAAAAAAA=</HashCode>
       <FileName>QueryProcessors\ReportsQueryProcessor.cs</FileName>
@@ -177,7 +177,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="PlaySimple.QueryProcessors.ReviewsQueryProcessor">
-    <Position X="20.5" Y="24.75" Width="1.5" />
+    <Position X="22" Y="33" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAAAAAAAAAABAAAAAAAACAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\ReviewsQueryProcessor.cs</FileName>
@@ -212,64 +212,85 @@
       <FileName>Controllers\ParticipantsController.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="PlaySimple.DTOs.UserCredentials">
+    <Position X="17.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\UserCredentials.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlaySimple.DTOs.RegistrationReponse">
+    <Position X="19" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>DTOs\RegistrationReponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlaySimple.DTOs.LoginResponse">
+    <Position X="20.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAgCAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>DTOs\LoginResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="PlaySimple.QueryProcessors.IComplaintsQueryProcessor">
-    <Position X="13.75" Y="28.25" Width="1.5" />
+    <Position X="13.75" Y="36.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\ComplaintsQueryProcessor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.ICustomersQueryProcessor">
-    <Position X="13.75" Y="15.75" Width="1.5" />
+    <Position X="13.75" Y="24" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEhAAA=</HashCode>
       <FileName>QueryProcessors\CustomersQueryProcessor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.IEmployeesQueryProcessor">
-    <Position X="16" Y="28.25" Width="1.5" />
+    <Position X="16.5" Y="36.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAgAAAAAAAAAAAAAEAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\EmployeesQueryProcessor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.IFieldsQueryProcessor">
-    <Position X="16" Y="15.75" Width="1.5" />
+    <Position X="16.5" Y="24" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\FieldsQueryProcessor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.IDatabaseAccess&lt;T&gt;">
-    <Position X="15.25" Y="21.75" Width="1.5" />
+    <Position X="15" Y="30" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>QueryProcessors\IDatabaseAccess.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.IOrdersQueryProcessor">
-    <Position X="18.25" Y="28.25" Width="1.5" />
+    <Position X="19.25" Y="36.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQABYAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\OrdersQueryProcessor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.IParticipantsQueryProcessor">
-    <Position X="18.25" Y="15.75" Width="1.5" />
+    <Position X="19" Y="24" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAAAAAAAAAAgAAAEAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\ParticipantsQueryProcessor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.IReportsQueryProcessor">
-    <Position X="20.5" Y="15.75" Width="1.5" />
+    <Position X="22" Y="24" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAACAAAAgAAAAAAAAA=</HashCode>
       <FileName>QueryProcessors\ReportsQueryProcessor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="PlaySimple.QueryProcessors.IReviewsQueryProcessor">
-    <Position X="20.5" Y="28.25" Width="1.5" />
+    <Position X="22" Y="36.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAgAAA=</HashCode>
       <FileName>QueryProcessors\ReviewsQueryProcessor.cs</FileName>

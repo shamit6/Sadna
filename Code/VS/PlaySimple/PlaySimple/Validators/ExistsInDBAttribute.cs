@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 
 namespace PlaySimple.Validators
 {
@@ -26,19 +27,19 @@ namespace PlaySimple.Validators
             if (!_type.IsSubclassOf(typeof(Domain.Entity)))
                 throw new ValidationException("type must inherit from Domain.Entity");
 
-            ISession session = null;// NhibernateManager.Instance.OpenSession();
+            ISession session = (ISession)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ISession));
             try
             {
                 // TODO cast to Entity<TDTO, TDomain>
-                //var entity = session.Get(_type, ((DTOs.Entity)value).Id);
-                //if (entity == null)
-                //{
-                //    return new ValidationResult("Entity doesn't exist");
-                //}
-                //else
-                //{
+                var entity = session.Get(_type, ((DTOs.EntityBase)value).Id);
+                if (entity == null)
+                {
+                    return new ValidationResult("Entity doesn't exist");
+                }
+                else
+                {
                     return ValidationResult.Success;
-                //}
+                }
             }
             finally
             {

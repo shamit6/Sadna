@@ -18,14 +18,12 @@ namespace PlaySimple.DTOs
 
         public override Field Initialize(Domain.Field domain)
         {
-            Field newField = new Field();
+            Id = domain.Id;
+            Name = domain.Name;
+            Size = domain.Size.Id;
+            Type = domain.Type.Id;
 
-            newField.Id = domain.Id;
-            newField.Name = domain.Name;
-            newField.Size = domain.Size.Id;
-            newField.Type = domain.Type.Id;
-
-            return newField;
+            return this;
         }
     }
 }

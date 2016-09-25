@@ -98,7 +98,7 @@ namespace PlaySimple.QueryProcessors
             }
 
 
-            var result = Query().Where(filter).Select(x => new DTOs.Order().Initialize(x));
+            var result = Query().Where(filter).ToList().Select(x => new DTOs.Order().Initialize(x));
 
             return result.ToList();
         }
@@ -150,10 +150,10 @@ namespace PlaySimple.QueryProcessors
         // TODO add to doc date is mandator
         public List<DTOs.Order> SearchOptionalOrders(int? fieldId, string fieldName, int? fieldTypeId, DateTime date)
         {
-            IList<DTOs.Field> fields = _fieldsQueryProcessor.Search(null, fieldId, fieldName, fieldTypeId).ToList();
+            IList<DTOs.Field> fields = _fieldsQueryProcessor.Search(fieldId, fieldName, fieldTypeId).ToList();
             IList<DateTime> possibleDate = DateUtils.PossibleDateOrders(date);
 
-            var possibleEvent = from field in _fieldsQueryProcessor.Search(null, fieldId, fieldName, fieldTypeId).ToList()
+            var possibleEvent = from field in _fieldsQueryProcessor.Search(fieldId, fieldName, fieldTypeId).ToList()
                                 from dateStart in DateUtils.PossibleDateOrders(date)
                                 select new { field, dateStart };
 
@@ -162,7 +162,7 @@ namespace PlaySimple.QueryProcessors
             var order = Search(null, null, null, statuses, null, null, date, date);
 
             var possibleOrders = possibleEvent.Where(a => !order.Any(r => r.StartDate == DateUtils.ConvertToJavaScript(a.dateStart) & r.Field.Id == a.field.Id)).
-                Select(possibleOrder => new DTOs.Order()
+                ToList().Select(possibleOrder => new DTOs.Order()
                 {
                     Field = possibleOrder.field,
                     StartDate = DateUtils.ConvertToJavaScript(possibleOrder.dateStart)
@@ -234,7 +234,7 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => x.StartDate <= calcEndDate);
             }
 
-            var allResult = Query().Where(filter).Select(x => new DTOs.Order().Initialize(x));
+            var allResult = Query().Where(filter).ToList().Select(x => new DTOs.Order().Initialize(x));
 
             List<DTOs.Order> finalResult = new List<DTOs.Order>();
 

@@ -35,15 +35,6 @@ namespace PlaySimple.Validators
             }
 
             return new ValidationResult("Invalid enum");
-
-            if (!((int[])Enum.GetValues(_type)).Any(x => x == (int)value))
-            {
-                return new ValidationResult("Invalid enum");
-            }
-            else
-            {
-                return ValidationResult.Success;
-            }
         }
     }
 }

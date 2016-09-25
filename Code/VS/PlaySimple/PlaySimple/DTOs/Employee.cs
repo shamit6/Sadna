@@ -29,17 +29,15 @@ namespace PlaySimple.DTOs
 
         public override Employee Initialize(Domain.Employee domain)
         {
-            Employee newEmployee = new Employee();
+           Id = domain.Id;
+           Username = domain.Username;
+           Password = domain.Password;
+           FirstName = domain.FirstName;
+           LastName = domain.LastName;
+           Salary = domain.Salary;
+           Email = domain.Email;
 
-            newEmployee.Id = domain.Id;
-            newEmployee.Username = domain.Username;
-            newEmployee.Password = domain.Password;
-            newEmployee.FirstName = domain.FirstName;
-            newEmployee.LastName = domain.LastName;
-            newEmployee.Salary = domain.Salary;
-            newEmployee.Email = domain.Email;
-
-            return newEmployee;
+            return this;
         }
     }
 }

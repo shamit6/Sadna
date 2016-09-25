@@ -147,7 +147,7 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => x.Order.StartDate <= calcEndDate);
             }
 
-            var result = Query().Where(filter).Select(x => new DTOs.Participant().Initialize(x));
+            var result = Query().Where(filter).ToList().Select(x => new DTOs.Participant().Initialize(x));
             return result;
 
         }

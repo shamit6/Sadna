@@ -45,7 +45,7 @@ namespace PlaySimple.QueryProcessors
             if (complaintType.HasValue)
                 filter.And(x => x.Type == _decodesQueryProcessor.Get<ComplaintTypeDecode>(complaintType??0));
 
-            return Query().Where(filter).Select(x => new DTOs.Complaint().Initialize(x));
+            return Query().Where(filter).ToList().Select(x => new DTOs.Complaint().Initialize(x));
         }
 
         public DTOs.Complaint GetComplaint(int id)

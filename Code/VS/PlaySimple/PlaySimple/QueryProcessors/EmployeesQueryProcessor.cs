@@ -52,7 +52,7 @@ namespace PlaySimple.QueryProcessors
                 filter.And(x => x.Id == id);
             }
 
-            return Query().Where(filter).Select(x => new DTOs.Employee().Initialize(x));
+            return Query().Where(filter).ToList().Select(x => new DTOs.Employee().Initialize(x));
         }
 
         public DTOs.Employee GetEmployee(int id)
