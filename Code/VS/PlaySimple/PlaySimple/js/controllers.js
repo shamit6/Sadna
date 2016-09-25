@@ -783,7 +783,10 @@
 
     myApp.controller('CustomersCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster', 'LoginService',
         function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster, LoginService) {
-        var init = function () {
+            var init = function () {
+
+            $scope.now = moment(new Date()).format("DD/MM/YYYY");
+
             $scope.regionTypes = DomainDecodes.regionDecode;
             $scope.complaintTypes = DomainDecodes.complaintType;
 

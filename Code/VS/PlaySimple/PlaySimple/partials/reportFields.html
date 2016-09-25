@@ -81,16 +81,20 @@
                 <th ng-click="sortBy('hours20_22Orders')">
                     <span class="sortorder" ng-show="propertyName === 'hours20_22Orders'" ng-class="{reverse: reverse}"></span>20:00-22:00
                 </th>
+                <th>
+                    פעולות
+                </th>
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td><a href="#/editField/{{row.FieldId}}">{{row.FieldId}}</a></td>
+                    <td>{{row.FieldId}}</td>
                     <td>{{row.FieldName}}</td>
                     <td>{{row.WeekDayOrders}}</td>
                     <td>{{row.WeekEndOrders}}</td>
                     <td>{{row.hours16_18Orders}}</td>
                     <td>{{row.hours18_20Orders}}</td>
                     <td>{{row.hours20_22Orders}}</td>
+                    <td><a href="#/editField/{{row.FieldId}}">עבור לדף המגרש</a></td>
                 </tr>
             </tbody>
         </table>

@@ -9,7 +9,7 @@
         <form class="form-horizontal" name="customerForm" ng-submit="submitCustomer(customerForm.$valid)" novalidate>
             
 
-            <div class="row" ng-show="model.customer.FreezeDate">
+            <div class="row" ng-show="model.customer.FreezeDate > now">
                 <div class="col-sm-3">
                     <div class="form-group text-danger">
                         <p class="form-control-static">הלקוח קפוא עד התאריך {{model.customer.FreezeDate | date : 'dd/MM/yyyy'}} </p>
@@ -195,7 +195,7 @@
                 <!-- As admin-->
                 <div ng-show="sharedVariables.role == 'Admin'">
                     <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'">
-                        <button type="button" class="btn btn-danger btn-block btn-search" ng-disabled="model.customer.FreezeDate"
+                        <button type="button" class="btn btn-danger btn-block btn-search" ng-disabled="model.customer.FreezeDate > now"
                                 ng-click="freezeCustomer()">הקפא חשבון ל-30 יום</button>
                     </div>
                     <div class="col-sm-2 col-sm-offset-8">
@@ -288,3 +288,7 @@
 <pre style="float:left; direction:ltr">
     {{model.customer | json}}
 </pre>
+<pre style="float:left; direction:ltr">
+    {{now | json}}
+</pre>
+
