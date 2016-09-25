@@ -37,7 +37,7 @@
         });
         $routeProvider.when('/reportFields', {
             templateUrl: 'partials/reportFields.html',
-            controller: 'SearchFieldsCtrl',
+            controller: 'ReportFieldsCtrl',
             activetab: 'reportFields'
         });
 
