@@ -3,12 +3,9 @@
         <h1 class="pageTitle">פרטי לקוח</h1>
     </div>
 </div>
-
 <div class="row page">
     <div class="col-sm-12 editPanel">
         <form class="form-horizontal" name="customerForm" ng-submit="submitCustomer(customerForm.$valid)" novalidate>
-            
-
             <div class="row" ng-show="model.customer.FreezeDate > now">
                 <div class="col-sm-3">
                     <div class="form-group text-danger">
@@ -46,7 +43,6 @@
                     </div>
                 </div>
             </div>
-
             <div class='row' ng-show="sharedVariables.userId == model.customer.Id && sharedVariables.role != 'Admin'">
                 <div class='col-sm-3'>
                     <div class='form-group' ng-class="{ 'has-error' : customerForm.currentPassword.$invalid && submitted }">
@@ -77,7 +73,6 @@
                     </div>
                 </div>
             </div>
-
             <div class='row'>
                 <div class='col-sm-3'>
                     <div class='form-group'>

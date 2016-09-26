@@ -24,39 +24,27 @@
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'ownedOrders'}" ng-show="sharedVariables.role == 'Customer'">
                     <a href="#/ownedOrders">צפה בהזמנות</a>
                 </li>
-
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'pendingOrdersToJoin'}" ng-show="sharedVariables.role == 'Customer'">
                     <a href="#/pendingOrdersToJoin">בקשות ההצטרפות שלי</a>
                 </li>
-
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'searchAvailableOrdersToJoin'}" ng-show="sharedVariables.role == 'Customer'">
                     <a href="#/searchAvailableOrdersToJoin">הצטרף למגרש</a>
                 </li>
-
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'searchOrders'}" ng-show="sharedVariables.role == 'Employee'">
-                    <a href="#/searchOrders">צפייה בהזמנות - עובד</a>
+                    <a href="#/searchOrders">צפייה בהזמנות</a>
                 </li>
-
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'searchCustomers'}">
                     <a href="#/searchCustomers">חיפוש לקוחות</a>
                 </li>
-
-                <!--<li role="presentation" ng-class="{active: $route.current.activetab == 'searchFields'}" ng-show="sharedVariables.role == 'Employee'">
-                    <a href="#/searchFields">חיפוש מגרשים</a>
-                </li>-->
-
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'editField'}" ng-show="sharedVariables.role == 'Admin' || sharedVariables.role == 'Employee'">
                     <a href="#/editField">צור מגרש</a>
                 </li>
-
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'searchEmployees'}" ng-show="sharedVariables.role == 'Admin'">
                     <a href="#/searchEmployees" ng-show="sharedVariables.role == 'Admin'">חיפוש עובדים</a>
                 </li>
-
                 <li role="presentation" ng-class="{active: $route.current.activetab == 'editEmployee'}" ng-show="sharedVariables.role == 'Admin'">
                     <a href="#/editEmployee" ng-show="sharedVariables.role == 'Admin'">צור עובד</a>
                 </li>
-
                 <li uib-dropdown role="presentation" ng-class="{active: $route.current.activetab.startsWith('report')}" class="dropdown"
                     ng-show="sharedVariables.role == 'Admin' || sharedVariables.role == 'Employee'">
                     <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> הפקת דוחות <span class="caret"></span> </a>
