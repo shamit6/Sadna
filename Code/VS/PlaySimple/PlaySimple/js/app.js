@@ -30,8 +30,7 @@
             controller: 'FieldsCtrl',
             activetab: 'editField'
         });
-        // TODO: CHECK IF 'פרטים שלי' CAN BE BLUE WHILE GO OTHER CUSTOMER DETIALS IS NOT
-        $routeProvider.when('/editCustomer/{{$rootScope.sharedVariables.userId}}', {
+        $routeProvider.when('/editMyCustomer/:Id?', {
             templateUrl: 'partials/editCustomer.html',
             controller: 'CustomersCtrl',
             activetab: 'editMyCustomer'
