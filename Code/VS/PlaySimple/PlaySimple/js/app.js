@@ -30,17 +30,22 @@
             controller: 'FieldsCtrl',
             activetab: 'editField'
         });
+        // TODO: CHECK IF 'פרטים שלי' CAN BE BLUE WHILE GO OTHER CUSTOMER DETIALS IS NOT
+        $routeProvider.when('/editCustomer/{{$rootScope.sharedVariables.userId}}', {
+            templateUrl: 'partials/editCustomer.html',
+            controller: 'CustomersCtrl',
+            activetab: 'editMyCustomer'
+        });
         $routeProvider.when('/editCustomer/:Id?', {
             templateUrl: 'partials/editCustomer.html',
             controller: 'CustomersCtrl',
             activetab: ''
         });
-        $routeProvider.when('/reportFields', {
-            templateUrl: 'partials/reportFields.html',
-            controller: 'ReportFieldsCtrl',
-            activetab: 'reportFields'
+        $routeProvider.when('/editEmployee/:Id?', {
+            templateUrl: 'partials/editEmployee.html',
+            controller: 'EmployeesCtrl',
+            activetab: 'editEmployee'
         });
-
         $routeProvider.when('/editEmployee/:Id?', {
             templateUrl: 'partials/editEmployee.html',
             controller: 'EmployeesCtrl',
