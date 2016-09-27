@@ -84,6 +84,11 @@ body, .container {
     display: block; 
 }
 
+.scrollableTable > thead > tr th:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .scrollableTable > thead > tr,
 .scrollableTable > tbody > tr {
     display: block;
