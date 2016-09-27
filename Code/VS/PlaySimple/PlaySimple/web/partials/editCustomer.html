@@ -201,7 +201,6 @@
         <form class="form-horizontal" name="reviewForm">
             <div class="row">
                 <div class="col-sm-12" style="padding-right: 0; font-weight: bold" >
-                    על משתמש זה נכתבו <a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a>.
                     <span ng-show="reviewForm.$valid">{{model.review.Description ? model.review.Description.length : 0}}/1000</span>
                     <span class="text-danger" ng-show="reviewForm.$invalid">אנא הזן עד 1000 תווים</span>
                 </div>
@@ -219,6 +218,7 @@
                     </div>
                 </div>
             </div>
+            צפה ב<a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a> של לקוחות אחרים.
             <div class="row">
                 <div class="col-sm-offset-10 col-sm-2">
                     <button type="button" class="btn btn-default btn-block btn-search" ng-click="saveReview()" ng-disabled="reviewForm.$invalid">שלח</button>

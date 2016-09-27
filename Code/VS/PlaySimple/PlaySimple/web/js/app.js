@@ -65,6 +65,11 @@
             controller: 'ReportComplaintCtrl',
             activetab: 'reportComplaint'
         }); 
+        $routeProvider.when('/reportFields', {
+            templateUrl: 'web/partials/reportFields.html',
+            controller: 'ReportFieldsCtrl',
+            activetab: 'reportFields'
+        });
         $routeProvider.when('/searchCustomers', {
             templateUrl: 'web/partials/searchCustomers.html',
             controller: 'SearchCustomersCtrl',

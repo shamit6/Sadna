@@ -84,8 +84,7 @@
         };
 
         $scope.saveReview = function () {
-
-            $scope.model.review.Date = new Date();
+            $scope.model.review.Date = moment(new Date()).format("DD/MM/YYYY");
             $scope.model.review.ReviewedCustomer = {};
             $scope.model.review.ReviewedCustomer.Id = $scope.model.customer.Id;
             $http({
@@ -102,14 +101,14 @@
 
         $scope.saveComplaint = function () {
 
-            $scope.model.complaint.Date = new Date();
+            $scope.model.complaint.Date = moment(new Date()).format("DD/MM/YYYY");
             $scope.model.complaint.OffendingCustomer = {};
             $scope.model.complaint.OffendingCustomer.Id = $scope.model.customer.Id;
             $http({
                 url: ServerRoutes.complaints.base,
                 method: "POST",
                 data: $scope.model.complaint,
-            }).success(function searchCompleted(response) {
+            }).then(function searchCompleted(response) {
                 if (response.status == 200) {
                     toaster.success('פרטי התלונה נשמרו בהצלחה');
                     $scope.model.complaint = {};

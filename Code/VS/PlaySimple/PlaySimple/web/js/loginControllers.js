@@ -59,6 +59,7 @@ function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, t
             }
             else {
                 $location.path("/login");
+                toaster.success("תודה שהצטרפת!", "אנא התחבר לאתר", 5000);
             }
         });
     };
