@@ -54,6 +54,8 @@
                 $scope.model.customer = angular.copy(response.data);
                 $scope.originalCustomer = angular.copy($scope.model.customer);
             });
+
+            $scope.getReviews($scope);
         }
 
         $scope.submitCustomer = function (isValid) {

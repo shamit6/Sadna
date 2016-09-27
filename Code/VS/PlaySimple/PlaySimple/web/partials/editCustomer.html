@@ -218,7 +218,9 @@
                     </div>
                 </div>
             </div>
-            צפה ב<a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a> של לקוחות אחרים.
+            <div class="row" ng-if="customerReviews.length>0">
+                על משתמש זה נכתבו {{customerReviews.length}} <a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a> ע"י לקוחות אחרים.
+            </div>     
             <div class="row">
                 <div class="col-sm-offset-10 col-sm-2">
                     <button type="button" class="btn btn-default btn-block btn-search" ng-click="saveReview()" ng-disabled="reviewForm.$invalid">שלח</button>
