@@ -44,6 +44,8 @@ body, .container {
     text-align:center;
 }
 
+/* ==== Table styles ==== */
+
 .table>thead>tr>th {
     border-bottom:2px solid #6678b1;
 }
@@ -107,6 +109,8 @@ body, .container {
     overflow-x: hidden;  
 }
 
+/* ==== Form styles ==== */
+
 .btn {
     font-size: 1.2em;
 }
@@ -124,47 +128,6 @@ textarea.form-control {
 	height: 100px;
 }
 
-/* ==== Headers  ==== */
-
-h1.pageTitle {
-    background-color: #4399C7;
-    color: #212121;
-	text-shadow: 0px 1px white;
-    margin: 20px 0;
-    padding-right: 15px;
-}
-
-/* ==== Login  ==== */
-
-.loginForm {
-	width: 600px;
-	position: absolute;
-	right: 50%;
-	top: 20%;
-	transform: translateX(50%);
-
-    border: 2px solid #b6b6b6;
-    border-radius: 10px;
-    
-    padding: 15px;
-}
-
-.loginForm .form-group:last-of-type {
-    margin-bottom: 0;
-}
-
-.moment-picker .header-view th:first-child, .moment-picker .header-view th:last-child {
-    transform:rotate(180deg);
-}
-
-
-.spinner-container {
-    display: none;
-    position: fixed;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    background-color: rgba(0,0,0,0);
-}
 
 .form-errors {
     padding-right: 25px;
@@ -226,3 +189,47 @@ input:not(:focus):not(.ng-valid) + .callout:not(:hover) {
     top: -4.3em;
 }
 
+/* ==== Headers  ==== */
+
+h1.pageTitle {
+    background-color: #4399C7;
+    color: #212121;
+	text-shadow: 0px 1px white;
+    margin: 20px 0;
+    padding-right: 15px;
+}
+
+/* ==== Login  ==== */
+
+.loginForm {
+	width: 600px;
+	position: absolute;
+	right: 50%;
+	top: 20%;
+	transform: translateX(50%);
+
+    border: 2px solid #b6b6b6;
+    border-radius: 10px;
+    
+    padding: 15px;
+}
+
+.loginForm .form-group:last-of-type {
+    margin-bottom: 0;
+}
+
+/* ==== Datepicker styles ==== */
+
+.moment-picker .header-view th:first-child, .moment-picker .header-view th:last-child {
+    transform:rotate(180deg);
+}
+
+/* ==== Spinner styles ==== */
+
+.spinner-container {
+    display: none;
+    position: fixed;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    background-color: rgba(0,0,0,0);
+}

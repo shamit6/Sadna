@@ -1,16 +1,8 @@
 ﻿TODO:
 
 dont forget:
-delete all todos if any 
-remove alerts - done!
-remove <pre>
 remove unused css
 rearrange the code in app.run block (Create default controller)
-
-bugs:
-replace -sm- classes with -xs-
-login form validation (only if we have time)
-make sortable tables have cursor pointer
 
 עמית:
 יש יוזרים customer, employee, admin שהסיסמאות הם כמו היוזרים,
@@ -48,5 +40,7 @@ make sortable tables have cursor pointer
 	מבחינתי להשאר עם הצבע האדום בלי האיקוניים אבל מה שעושה לך טוב.
 
 15. לשים את כל ה-web בתקייה אחת, כולל index.html (חשיבות 2).
+	---------------------------------------
+	done
 
 17. הצגת שגיאות מהשרת באופן נורמלי.

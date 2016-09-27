@@ -74,7 +74,7 @@
     <div class="searchResults">
         <table class="table table-hover searchTable scrollableTable">
             <thead>
-            <th ng-click="sortBy('CoustomerId')"style="width: 11.1%">
+            <th ng-click="sortBy('CoustomerId')"style="width: 9.1%">
                 <span class="sortorder" ng-show="propertyName === 'CoustomerId'" ng-class="{reverse: reverse}"></span>מזהה
             </th>
             <th ng-click="sortBy('FirstName')" style="width: 11.1%">
@@ -95,7 +95,7 @@
             <th class="centeredCell" ng-click="sortBy('NumberOfCanceledOrders')" style="width: 11.1%">
                 <span class="sortorder" ng-show="propertyName === 'NumberOfCanceledOrders'" ng-class="{reverse: reverse}"></span>הזמנות שביטל
             </th>
-            <th class="centeredCell" ng-click="sortBy('NumberOfJoiningAsGuest')" style="width: 11.1%">
+            <th class="centeredCell" ng-click="sortBy('NumberOfJoiningAsGuest')" style="width: 13.1%">
                 <span class="sortorder" ng-show="propertyName === 'NumberOfJoiningAsGuest'" ng-class="{reverse: reverse}"></span>הזמנות שהצטרף
             </th>
             <th style="width: 11.1%">
@@ -104,14 +104,14 @@
             </thead>
             <tbody>
                 <tr ng-repeat="row in results | orderBy:propertyName:reverse">
-                    <td style="width: 10.1%">{{row.CoustomerId}}</td>
+                    <td style="width: 9.1%">{{row.CoustomerId}}</td>
                     <td style="width: 11.1%">{{row.FirstName}}</td>
                     <td style="width: 11.1%">{{row.LastName}}</td>
                     <td class="centeredCell" style="width: 9.1%">{{row.BirthDate | ageFilter}}</td>
                     <td style="width: 14.1%">{{row.LastGameDate |  dateOrderFilter}}</td>
                     <td class="centeredCell" style="width: 11.1%">{{row.NumberOfOrders}}</td>
                     <td class="centeredCell" style="width: 11.1%">{{row.NumberOfCanceledOrders}}</td>
-                    <td class="centeredCell" style="width: 11.1%">{{row.NumberOfJoiningAsGuest}}</td>
+                    <td class="centeredCell" style="width: 12.1%">{{row.NumberOfJoiningAsGuest}}</td>
                     <td style="width: 11.1%"><a href="#/editCustomer/{{row.CoustomerId}}">עבור לדף לקוח {{row.CoustomerId}}</a></td>
                 </tr>
             </tbody>
