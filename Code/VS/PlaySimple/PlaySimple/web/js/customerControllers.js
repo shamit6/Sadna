@@ -78,7 +78,10 @@
                     $scope.originalCustomer = angular.copy($scope.model.customer);
                     toaster.success('נתוני הלקוח נשמרו בהצלחה');
                     $scope.submitted = false;
-                    LoginService.updatePassword(response.data.AuthenticationKey);
+
+                    if (response.data.AuthenticationKey != null) {
+                        LoginService.updatePassword(response.data.AuthenticationKey);
+                    }
                 }
             });
         };
@@ -119,7 +122,7 @@
         $scope.freezeCustomer = function () {
             var freezeDate = new Date();
             freezeDate.setDate(freezeDate.getDate() + 30);
-            $scope.model.customer.FreezeDate = freezeDate;
+            $scope.model.customer.FreezeDate = moment(freezeDate).format("DD/MM/YYYY");
             $scope.submitCustomer(true);
         }
 

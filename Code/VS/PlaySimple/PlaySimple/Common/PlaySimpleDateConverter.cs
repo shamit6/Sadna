@@ -9,7 +9,7 @@ namespace PlaySimple.Common
     {
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (existingValue == null)
+            if (reader.Value == null)
                 return null;
 
             return DateTime.ParseExact(reader.Value.ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
