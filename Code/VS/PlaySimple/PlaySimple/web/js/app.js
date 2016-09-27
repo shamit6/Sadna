@@ -6,102 +6,102 @@
         $httpProvider.interceptors.push('httpErrorHandler');
 
         $routeProvider.when('/', {
-            templateUrl: 'partials/loginForm.html',
+            templateUrl: 'web/partials/loginForm.html',
             controller: 'LoginCtrl'
         });
 
         $routeProvider.when('/login', {
-            templateUrl: 'partials/loginForm.html',
+            templateUrl: 'web/partials/loginForm.html',
             controller: 'LoginCtrl'
         }); 
         $routeProvider.when('/registrationForm', {
-            templateUrl: 'partials/registrationForm.html',
+            templateUrl: 'web/partials/registrationForm.html',
             controller: 'RegistrationFormCtrl'
         });
 
         $routeProvider.when('/ownedPendingInvitations', {
-            templateUrl: 'partials/ownedPendingInvitations.html',
+            templateUrl: 'web/partials/ownedPendingInvitations.html',
             controller: 'LoginCtrl',
             activetab: ''
         });
 
         $routeProvider.when('/editField/:Id?', {
-            templateUrl: 'partials/editField.html',
+            templateUrl: 'web/partials/editField.html',
             controller: 'FieldsCtrl',
             activetab: 'editField'
         });
         $routeProvider.when('/editMyCustomer/:Id?', {
-            templateUrl: 'partials/editCustomer.html',
+            templateUrl: 'web/partials/editCustomer.html',
             controller: 'CustomersCtrl',
             activetab: 'editMyCustomer'
         });
         $routeProvider.when('/editCustomer/:Id?', {
-            templateUrl: 'partials/editCustomer.html',
+            templateUrl: 'web/partials/editCustomer.html',
             controller: 'CustomersCtrl',
             activetab: ''
         });
         $routeProvider.when('/editEmployee/:Id?', {
-            templateUrl: 'partials/editEmployee.html',
+            templateUrl: 'web/partials/editEmployee.html',
             controller: 'EmployeesCtrl',
             activetab: 'editEmployee'
         });
         $routeProvider.when('/editEmployee/:Id?', {
-            templateUrl: 'partials/editEmployee.html',
+            templateUrl: 'web/partials/editEmployee.html',
             controller: 'EmployeesCtrl',
             activetab: 'editEmployee'
         });
         $routeProvider.when('/searchEmployees', {
-            templateUrl: 'partials/searchEmployee.html',
+            templateUrl: 'web/partials/searchEmployee.html',
             controller: 'SearchEmployeesCtrl',
             activetab: 'searchEmployees'
         });
         $routeProvider.when('/reportCustomer', {
-            templateUrl: 'partials/reportCustomer.html',
+            templateUrl: 'web/partials/reportCustomer.html',
             controller: 'ReportCustomerCtrl',
             activetab: 'reportCustomer'
         });
         $routeProvider.when('/reportComplaint', {
-            templateUrl: 'partials/reportComplaint.html',
+            templateUrl: 'web/partials/reportComplaint.html',
             controller: 'ReportComplaintCtrl',
             activetab: 'reportComplaint'
         }); 
         $routeProvider.when('/searchCustomers', {
-            templateUrl: 'partials/searchCustomers.html',
+            templateUrl: 'web/partials/searchCustomers.html',
             controller: 'SearchCustomersCtrl',
             activetab: 'searchCustomers'
         }); 
         $routeProvider.when('/searchAvailableOrders', {
-            templateUrl: 'partials/searchAvailableOrders.html',
+            templateUrl: 'web/partials/searchAvailableOrders.html',
             controller: 'SearchAvailableOrdersCtrl',
             activetab: 'searchAvailableOrders'
         });
         $routeProvider.when('/ownedOrders', {
-            templateUrl: 'partials/ownedOrders.html',
+            templateUrl: 'web/partials/ownedOrders.html',
             controller: 'ownedOrdersCrtl',
             activetab: 'ownedOrders'
         });
         $routeProvider.when('/editOrder/:Id?', {
-            templateUrl: 'partials/editOrder.html',
+            templateUrl: 'web/partials/editOrder.html',
             controller: 'OrdersCtrl',
             activetab: ''
         });
         $routeProvider.when('/editOrder', {
-            templateUrl: 'partials/editOrder.html',
+            templateUrl: 'web/partials/editOrder.html',
             controller: 'OrdersCtrl',
             activetab: ''
         }); 
         $routeProvider.when('/searchAvailableOrdersToJoin', {
-            templateUrl: 'partials/searchAvailableOrdersToJoin.html',
+            templateUrl: 'web/partials/searchAvailableOrdersToJoin.html',
             controller: 'SearchAvailableOrdersToJoinCrtl',
             activetab: 'searchAvailableOrdersToJoin'
         });
         $routeProvider.when('/searchOrders', {
-            templateUrl: 'partials/searchOrders.html',
+            templateUrl: 'web/partials/searchOrders.html',
             controller: 'SearchOrdersCrtl',
             activetab: 'searchOrders'
         });
         $routeProvider.when('/pendingOrdersToJoin', {
-            templateUrl: 'partials/pendingOrdersToJoin.html',
+            templateUrl: 'web/partials/pendingOrdersToJoin.html',
             controller: 'PendingOrdersToJoinCrtl',
             activetab: 'pendingOrdersToJoin'
         });
