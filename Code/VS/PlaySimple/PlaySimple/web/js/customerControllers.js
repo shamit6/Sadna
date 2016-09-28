@@ -33,7 +33,8 @@
     function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster, LoginService) {
         var init = function () {
 
-            $scope.now = moment(new Date()).format("DD/MM/YYYY");
+            $scope.now = moment(new Date());
+            $scope.dateToCompare = moment(new Date() - 30);
 
             $scope.regionTypes = DomainDecodes.regionDecode;
             $scope.complaintTypes = DomainDecodes.complaintType;
@@ -53,6 +54,8 @@
             }).then(function searchCompleted(response) {
                 $scope.model.customer = angular.copy(response.data);
                 $scope.originalCustomer = angular.copy($scope.model.customer);
+
+                $scope.dateToCompare = moment($scope.model.customer.FreezeDate,'DD/MM/YYYY');
             });
 
             $scope.getReviews($scope);
@@ -109,6 +112,7 @@
             $scope.model.complaint.Date = moment(new Date()).format("DD/MM/YYYY");
             $scope.model.complaint.OffendingCustomer = {};
             $scope.model.complaint.OffendingCustomer.Id = $scope.model.customer.Id;
+
             $http({
                 url: ServerRoutes.complaints.base,
                 method: "POST",
@@ -124,6 +128,8 @@
         $scope.freezeCustomer = function () {
             var freezeDate = new Date();
             freezeDate.setDate(freezeDate.getDate() + 30);
+            $scope.dateToCompare = moment(new Date() + 30);
+
             $scope.model.customer.FreezeDate = moment(freezeDate).format("DD/MM/YYYY");
             $scope.submitCustomer(true);
         }

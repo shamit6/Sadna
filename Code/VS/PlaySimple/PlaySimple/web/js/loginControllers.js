@@ -37,31 +37,45 @@
         init();
     }]);
 
-    myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'DomainDecodes', 'ServerRoutes', 'toaster',
-function ($scope, $http, $routeParams, $location, DomainDecodes, ServerRoutes, toaster) {
-    $scope.regionTypes = DomainDecodes.regionDecode;
-    $scope.submitted = false;
-    $scope.model = {};
+    myApp.controller('RegistrationFormCtrl', ['$scope', '$http', '$routeParams', '$location', 'LoginService', 'DomainDecodes', 'ServerRoutes', 'toaster',
+        function ($scope, $http, $routeParams, $location, LoginService, DomainDecodes, ServerRoutes, toaster) {
+            $scope.regionTypes = DomainDecodes.regionDecode;
+            $scope.submitted = false;
+            $scope.model = {};
 
-    $scope.submitCustomer = function (isValid) {
-        $scope.submitted = true;
+            $scope.submitCustomer = function (isValid) {
+                $scope.submitted = true;
 
-        if (!isValid)
-            return;
+                if (!isValid)
+                    return;
 
-        $http({
-            url: ServerRoutes.login.registration,
-            method: "POST",
-            data: $scope.model,
-        }).success(function searchCompleted(response) {
-            if (response.AlreadyExists) {
-                toaster.error("אופס!", "שם משתמש כבר קיים באתר!", 5000);
-            }
-            else {
-                $location.path("/login");
-                toaster.success("תודה שהצטרפת!", "אנא התחבר לאתר", 5000);
-            }
-        });
-    };
-}]);
-})();
+                $http({
+                    url: ServerRoutes.login.registration,
+                    method: "POST",
+                    data: $scope.model,
+                }).success(function searchCompleted(response) {
+                    if (response.AlreadyExists) {
+                        toaster.error("אופס!", "שם משתמש כבר קיים באתר!", 5000);
+                    }
+                    else {
+                        //$location.path("/login");
+                       
+                        $scope.loginModel = {}
+                        $scope.loginModel.username = $scope.model.Username;
+                        $scope.loginModel.password = $scope.model.Password;
+
+                        $http({
+                            method: 'POST',
+                            url: ServerRoutes.login.login,
+                            data: $scope.loginModel
+                        }).then(function (response) {
+                                toaster.success("תודה שהצטרפת!", "כעת אתה לקוח מן המניין", 5000);
+                                LoginService.saveLogin(response.data);
+                                LoginService.navigateToHomepage();
+                        })
+                    }
+                });
+            };
+        }]);
+    })
+();

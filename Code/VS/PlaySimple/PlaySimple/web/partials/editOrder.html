@@ -123,8 +123,9 @@
                                 <td class="col-sm-3" ng-if="row.Status == 1 && sharedVariables.role == 'Customer' && model.Owner.Id == sharedVariables.userId">
                                     <a href="" ng-click="acceptRejectParticipant(row, 2)">אשר</a> <a href="" ng-click="acceptRejectParticipant(row, 3)">דחה</a>
                                 </td>
-                                <td ng-if="sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId">
+                                <td ng-if="row.Status == 1 && (sharedVariables.role != 'Customer' || model.Owner.Id != sharedVariables.userId)">
                                 </td>
+                              </tr>
                         </tbody>
                     </table>
                 </div>

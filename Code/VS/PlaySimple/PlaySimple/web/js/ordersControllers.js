@@ -201,7 +201,8 @@
                     if (response.status == 200) {
                         $scope.model = angular.copy(response.data);
                         $scope.originalModel = angular.copy($scope.model);
-                        toaster.success('ההזמנה נשמרה בהצלחה');
+                        $location.path('#/editOrder/' + $scope.model.Id);
+                        toaster.success('ההזמנה נשמרה בהצלחה');     
                     }
                 });
             }

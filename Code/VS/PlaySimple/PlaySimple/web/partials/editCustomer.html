@@ -6,7 +6,7 @@
 <div class="row page">
     <div class="col-sm-12 editPanel">
         <form class="form-horizontal" name="customerForm" ng-submit="submitCustomer(customerForm.$valid)" novalidate>
-            <div class="row" ng-show="model.customer.FreezeDate > now">
+            <div class="row" ng-show="dateToCompare > now">
                 <div class="col-sm-3">
                     <div class="form-group text-danger">
                         <p class="form-control-static">הלקוח קפוא עד התאריך {{model.customer.FreezeDate | date : 'dd/MM/yyyy'}} </p>
@@ -187,7 +187,7 @@
                 <!-- As admin-->
                 <div ng-show="sharedVariables.role == 'Admin'">
                     <div class="col-sm-2" ng-show="sharedVariables.role == 'Admin'">
-                        <button type="button" class="btn btn-danger btn-block btn-search" ng-disabled="model.customer.FreezeDate > now"
+                        <button type="button" class="btn btn-danger btn-block btn-search" ng-disabled="dateToCompare > now"
                                 ng-click="freezeCustomer()">הקפא חשבון ל-30 יום</button>
                     </div>
                 </div>
@@ -218,7 +218,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row" ng-if="customerReviews.length>0">
+            <div class="row" style="font-weight: bold" ng-if="customerReviews.length>0">
                 על משתמש זה נכתבו {{customerReviews.length}} <a href="" ng-controller="CustomerModalCtrl as $ctrl" ng-click="$ctrl.open(getReviews, 'customerReviews.html')">חוות דעת</a> ע"י לקוחות אחרים.
             </div>     
             <div class="row">
