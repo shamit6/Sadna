@@ -166,7 +166,7 @@
                     $scope.getOptionalField();
 
 
-                    var tempDate = new Date($scope.model.StartDate);
+                    var tempDate = moment($scope.model.StartDate, "DD/MM/YYYY").toDate();
                     tempDate.setDate(tempDate.getDate() - 1);
 
                     $scope.lessThen24Hours = new Date() > tempDate;

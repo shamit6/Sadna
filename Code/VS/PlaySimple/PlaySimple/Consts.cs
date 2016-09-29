@@ -45,7 +45,8 @@
             {
                 Football=1,
                 Basketball,
-                Tennis
+                Tennis,
+                Volleyball
             }
 
             public enum InvitationStatus

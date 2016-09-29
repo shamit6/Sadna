@@ -185,6 +185,10 @@
                 {
                     id: 3,
                     name: 'טניס'
+                },
+                {
+                id: 4,
+                name: 'כדורעף'
                 }
             ],
             invitationStatus: [
